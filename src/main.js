@@ -25,12 +25,10 @@ export const db = getFirestore();
 
 import MyAlert from "./components/UI/MyAlert.vue";
 
-import { GridPlugin } from "@syncfusion/ej2-vue-grids";
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
-app.use(GridPlugin);
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 app.component("MyAlert", MyAlert);
 app.mount("#app");
