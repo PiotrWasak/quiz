@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-if="quizData">
-    <quiz-list-item v-for="quiz in quizData" :key="quiz.id" :quiz="quiz.data"></quiz-list-item>
+    <quiz-list-item v-for="quiz in quizData" :key="quiz.id" :quiz="quiz"></quiz-list-item>
   </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
   mounted() {
     const getQuizData = async () => {
       this.quizData = await getData("quiz");
-      console.log(this.quizData);
     }
     getQuizData();
   },

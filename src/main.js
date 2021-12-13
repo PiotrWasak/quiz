@@ -10,10 +10,12 @@ import {
   faUserSecret,
   faAppleAlt,
   faExclamationCircle,
+  faPlusCircle,
+  faMinusCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faUserSecret, faAppleAlt, faExclamationCircle);
+library.add(faUserSecret, faAppleAlt, faExclamationCircle, faPlusCircle, faMinusCircle);
 
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "./utils/firebaseConfig";

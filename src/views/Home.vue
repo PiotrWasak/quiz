@@ -47,7 +47,7 @@
     >
       Zapomniałeś hasła? Zresetuj.
     </button>
-    <my-alert :msg="errorMsg" v-if="errorMsg"></my-alert>
+    <my-alert :msg="errorMsg" v-if="errorMsg" v-on:close-alert="closeAlert"></my-alert>
     <hr />
     <div class="row">
       <div class="col-auto mx-auto">
@@ -142,7 +142,8 @@ export default {
         .then(async (userCredential) => {
           this.$store.dispatch("SET_USER_DATA", userCredential.user);
           await setDoc(doc(db, "users", userCredential.user.uid), {
-            role: "user"
+            role: "user",
+            userData: JSON.stringify(userCredential.user),
           });
         })
         .catch((error) => {
@@ -184,6 +185,9 @@ export default {
         console.log("No such document!");
       }
     },
+    closeAlert() {
+      this.errorMsg = null;
+    }
   },
   computed: {
     googleProvider() {

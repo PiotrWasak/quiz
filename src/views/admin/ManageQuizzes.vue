@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <button class="btn btn-primary">Add quiz</button>
+  <div class="container mt-5">
+    <router-link to="/addQuiz" class="btn btn-primary">Dodaj quiz</router-link>
     <h1 class="mt-3">Lista quizów</h1>
     <quiz-list></quiz-list>
 
