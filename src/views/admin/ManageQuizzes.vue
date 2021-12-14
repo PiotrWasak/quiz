@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <router-link to="/addQuiz" class="btn btn-primary">Dodaj quiz</router-link>
+    <ejs-button @click="goToAddQuizView" class="btn btn-primary">Dodaj quiz</ejs-button>
     <h1 class="mt-3">Lista quizów</h1>
     <quiz-list></quiz-list>
 
@@ -17,6 +17,11 @@ export default {
 
     };
   },
+  methods: {
+    goToAddQuizView() {
+      this.$router.push("/addQuiz");
+    }
+  }
 };
 </script>
 

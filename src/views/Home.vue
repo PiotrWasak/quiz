@@ -1,96 +1,97 @@
 <template>
-  <div class="home-container container text-center mt-5">
-    <h1>QUIZ</h1>
-  </div>
+  <div class="home-container container-fluid text-center pt-5">
+    <h1>QUIZ CRA</h1>
 
-  <div class="container text-center login-container">
-    <div class="row mt-4">
-      <div class="col-2">
-        <label for="login" class="col-form-label">E-mail</label>
+    <div class="container text-center login-container">
+      <div class="row mt-4">
+        <div class="col-2">
+          <label for="login" class="col-form-label">E-mail</label>
+        </div>
+        <div class="col-10">
+          <input
+            v-model="loginData.login"
+            class="e-input"
+            placeholder="Wprowadź e-mail"
+            type="email"
+            id="login"
+          />
+        </div>
       </div>
-      <div class="col-10">
-        <input
-          v-model="loginData.login"
-          class="e-input"
-          placeholder="Wprowadź e-mail"
-          type="email"
-          id="login"
-        />
+      <div class="row mt-4">
+        <div class="col-2">
+          <label for="password" class="col-form-label">Hasło</label>
+        </div>
+        <div class="col-10">
+          <input
+            v-model="loginData.password"
+            class="e-input"
+            placeholder="Wprowadź hasło"
+            type="password"
+            id="password"
+          />
+        </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-2">
-        <label for="password" class="col-form-label">Hasło</label>
+      <div class="row mt-4">
+        <div class="col-auto mx-auto">
+          <ejs-button @click="login" type="submit" class="btn btn-success">
+            Zaloguj
+          </ejs-button>
+        </div>
       </div>
-      <div class="col-10">
-        <input
-          v-model="loginData.password"
-          class="e-input"
-          placeholder="Wprowadź hasło"
-          type="password"
-          id="password"
-        />
+      <button
+        class="btn btn-link"
+        data-bs-toggle="modal"
+        data-bs-target="#resetPasswordModal"
+      >
+        Zapomniałeś hasła? Zresetuj.
+      </button>
+      <my-alert
+        :msg="errorMsg"
+        v-if="errorMsg"
+        v-on:close-alert="closeAlert"
+      ></my-alert>
+      <hr />
+      <div class="row">
+        <div class="col-auto mx-auto">
+          <ejs-button
+            id="google-btn"
+            @click="signInWithProvider(googleProvider)"
+            class="btn mt-3"
+          >
+            <font-awesome-icon
+              style="color: #4285f4"
+              :icon="['fab', 'google']"
+            ></font-awesome-icon>
+            Kontynuuj z Google
+          </ejs-button>
+        </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-auto mx-auto">
-        <ejs-button @click="login" type="submit" class="btn btn-success">
-          Zaloguj
-        </ejs-button>
+      <div class="row">
+        <div class="col-auto mx-auto">
+          <ejs-button
+            id="facebook-btn"
+            @click="signInWithProvider(facebookProvider)"
+            class="btn mt-3"
+          >
+            <font-awesome-icon
+              style="color: white"
+              :icon="['fab', 'facebook-f']"
+            ></font-awesome-icon>
+            Kontynuuj z Facebook
+          </ejs-button>
+        </div>
       </div>
-    </div>
-    <button
-      class="btn btn-link"
-      data-bs-toggle="modal"
-      data-bs-target="#resetPasswordModal"
-    >
-      Zapomniałeś hasła? Zresetuj.
-    </button>
-    <my-alert
-      :msg="errorMsg"
-      v-if="errorMsg"
-      v-on:close-alert="closeAlert"
-    ></my-alert>
-    <hr />
-    <div class="row">
-      <div class="col-auto mx-auto">
-        <ejs-button
-          id="google-btn"
-          @click="signInWithProvider(googleProvider)"
-          class="btn mt-3"
-        >
-          <font-awesome-icon
-            style="color: #4285f4"
-            :icon="['fab', 'google']"
-          ></font-awesome-icon>
-          Kontynuuj z Google
-        </ejs-button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-auto mx-auto">
-        <ejs-button
-          id="facebook-btn"
-          @click="signInWithProvider(facebookProvider)"
-          class="btn mt-3"
-        >
-          <font-awesome-icon
-            style="color: white"
-            :icon="['fab', 'facebook-f']"
-          ></font-awesome-icon>
-          Kontynuuj z Facebook
-        </ejs-button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-auto mx-auto">
-        <ejs-button
-          class="btn mt-3 btn-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#myModal"
-        >
-          <font-awesome-icon icon="envelope"></font-awesome-icon> Rejestracja przez e-mail
-        </ejs-button>
+      <div class="row">
+        <div class="col-auto mx-auto">
+          <ejs-button
+            class="btn mt-3 btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          >
+            <font-awesome-icon icon="envelope"></font-awesome-icon> Rejestracja
+            przez e-mail
+          </ejs-button>
+        </div>
       </div>
     </div>
   </div>
@@ -233,7 +234,16 @@ export default {
   color: white;
 }
 
-button{
+button {
   width: 20em;
+}
+
+.home-container {
+  height: 100vh;
+  background-color: #D9AFD9;
+  background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+
+}
+h1{
 }
 </style>
