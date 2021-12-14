@@ -4,6 +4,10 @@ import Home from "../views/Home.vue";
 import DashBoard from "../views/User/DashBoard.vue";
 import Profile from "../views/User/Profile.vue";
 import ManageQuizzes from "@/views/admin/ManageQuizzes";
+import QuizEdit from "@/components/admin/QuizEdit";
+import AddQuiz from "@/views/admin/AddQuiz";
+import UserRoles from "@/views/admin/UserRoles";
+import NotFound404 from "@/views/NotFound404";
 
 const routes = [
   {
@@ -12,14 +16,14 @@ const routes = [
     component: Home,
     meta: { subtitle: "" },
     beforeEnter: (to, from, next) => {
-      onAuthStateChanged(getAuth(), user => {
+      onAuthStateChanged(getAuth(), (user) => {
         if (user) {
-          next('/dashboard');
+          next("/dashboard");
         } else {
           next();
         }
-      })
-    }
+      });
+    },
   },
   {
     path: "/dashboard",
@@ -34,10 +38,31 @@ const routes = [
     meta: { subtitle: "Dashboard", requiresAuth: true },
   },
   {
-    path: "/quiz-admin",
+    path: "/quizAdmin",
     name: "Quiz-admin",
     component: ManageQuizzes,
-    meta: { subtitle: "Quiz-admin", requiresAuth: true },
+    meta: { subtitle: "quizAdmin", requiresAuth: true },
+  },
+  {
+    path: "/quizAdmin/:id",
+    name: "QuizEdit",
+    component: QuizEdit,
+    props: true,
+  },
+  {
+    path: "/addQuiz",
+    name: "AddQuiz",
+    component: AddQuiz,
+  },
+  {
+    path: "/userRoles",
+    name: "UserRoles",
+    component: UserRoles,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: "NotFound",
+    component: NotFound404,
   },
 ];
 

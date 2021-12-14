@@ -4,7 +4,7 @@
     <div>
       {{msg}}
     </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button type="button" class="btn-close" @click="closeAlert" aria-label="Close"></button>
   </div>
 </template>
 
@@ -15,6 +15,12 @@ export default {
     msg: {
       type: String,
       required: true,
+    }
+  },
+  emits: ['close-alert'],
+  methods: {
+    closeAlert() {
+      this.$emit('close-alert');
     }
   }
 }

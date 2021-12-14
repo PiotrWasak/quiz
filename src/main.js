@@ -10,10 +10,12 @@ import {
   faUserSecret,
   faAppleAlt,
   faExclamationCircle,
+  faPlusCircle,
+  faMinusCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faUserSecret, faAppleAlt, faExclamationCircle);
+library.add(faUserSecret, faAppleAlt, faExclamationCircle, faPlusCircle, faMinusCircle);
 
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "./utils/firebaseConfig";
@@ -25,12 +27,13 @@ export const db = getFirestore();
 
 import MyAlert from "./components/UI/MyAlert.vue";
 
-import { GridPlugin } from "@syncfusion/ej2-vue-grids";
+import { InPlaceEditorComponent } from "@syncfusion/ej2-vue-inplace-editor";
+
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
-app.use(GridPlugin);
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 app.component("MyAlert", MyAlert);
+app.component("ejs-inplaceeditor", InPlaceEditorComponent);
 app.mount("#app");
