@@ -90,4 +90,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+a:hover{
+  color: #EF4F10 !important;
+}
+.navbar-brand{
+  color: #EF4F10 !important;
+}
+</style>
