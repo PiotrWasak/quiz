@@ -11,7 +11,7 @@
         :checked="answer.isTrue"
       />
       <label class="form-check-label" for="isCorrectCheckbox">
-        Default checkbox
+        Prawidłowa odpowiedź
       </label>
     </div>
   </div>

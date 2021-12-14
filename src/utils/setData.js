@@ -1,10 +1,13 @@
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/main";
 
-export default async function setData(path) {
-  await setDoc(doc(db, "cities", "LA"), {
-    name: "Los Angeles",
-    state: "CA",
-    country: "USA"
-  });
+export default async function setData(path, pathSegments, data) {
+  const isTrue = await setDoc(doc(db, path, pathSegments), data)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
+  return isTrue;
 }

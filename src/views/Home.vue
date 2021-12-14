@@ -4,83 +4,93 @@
   </div>
 
   <div class="container text-center login-container">
-    <form>
-      <div class="row mt-4">
-        <div class="col-2">
-          <label for="login" class="col-form-label">E-mail</label>
-        </div>
-        <div class="col-10">
-          <input
-            v-model="loginData.login"
-            class="form-control"
-            type="email"
-            id="login"
-          />
-        </div>
+    <div class="row mt-4">
+      <div class="col-2">
+        <label for="login" class="col-form-label">E-mail</label>
       </div>
-      <div class="row mt-4">
-        <div class="col-2">
-          <label for="password" class="col-form-label">Hasło</label>
-        </div>
-        <div class="col-10">
-          <input
-            v-model="loginData.password"
-            class="form-control"
-            type="password"
-            id="password"
-          />
-        </div>
+      <div class="col-10">
+        <input
+          v-model="loginData.login"
+          class="e-input"
+          placeholder="Wprowadź e-mail"
+          type="email"
+          id="login"
+        />
       </div>
-      <div class="row mt-4">
-        <div class="col-auto mx-auto">
-          <button @click="login" type="button" class="btn btn-success">
-            Zaloguj
-          </button>
-        </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-2">
+        <label for="password" class="col-form-label">Hasło</label>
       </div>
-    </form>
+      <div class="col-10">
+        <input
+          v-model="loginData.password"
+          class="e-input"
+          placeholder="Wprowadź hasło"
+          type="password"
+          id="password"
+        />
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-auto mx-auto">
+        <ejs-button @click="login" type="submit" class="btn btn-success">
+          Zaloguj
+        </ejs-button>
+      </div>
+    </div>
     <button
-      type="button"
       class="btn btn-link"
       data-bs-toggle="modal"
       data-bs-target="#resetPasswordModal"
     >
       Zapomniałeś hasła? Zresetuj.
     </button>
-    <my-alert :msg="errorMsg" v-if="errorMsg" v-on:close-alert="closeAlert"></my-alert>
+    <my-alert
+      :msg="errorMsg"
+      v-if="errorMsg"
+      v-on:close-alert="closeAlert"
+    ></my-alert>
     <hr />
     <div class="row">
       <div class="col-auto mx-auto">
-        <button
+        <ejs-button
+          id="google-btn"
           @click="signInWithProvider(googleProvider)"
-          type="button"
-          class="btn mt-3 btn-primary"
+          class="btn mt-3"
         >
+          <font-awesome-icon
+            style="color: #4285f4"
+            :icon="['fab', 'google']"
+          ></font-awesome-icon>
           Kontynuuj z Google
-        </button>
+        </ejs-button>
       </div>
     </div>
     <div class="row">
       <div class="col-auto mx-auto">
-        <button
+        <ejs-button
+          id="facebook-btn"
           @click="signInWithProvider(facebookProvider)"
-          type="button"
-          class="btn mt-3 btn-warning"
+          class="btn mt-3"
         >
+          <font-awesome-icon
+            style="color: white"
+            :icon="['fab', 'facebook-f']"
+          ></font-awesome-icon>
           Kontynuuj z Facebook
-        </button>
+        </ejs-button>
       </div>
     </div>
     <div class="row">
       <div class="col-auto mx-auto">
-        <button
-          type="button"
+        <ejs-button
           class="btn mt-3 btn-danger"
           data-bs-toggle="modal"
           data-bs-target="#myModal"
         >
-          Rejestracja przez e-mail
-        </button>
+          <font-awesome-icon icon="envelope"></font-awesome-icon> Rejestracja przez e-mail
+        </ejs-button>
       </div>
     </div>
   </div>
@@ -103,7 +113,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
-import {db} from "../main";
+import { db } from "../main";
 import MyModal from "../components/Layout/MyModal.vue";
 import ResetPasswordModal from "../components/UI/ResetPasswordModal.vue";
 
@@ -141,9 +151,11 @@ export default {
       )
         .then(async (userCredential) => {
           this.$store.dispatch("SET_USER_DATA", userCredential.user);
+          console.log(userCredential.user.providerData);
           await setDoc(doc(db, "users", userCredential.user.uid), {
             role: "user",
-            userData: JSON.stringify(userCredential.user),
+            uid: userCredential.user.uid,
+            eMail: userCredential.user.email,
           });
         })
         .catch((error) => {
@@ -151,6 +163,7 @@ export default {
         });
     },
     login() {
+      console.log("login");
       signInWithEmailAndPassword(
         getAuth(),
         this.loginData.login,
@@ -168,11 +181,12 @@ export default {
     },
     sendResetPswdEmail(email) {
       sendPasswordResetEmail(getAuth(), email)
-          .then(() => {
-            console.log("Email reset send");
-          }).catch(error=>{
-        console.log(error.code);
-      })
+        .then(() => {
+          console.log("Email reset send");
+        })
+        .catch((error) => {
+          console.log(error.code);
+        });
     },
     async checkRole() {
       const currentUserUID = this.$store.getters.userData.uid;
@@ -187,7 +201,7 @@ export default {
     },
     closeAlert() {
       this.errorMsg = null;
-    }
+    },
   },
   computed: {
     googleProvider() {
@@ -202,12 +216,24 @@ export default {
 
 <style scoped>
 .svg-inline--fa {
-  color: orange;
-  font-size: 2rem;
 }
 
 .login-container {
   margin-top: 5em;
   width: 30em;
+}
+
+#google-btn {
+  color: #676767;
+  background-color: white;
+}
+
+#facebook-btn {
+  background-color: #4267b2;
+  color: white;
+}
+
+button{
+  width: 20em;
 }
 </style>
