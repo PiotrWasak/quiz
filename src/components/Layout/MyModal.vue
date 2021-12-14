@@ -13,7 +13,7 @@
                 <label for="registerLogin" class="col-form-label">E-mail</label>
               </div>
               <div class="col-10">
-                <input v-model="formData.inputEmail" class="form-control" type="email" id="registerLogin"/>
+                <input v-model="formData.inputEmail" class="e-input" type="email" id="registerLogin" placeholder="Wprowadź e-mail"/>
               </div>
             </div>
             <div class="row mt-4">
@@ -21,7 +21,7 @@
                 <label for="registerPassword" class="col-form-label">Hasło</label>
               </div>
               <div class="col-10">
-                <input v-model="formData.inputPassword" class="form-control" type="password" id="registerPassword"/>
+                <input v-model="formData.inputPassword" class="e-input" type="password" id="registerPassword" placeholder="Wprowadź hasło"/>
               </div>
             </div>
           </form>

@@ -6,7 +6,7 @@
 
 <script>
 import QuizListItem from "@/components/admin/QuizListItem";
-import getData from "@/utils/readData";
+import { getData } from "@/utils/readData";
 export default {
   name: "QuizList",
   components: { QuizListItem },

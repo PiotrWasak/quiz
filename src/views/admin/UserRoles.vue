@@ -2,14 +2,14 @@
   <div class="container mt-5">
     User roles
     <button @click="getUsersData" class="btn btn-primary">GET</button>
-    <user-roles-item v-for="userData in usersData" :key="JSON.parse(userData.data.userData).uid" :user-data="userData">
+    <user-roles-item v-for="userData in usersData" :key="userData.id" :user="userData">
 
     </user-roles-item>
   </div>
 </template>
 
 <script>
-import getData from "@/utils/readData";
+import { getData } from "@/utils/readData";
 import UserRolesItem from "@/components/admin/UserRolesItem";
 export default {
   name: "UserRoles",
@@ -21,7 +21,8 @@ export default {
   },
   methods: {
     getUsersData() {
-      console.log(JSON.parse(this.usersData[0].data.userData).uid);
+      console.log(this.usersData);
+     // console.log(JSON.parse(this.usersData[0].data.userData).uid);
     },
   },
   computed: {},

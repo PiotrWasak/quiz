@@ -10,10 +10,10 @@
           <form>
             <div class="row mt-4">
               <div class="col-2">
-                <label for="registerLogin" class="col-form-label">E-mail</label>
+                <label for="resetPasswordLogin" class="col-form-label">E-mail</label>
               </div>
               <div class="col-10">
-                <input v-model="inputEmail" class="form-control" type="email" id="registerLogin"/>
+                <input v-model="inputEmail" class="e-input" type="email" id="resetPasswordLogin"/>
               </div>
             </div>
           </form>
