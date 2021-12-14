@@ -7,6 +7,7 @@ import ManageQuizzes from "@/views/admin/ManageQuizzes";
 import QuizEdit from "@/components/admin/QuizEdit";
 import AddQuiz from "@/views/admin/AddQuiz";
 import UserRoles from "@/views/admin/UserRoles";
+import NotFound404 from "@/views/NotFound404";
 
 const routes = [
   {
@@ -57,6 +58,11 @@ const routes = [
     path: "/userRoles",
     name: "UserRoles",
     component: UserRoles,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: "NotFound",
+    component: NotFound404,
   },
 ];
 

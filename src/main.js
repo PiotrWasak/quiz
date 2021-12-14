@@ -27,10 +27,13 @@ export const db = getFirestore();
 
 import MyAlert from "./components/UI/MyAlert.vue";
 
+import { InPlaceEditorComponent } from "@syncfusion/ej2-vue-inplace-editor";
+
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 app.component("MyAlert", MyAlert);
+app.component("ejs-inplaceeditor", InPlaceEditorComponent);
 app.mount("#app");

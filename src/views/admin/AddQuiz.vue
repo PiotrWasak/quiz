@@ -9,20 +9,20 @@
   </div>
   <hr />
   <div class="accordion accordion-flush" id="accordionFlushExample">
-  <add-quiz-form v-for="index in questionNumber" :key="index" :question-id="index">{{index}}</add-quiz-form>
+  <add-question-form v-for="index in questionNumber" :key="index" :question-id="index">{{index}}</add-question-form>
   </div>
   <button @click="addQuestion" type="button" class="btn btn-dark mt-3">Dodaj pytanie</button>
   <button @click="removeQuestion" type="button" class="btn btn-outline-danger mt-3">Usuń pytanie</button>
   <hr>
-  <button @click="addQuestion" type="button" class="btn btn-success mt-3">Zatwierdź quiz</button>
+  <button type="button" class="btn btn-success mt-3">Zatwierdź quiz</button>
 </div>
 </template>
 
 <script>
-import AddQuizForm from "@/components/admin/AddQuizForm";
+import AddQuestionForm from "@/components/admin/AddQuestionForm";
 export default {
   name: "AddQuiz",
-  components: { AddQuizForm },
+  components: { AddQuestionForm },
   data() {
     return {
       title: '',

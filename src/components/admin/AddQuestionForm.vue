@@ -18,7 +18,6 @@
       :aria-labelledby=flushHeading
       data-bs-parent="#accordionFlushExample"
     >
-      <form @submit.prevent="addQuestion" class="mt-5">
         <div class="row mt-3">
           <div class="col-md-2"><label>Pytanie</label></div>
           <div class="col-md-10">
@@ -54,15 +53,13 @@
             icon="minus-circle"
           ></font-awesome-icon>
         </div>
-      </form>
     </div>
   </div>
 </template>
 
 <script>
-import AddQuizFormQuestion from "@/components/admin/AddQuizFormQuestion";
 export default {
-  name: "AddQuizForm",
+  name: "AddQuestionForm",
   props: ['questionId'],
   data() {
     return {
@@ -74,9 +71,6 @@ export default {
     };
   },
   methods: {
-    addQuestion() {
-      console.log(this.formData);
-    },
     addAnswer() {
       if (this.numberOfAnswers < 8) {
         this.numberOfAnswers++;
