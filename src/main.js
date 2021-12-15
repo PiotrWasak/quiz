@@ -50,7 +50,8 @@ import {
   AccordionItemDirective,
   AccordionItemsDirective,
 } from "@syncfusion/ej2-vue-navigations";
-
+import { CheckBoxComponent } from "@syncfusion/ej2-vue-buttons";
+import { GridComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-vue-grids';
 const app = createApp(App);
 app.use(router);
 app.use(store);
@@ -63,4 +64,8 @@ app.component("ejs-button", ButtonComponent);
 app.component("ejs-accordion", AccordionComponent);
 app.component("e-accordionitems", AccordionItemsDirective);
 app.component("e-accordionitem", AccordionItemDirective);
+app.component("ejs-checkbox", CheckBoxComponent);
+app.component('ejs-grid', GridComponent);
+app.component('e-columns', ColumnsDirective);
+app.component('e-column', ColumnDirective);
 app.mount("#app");

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import setData from "@/utils/setData";
+import {setData} from "@/utils/setData";
 import { getDocument } from "@/utils/readData";
 import user from "@/store/modules/user";
 export default {

@@ -19,24 +19,30 @@
       data-bs-parent="#accordionFlushExample"
     >
       <div class="row mt-3">
-        <div class="col-md-2"><label>Pytanie</label></div>
         <div class="col-md-10">
           <textarea
             v-model="formData.question"
             type="text"
             class="e-input"
             placeholder="Wprowadź pytanie"
+            name="question"
           ></textarea>
+        </div>
+        <div class="col-md-2">
+          <input type="number" class="e-input" value="1" placeholder="Waga pytania" name="weight"/>
         </div>
       </div>
       <h3 class="text-center mt-3">Odpowiedzi</h3>
       <div v-for="index in numberOfAnswers" :key="index" class="row mt-3">
-          <textarea
-            v-model="formData.answers[index - 1]"
-            class="e-input"
-            :aria-label="index"
-            :placeholder="index"
-          ></textarea>
+        <ejs-checkbox value="true" label='Poprawna odpowiedź' name="isTrue"></ejs-checkbox>
+        <textarea
+          v-model="formData.answers[index - 1]"
+          class="e-input"
+          :aria-label="index"
+          :placeholder="index"
+          name="answer"
+        ></textarea>
+
       </div>
       <div class="text-center mt-3">
         <font-awesome-icon

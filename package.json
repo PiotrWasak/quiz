@@ -18,6 +18,7 @@
     "@syncfusion/ej2-vue-grids": "^19.3.57",
     "@syncfusion/ej2-vue-inplace-editor": "^19.3.56",
     "@syncfusion/ej2-vue-inputs": "^19.3.57",
+    "@syncfusion/ej2-vue-layouts": "^19.3.53",
     "@syncfusion/ej2-vue-navigations": "^19.3.57",
     "@syncfusion/ej2-vue-notifications": "^19.3.53",
     "bootstrap": "^5.1.3",

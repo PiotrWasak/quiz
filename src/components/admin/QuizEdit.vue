@@ -1,31 +1,31 @@
 <template>
   <div class="container">
+    {{ quizData }}
     <h1>Edycja quizu</h1>
     <div class="row">
       <div class="col-4">Tytuł</div>
-      <div class="col-8">{{ quiz.title }}</div>
+      {{ quizData.title }}
 
-      <quiz-edit-question v-for="question in quiz.questions" :key="question" :question="question"></quiz-edit-question>
-
+      <!--      <quiz-edit-question v-for="question in quizData.questions" :key="question" :question="question"></quiz-edit-question>-->
     </div>
-    {{ id }} - {{ quiz }}
   </div>
 </template>
 
 <script>
 import QuizEditQuestion from "@/components/admin/QuizEditQuestion";
+import { getDocument } from "@/utils/readData";
 export default {
   name: "QuizEdit",
-  components: { QuizEditQuestion },
-  props: ["quizData", "id"],
-  computed: {
-    quiz() {
-      return JSON.parse(this.quizData);
-    },
+  // components: { QuizEditQuestion },
+  props: ["id"],
+  data() {
+    return{
+      quizData: {},
+    }
   },
-  mounted() {
-    console.log(this.quiz.questions.length);
-  }
+  async created() {
+    this.quizData = await getDocument("quiz", this.id);
+  },
 };
 </script>
 

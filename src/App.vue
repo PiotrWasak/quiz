@@ -21,12 +21,9 @@ import TheNavbar from "./components/Layout/TheNavbar.vue";
 @import "../node_modules/@syncfusion/ej2-richtexteditor/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-inplace-editor/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-notifications/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-inputs/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-buttons/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-navigations/styles/material.css";
+@import '../node_modules/@syncfusion/ej2-vue-layouts/styles/material.css';
 </style>

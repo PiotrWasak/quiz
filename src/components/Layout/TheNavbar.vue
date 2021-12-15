@@ -53,7 +53,7 @@
             </li>
           </div>
           <li class="nav-item">
-            <a @click="logout" to="/profile" class="nav-link">Wyloguj</a>
+            <router-link @click="logout" to="/" class="nav-link">Wyloguj</router-link>
           </li>
         </ul>
       </div>
