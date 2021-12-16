@@ -1,10 +1,5 @@
 <template>
   <div class="container" v-if="quizData">
-    <quiz-list-item
-      v-for="quiz in quizData"
-      :key="quiz.id"
-      :quiz="quiz"
-    ></quiz-list-item>
     <ejs-grid
       :dataSource="quizData"
       :commandClick="commandClick"
@@ -48,7 +43,6 @@ import {
 Grid.Inject(Sort, Page, Toolbar, Search, CommandColumn);
 export default {
   name: "QuizList",
-  components: { QuizListItem },
   data() {
     return {
       quizData: null,
@@ -58,6 +52,7 @@ export default {
         }, // bind the button here
       ],
       toolbarOptions: ["Search", "Print"],
+      dateFormat:{type: 'date', skeleton:'short'},
     };
   },
   methods: {

@@ -1,4 +1,4 @@
-import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, deleteDoc } from "firebase/firestore";
 import { db } from "@/main";
 
 export async function setData(path, pathSegments, data) {
@@ -19,5 +19,14 @@ export async function addData(path, data) {
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+}
+
+export async function deleteDocument(path, pathSegments){
+  try {
+    await deleteDoc(doc(db, path, pathSegments));
+    console.log("Deleted document");
+  } catch (e) {
+    console.error("Error deleting document ", e);
   }
 }

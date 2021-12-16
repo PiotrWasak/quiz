@@ -21,7 +21,7 @@
       <div class="row mt-3">
         <div class="col-md-10">
           <textarea
-            v-model="formData.question"
+            :value="editQuestionData?.question"
             type="text"
             class="e-input"
             placeholder="Wprowadź pytanie"
@@ -34,9 +34,9 @@
       </div>
       <h3 class="text-center mt-3">Odpowiedzi</h3>
       <div v-for="index in numberOfAnswers" :key="index" class="row mt-3">
-        <ejs-checkbox value="true" label='Poprawna odpowiedź' name="isTrue"></ejs-checkbox>
+        <ejs-checkbox :checked="editQuestionData?.answers[index-1]?.isTrue" label='Poprawna odpowiedź' name="isTrue"></ejs-checkbox>
         <textarea
-          v-model="formData.answers[index - 1]"
+          :value="editQuestionData?.answers[index-1]?.answer"
           class="e-input"
           :aria-label="index"
           :placeholder="index"
@@ -64,8 +64,8 @@
 
 <script>
 export default {
-  name: "AddQuestionForm",
-  props: ["questionId"],
+  name: "AddQuizFormQuestion",
+  props: ["questionId", "editQuestionData"],
   data() {
     return {
       numberOfAnswers: 2,
@@ -79,7 +79,6 @@ export default {
     addAnswer() {
       if (this.numberOfAnswers < 8) {
         this.numberOfAnswers++;
-        console.log(this.formData);
       }
     },
     removeAnswer() {
@@ -89,6 +88,9 @@ export default {
     },
   },
   created() {
+    if(this.editQuestionData) {
+      this.numberOfAnswers = this.editQuestionData.answers.length
+    }
     for (let i = 0; i < this.numberOfAnswers; i++) {
       this.formData.answers[i] = null;
     }

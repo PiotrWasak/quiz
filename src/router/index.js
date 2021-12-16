@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 import DashBoard from "../views/User/DashBoard.vue";
 import Profile from "../views/User/Profile.vue";
 import ManageQuizzes from "@/views/admin/ManageQuizzes";
-import QuizEdit from "@/components/admin/QuizEdit";
+import QuizEdit from "@/views/admin/QuizEdit";
 import AddQuiz from "@/views/admin/AddQuiz";
 import UserRoles from "@/views/admin/UserRoles";
 import NotFound404 from "@/views/NotFound404";
