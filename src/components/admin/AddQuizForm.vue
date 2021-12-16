@@ -21,7 +21,7 @@
           v-for="index in questionNumber"
           :key="index"
           :question-id="index"
-          :edit-question-data="this.editQuizData?.questions[index-1]"
+          :edit-question-data="this.editQuizData.questions[index-1]"
           >{{ index }}</add-quiz-form-question
         >
       </div>
