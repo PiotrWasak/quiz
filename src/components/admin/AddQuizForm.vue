@@ -10,7 +10,7 @@
             class="e-input"
             placeholder="Wprowadź tytuł"
             name="title"
-            :value="editQuizData?.title"
+            v-model="title"
           />
         </div>
       </div>
@@ -131,6 +131,7 @@ export default {
   },
   created() {
     if (this.editQuizData) {
+      this.title = this.editQuizData.title;
       this.questionNumber = this.editQuizData.questions.length;
     }
   }

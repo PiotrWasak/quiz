@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Home from "../views/Home.vue";
-import DashBoard from "../views/User/DashBoard.vue";
-import Profile from "../views/User/Profile.vue";
+import DashBoard from "../views/user/DashBoard.vue";
+import Profile from "../views/user/Profile.vue";
 import ManageQuizzes from "@/views/admin/ManageQuizzes";
 import QuizEdit from "@/views/admin/QuizEdit";
 import AddQuiz from "@/views/admin/AddQuiz";
