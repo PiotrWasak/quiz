@@ -10,7 +10,7 @@
             class="e-input"
             placeholder="Wprowadź tytuł"
             name="title"
-            :value="editQuizData?.title"
+            v-model="title"
           />
         </div>
       </div>
@@ -21,7 +21,7 @@
           v-for="index in questionNumber"
           :key="index"
           :question-id="index"
-          :edit-question-data="this.editQuizData?.questions[index-1]"
+          :edit-question-data="this.editQuizData.questions[index-1]"
           >{{ index }}</add-quiz-form-question
         >
       </div>
@@ -131,6 +131,8 @@ export default {
   },
   created() {
     if (this.editQuizData) {
+      this.title = this.editQuizData.title;
+      console.log("Length", this.editQuizData.questions.length);
       this.questionNumber = this.editQuizData.questions.length;
     }
   }

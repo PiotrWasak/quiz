@@ -21,7 +21,7 @@
       <div class="row mt-3">
         <div class="col-md-10">
           <textarea
-            :value="editQuestionData?.question"
+            v-model="formData.question"
             type="text"
             class="e-input"
             placeholder="Wprowadź pytanie"
@@ -29,20 +29,29 @@
           ></textarea>
         </div>
         <div class="col-md-2">
-          <input type="number" class="e-input" value="1" placeholder="Waga pytania" name="weight"/>
+          <input
+            type="number"
+            class="e-input"
+            value="1"
+            placeholder="Waga pytania"
+            name="weight"
+          />
         </div>
       </div>
       <h3 class="text-center mt-3">Odpowiedzi</h3>
       <div v-for="index in numberOfAnswers" :key="index" class="row mt-3">
-        <ejs-checkbox :checked="editQuestionData?.answers[index-1]?.isTrue" label='Poprawna odpowiedź' name="isTrue"></ejs-checkbox>
+        <ejs-checkbox
+          :checked="formData?.answers[index - 1]?.isTrue"
+          label="Poprawna odpowiedź"
+          name="isTrue"
+        ></ejs-checkbox>
         <textarea
-          :value="editQuestionData?.answers[index-1]?.answer"
+          v-model="formData.answers[index-1].answer"
           class="e-input"
           :aria-label="index"
           :placeholder="index"
           name="answer"
         ></textarea>
-
       </div>
       <div class="text-center mt-3">
         <font-awesome-icon
@@ -79,20 +88,30 @@ export default {
     addAnswer() {
       if (this.numberOfAnswers < 8) {
         this.numberOfAnswers++;
+        this.formData.answers.push({answer: null, isTrue: null});
       }
     },
     removeAnswer() {
       if (this.numberOfAnswers > 2) {
         this.numberOfAnswers--;
+        this.formData.answers.pop();
       }
     },
   },
   created() {
-    if(this.editQuestionData) {
-      this.numberOfAnswers = this.editQuestionData.answers.length
-    }
-    for (let i = 0; i < this.numberOfAnswers; i++) {
-      this.formData.answers[i] = null;
+    if (this.editQuestionData) {
+      this.numberOfAnswers = this.editQuestionData.answers.length;
+      console.log("Answers local", this.formData.answers);
+      console.log("Answers props", this.editQuestionData.answers);
+      this.formData.answers = this.editQuestionData.answers;
+      console.log("local = props");
+      console.log("Answers local", this.formData.answers);
+      console.log("Answers props", this.editQuestionData.answers);
+      this.formData.question = this.editQuestionData.question;
+    } else{
+      for (let i = 0; i < this.numberOfAnswers; i++) {
+        this.formData.answers[i] = {answer: null, isTrue: null};
+      }
     }
   },
   computed: {

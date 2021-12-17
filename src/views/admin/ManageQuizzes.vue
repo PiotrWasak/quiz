@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <ejs-button @click="goToAddQuizView" class="btn btn-primary">Dodaj quiz</ejs-button>
+    <ejs-button @click="goToAddQuizView" cssClass="e-primary">Dodaj quiz</ejs-button>
     <h1 class="mt-3">Lista quizów</h1>
     <quiz-list></quiz-list>
 

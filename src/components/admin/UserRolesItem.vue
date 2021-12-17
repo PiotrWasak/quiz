@@ -46,7 +46,6 @@ export default {
         eMail: userData.eMail,
         role: e.value,
       });
-      console.log(isSet);
       if (isSet) {
         this.toastContent = `Pomyślnie zaktualizowano rolę użytkownika ${userData.eMail}`;
         this.$refs.toastRef.show();
