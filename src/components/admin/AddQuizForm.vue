@@ -132,6 +132,7 @@ export default {
   created() {
     if (this.editQuizData) {
       this.title = this.editQuizData.title;
+      console.log("Length", this.editQuizData.questions.length);
       this.questionNumber = this.editQuizData.questions.length;
     }
   }
