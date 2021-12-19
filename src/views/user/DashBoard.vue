@@ -1,6 +1,6 @@
 <template>
   <div v-if="userData" class="container">
-  user:
+
   {{ userData.email }}
   </div>
 </template>
