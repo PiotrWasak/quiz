@@ -8,6 +8,8 @@ import QuizEdit from "@/views/admin/QuizEdit";
 import AddQuiz from "@/views/admin/AddQuiz";
 import UserRoles from "@/views/admin/UserRoles";
 import NotFound404 from "@/views/NotFound404";
+import TakeQuiz from "@/views/user/TakeQuiz";
+import TakeQuizQuestion from "@/views/user/TakeQuizQuestion";
 
 const routes = [
   {
@@ -60,7 +62,21 @@ const routes = [
     component: UserRoles,
   },
   {
-    path: '/:pathMatch(.*)*',
+    path: "/quiz/:id",
+    name: "Quiz",
+    component: TakeQuiz,
+    props: true,
+    children: [
+      {
+        path: ":questionIndex",
+        name: "QuizQuestion",
+        component: TakeQuizQuestion,
+        props: true,
+      },
+    ],
+  },
+  {
+    path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFound404,
   },

@@ -65,7 +65,7 @@ export default {
       }
     },
   },
-  mounted() {
+  created() {
     const getQuizData = async () => {
       this.quizData = await getData("quiz");
     };
