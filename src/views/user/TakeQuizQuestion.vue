@@ -1,7 +1,7 @@
 <template>
   <div class="container text-center">
     <div class="row">
-      <h6>{{ questionData.question }}</h6>
+      <h3>{{ questionData.question }}</h3>
     </div>
     <div class="row mt-5">
       <div

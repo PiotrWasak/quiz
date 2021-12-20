@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <h3>Mój profil</h3>
 
     <div class="row">
@@ -12,6 +12,11 @@
         <ejs-button cssClass="e-primary" @click="sendVerifyEmail">Send verification e-mail</ejs-button>
       </div>
     </div>
+
+    <div class="mt-5">
+      <h4>Historia quizów:</h4>
+      <quiz-user-history></quiz-user-history>
+    </div>
   </div>
 </template>
 
@@ -22,9 +27,11 @@ import {
   sendPasswordResetEmail,
   onAuthStateChanged
 } from "firebase/auth";
+import QuizUserHistory from "@/components/user/QuizUserHistory";
 
 export default {
   name: "Profile",
+  components: { QuizUserHistory },
   data() {
     return {
       userData: {},
