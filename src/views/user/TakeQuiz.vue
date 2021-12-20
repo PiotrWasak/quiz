@@ -1,8 +1,17 @@
 <template>
-  <div class="container mt-5">
-    <h4>{{ quizData.title }}</h4>
+  <div class="container card-container">
+      <div tabindex="0" class="e-card" id="basic">
+        <div class="e-card-header">
+          <div class="e-card-header-caption">
+            <div class="e-card-title">{{ quizData.title }}</div>
+          </div>
+        </div>
+        <div class="e-card-content">
+          <router-view></router-view>
+        </div>
+      </div>
     <div class="container mt-5">
-      <router-view></router-view>
+
     </div>
   </div>
 </template>
@@ -34,4 +43,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card-container{
+  margin-top: 10vh;
+}
+</style>
