@@ -1,10 +1,10 @@
 <template>
-<div class="container mt-5">
-  <h4>{{quizData.title}}</h4>
   <div class="container mt-5">
-    <router-view></router-view>
+    <h4>{{ quizData.title }}</h4>
+    <div class="container mt-5">
+      <router-view></router-view>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -20,13 +20,18 @@ export default {
       numberOfPoints: 0,
     };
   },
-  async created() {
+  async created() {;
     this.quizData = await getDocument("quiz", this.id);
-    this.$store.dispatch("RESET_POINTS");
+    let maxPoints = 0;
+    this.quizData.questions.forEach(question => {
+      maxPoints += +question.weight;
+    })
+    console.log(maxPoints);
+    this.$store.dispatch("RESET_QUIZ");
+    this.$store.dispatch("SET_ACTIVE_QUIZ", this.id);
+    this.$store.dispatch("SET_MAX_POINTS", maxPoints);
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

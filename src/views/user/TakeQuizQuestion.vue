@@ -31,20 +31,27 @@ export default {
   },
   methods: {
     submitAnswer(answer) {
-      if(answer.isTrue) {
+      this.$store.dispatch("ADD_USER_ANSWER", answer);
+      if (answer.isTrue) {
         this.$store.dispatch("ADD_POINT", parseInt(this.questionData.weight));
       }
-      if(this.questionIndex < this.quizData.questions.length) {
-        this.$router.replace(`/quiz/${this.id}/${parseInt(this.questionIndex) + 1}`)
+      if (this.questionIndex < this.quizData.questions.length) {
+        this.$router.replace(
+          `/quiz/${this.id}/${parseInt(this.questionIndex) + 1}`
+        );
         this.questionData = this.quizData.questions[this.questionIndex];
-      } else{
-        console.log("Quiz finnished. Your points: ", this.$store.getters.points);
+      } else {
+        console.log(
+          "Quiz finnished. Your points: ",
+          this.$store.getters.points
+        );
+        this.$router.replace("/quizSummary");
       }
     },
   },
   async created() {
     this.quizData = await getDocument("quiz", this.id);
-    this.questionData = this.quizData.questions[this.questionIndex-1];
+    this.questionData = this.quizData.questions[this.questionIndex - 1];
   },
 };
 </script>

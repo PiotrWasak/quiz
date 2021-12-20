@@ -10,6 +10,7 @@ import UserRoles from "@/views/admin/UserRoles";
 import NotFound404 from "@/views/NotFound404";
 import TakeQuiz from "@/views/user/TakeQuiz";
 import TakeQuizQuestion from "@/views/user/TakeQuizQuestion";
+import TakeQuizSummary from "@/views/user/TakeQuizSummary";
 
 const routes = [
   {
@@ -60,6 +61,11 @@ const routes = [
     path: "/userRoles",
     name: "UserRoles",
     component: UserRoles,
+  },
+  {
+    path: "/quizSummary",
+    name: "QuizSummary",
+    component: TakeQuizSummary,
   },
   {
     path: "/quiz/:id",

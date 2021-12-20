@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Profile</h1>
+    <h3>Mój profil</h3>
 
     <div class="row">
       <div class="col-3">E-mail</div>
