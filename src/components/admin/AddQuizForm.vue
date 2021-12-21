@@ -130,10 +130,10 @@ export default {
     },
   },
   created() {
-    if (this.editQuizData) {
+    if (this.editQuizData?.questions?.length > 0) {
       this.title = this.editQuizData.title;
-      console.log("Length", this.editQuizData.questions.length);
-      this.questionNumber = this.editQuizData.questions.length;
+      console.log("Length", this.editQuizData?.questions?.length);
+      this.questionNumber = this.editQuizData?.questions?.length;
     }
   }
 };

@@ -25,6 +25,7 @@
 import {setData} from "@/utils/setData";
 import { getDocument } from "@/utils/readData";
 import user from "@/store/modules/user";
+import { nextTick } from "vue";
 export default {
   name: "UserRolesItem",
   props: ["user"],
@@ -48,9 +49,11 @@ export default {
       });
       if (isSet) {
         this.toastContent = `Pomyślnie zaktualizowano rolę użytkownika ${userData.eMail}`;
+        await nextTick();
         this.$refs.toastRef.show();
       } else {
         this.toastContent = `Wystąpił błąd przy zmianie roli użytkownika ${userData.eMail}`;
+        await nextTick();
         this.$refs.toastRef.show();
       }
     },

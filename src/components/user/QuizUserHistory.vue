@@ -8,13 +8,13 @@
       :allowPaging="true"
     >
       <e-columns>
-        <e-column field="data.quizId" headerText="Quiz"></e-column>
+        <e-column field="quizId" headerText="Quiz"></e-column>
         <e-column
-          field="data.scorePercent"
+          field="scorePercent"
           headerText="Wynik %"
         ></e-column>
         <e-column
-          field="data.createAt"
+          field="createAt"
           headerText="Data"
         ></e-column>
         <e-column headerText="" :commands="commands"></e-column>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { getData } from "@/utils/readData";
+import { getData, queryData } from "@/utils/readData";
 
 export default {
   name: "QuizUserHistory",
@@ -51,7 +51,7 @@ export default {
   },
   created() {
     const getQuizData = async () => {
-      this.quizData = await getData("userAnsewers");
+      this.quizData = await queryData("userAnsewers", "userId", "==", this.$store.getters.userData.uid);
       console.log(this.quizData);
     };
     getQuizData();

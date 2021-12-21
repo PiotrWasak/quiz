@@ -28,3 +28,16 @@ export async function getDocument(path, pathSegments) {
     return "Error while getting data";
   }
 }
+
+export async function queryData(path, fieldPath, optStr, value){
+  let dataArray = [];
+  const q = query(collection(db, path), where(fieldPath, optStr, value));
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    dataArray.push(doc.data());
+  });
+
+  return dataArray;
+}

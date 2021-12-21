@@ -22,7 +22,9 @@ export default {
   props: ["id"],
   data() {
     return{
-      quizData: {},
+      quizData: {
+        questions: [],
+      },
     }
   },
   methods: {

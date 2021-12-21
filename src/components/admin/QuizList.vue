@@ -52,7 +52,7 @@ export default {
         }, // bind the button here
       ],
       toolbarOptions: ["Search", "Print"],
-      dateFormat:{type: 'date', skeleton:'short'},
+      dateFormat: { type: "date", skeleton: "short" },
     };
   },
   methods: {
@@ -61,7 +61,10 @@ export default {
       if (args.target.classList.contains("e-warning")) {
         // here you can perform the action as you want
         console.log(args.rowData);
-        this.$router.push({ name: "QuizEdit", params: { id: args.rowData.id } });
+        this.$router.push({
+          name: "QuizEdit",
+          params: { id: args.rowData.id },
+        });
       }
     },
   },
