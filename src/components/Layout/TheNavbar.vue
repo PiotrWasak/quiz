@@ -47,7 +47,7 @@
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">Ranking użytkowników</a>
+                  <router-link to="/ranking" class="dropdown-item">Ranking użytkowników</router-link>
                 </li>
               </ul>
             </li>

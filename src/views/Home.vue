@@ -23,9 +23,6 @@
                   type="email"
                   id="login"
                 />
-                <div class="input-errors" v-if="v$.loginData.login.$invalid">
-                  Login Błąd
-                </div>
               </div>
             </div>
             <div class="row mt-4">
@@ -42,6 +39,13 @@
                 />
               </div>
             </div>
+            <p v-for="error of v$.$errors" :key="error.$uid">
+              <strong>{{ error.$validator }}</strong>
+              <small> on property</small>
+              <strong>{{ error.$property }}</strong>
+              <small> says:</small>
+              <strong>{{ error.$message }}</strong>
+            </p>
             <div class="row mt-4">
               <div class="col-auto mx-auto">
                 <ejs-button
@@ -113,6 +117,7 @@
               </div>
             </div>
           </form>
+          {{ v$.$errors }}
         </div>
       </div>
     </div>

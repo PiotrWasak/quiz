@@ -84,7 +84,7 @@ export default {
         }
       });
     });
-    console.log(this.correctAnswers);
+    console.log("Correct answers", this.correctAnswers);
     // const userQuizData = {
     //   quizId: this.activeQuiz,
     //   userId: this.userData.uid,

@@ -11,6 +11,7 @@ import NotFound404 from "@/views/NotFound404";
 import TakeQuiz from "@/views/user/TakeQuiz";
 import TakeQuizQuestion from "@/views/user/TakeQuizQuestion";
 import TakeQuizSummary from "@/views/user/TakeQuizSummary";
+import QuizRanking from "@/views/admin/QuizRanking";
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: "/quizSummary",
     name: "QuizSummary",
     component: TakeQuizSummary,
+  },
+  {
+    path: "/ranking",
+    name: "QuizRanking",
+    component: QuizRanking,
   },
   {
     path: "/quiz/:id",
