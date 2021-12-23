@@ -1,6 +1,6 @@
 <template>
-<div class="container mt-5 text-center">
-  <h3>Ranking</h3>
+<div class="container mt-5">
+  <h3 class="text-center">Ranking</h3>
   <quiz-ranking-grid></quiz-ranking-grid>
 </div>
 </template>

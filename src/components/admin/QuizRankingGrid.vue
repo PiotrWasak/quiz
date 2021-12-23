@@ -8,7 +8,7 @@
     :groupSettings="groupOptions"
   >
     <e-columns>
-      <e-column field="data.quizId" headerText="Quiz" width="150"></e-column>
+      <e-column field="data.quizId" headerText="Quiz"></e-column>
       <e-column field="data.userId" headerText="Użytkownik"></e-column>
       <e-column field="data.scorePercent" headerText="Wynik"></e-column>
       <e-column field="data.createAt" headerText="Data"></e-column>
