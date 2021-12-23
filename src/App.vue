@@ -1,9 +1,10 @@
 <script setup>
 import TheNavbar from "./components/Layout/TheNavbar.vue";
+import store from "./store"
 </script>
 
 <template>
-  <the-navbar></the-navbar>
+  <the-navbar v-if="store.getters.userData"></the-navbar>
   <router-view></router-view>
 </template>
 

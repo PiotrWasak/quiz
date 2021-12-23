@@ -40,9 +40,9 @@ export default {
   computed: {
     emailVerifyText() {
       if (this.userData.emailVerified) {
-        return "Your e-mail has been verified";
+        return "Twój e-mail jest zweryfikowany";
       } else {
-        return "Please verify your e-mail";
+        return "Zweryfikuj swój e-mail";
       }
     },
   },

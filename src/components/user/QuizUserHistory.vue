@@ -52,7 +52,6 @@ export default {
   created() {
     const getQuizData = async () => {
       this.quizData = await queryData("userAnsewers", "userId", "==", this.$store.getters.userData.uid);
-      console.log(this.quizData);
     };
     getQuizData();
   },

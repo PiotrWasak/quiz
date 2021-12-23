@@ -9,99 +9,110 @@
         </div>
 
         <div class="e-card-content text-center mt-5">
-          <div class="row mt-4">
-            <div class="col-2">
-              <label for="login" class="col-form-label">E-mail</label>
+          <form @submit.prevent="login">
+            <div class="row mt-4">
+              <div class="col-2">
+                <label for="login" class="col-form-label">E-mail</label>
+              </div>
+              <div class="col-10">
+                <input
+                  @input="vuealidate"
+                  v-model.trim="loginData.login"
+                  class="e-input"
+                  placeholder="Wprowadź e-mail"
+                  type="email"
+                  id="login"
+                />
+                <div class="input-errors" v-if="v$.loginData.login.$invalid">
+                  Login Błąd
+                </div>
+              </div>
             </div>
-            <div class="col-10">
-              <input
-                v-model="loginData.login"
-                class="e-input"
-                placeholder="Wprowadź e-mail"
-                type="email"
-                id="login"
-              />
+            <div class="row mt-4">
+              <div class="col-2">
+                <label for="password" class="col-form-label">Hasło</label>
+              </div>
+              <div class="col-10">
+                <input
+                  v-model.trim="loginData.password"
+                  class="e-input"
+                  placeholder="Wprowadź hasło"
+                  type="password"
+                  id="password"
+                />
+              </div>
             </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-2">
-              <label for="password" class="col-form-label">Hasło</label>
+            <div class="row mt-4">
+              <div class="col-auto mx-auto">
+                <ejs-button
+                  @click="login"
+                  type="submit"
+                  cssClass="e-success"
+                  :disabled="!isFormValid"
+                >
+                  Zaloguj
+                </ejs-button>
+              </div>
             </div>
-            <div class="col-10">
-              <input
-                v-model="loginData.password"
-                class="e-input"
-                placeholder="Wprowadź hasło"
-                type="password"
-                id="password"
-              />
+            <button
+              class="btn btn-link"
+              data-bs-toggle="modal"
+              data-bs-target="#resetPasswordModal"
+            >
+              Zapomniałeś hasła? Zresetuj.
+            </button>
+            <my-alert
+              :msg="errorMsg"
+              v-if="errorMsg"
+              v-on:close-alert="closeAlert"
+            ></my-alert>
+            <hr />
+            <div class="row">
+              <div class="col-auto mx-auto">
+                <ejs-button
+                  id="google-btn"
+                  @click="signInWithProvider(googleProvider)"
+                  cssClass="e-primary"
+                  class="mt-3"
+                >
+                  <font-awesome-icon
+                    style="color: #4285f4"
+                    :icon="['fab', 'google']"
+                  ></font-awesome-icon>
+                  Kontynuuj z Google
+                </ejs-button>
+              </div>
             </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-auto mx-auto">
-              <ejs-button @click="login" type="submit" cssClass="e-success">
-                Zaloguj
-              </ejs-button>
+            <div class="row">
+              <div class="col-auto mx-auto">
+                <ejs-button
+                  id="facebook-btn"
+                  @click="signInWithProvider(facebookProvider)"
+                  cssClass="e-primary"
+                  class="mt-3"
+                >
+                  <font-awesome-icon
+                    style="color: white"
+                    :icon="['fab', 'facebook-f']"
+                  ></font-awesome-icon>
+                  Kontynuuj z Facebook
+                </ejs-button>
+              </div>
             </div>
-          </div>
-          <button
-            class="btn btn-link"
-            data-bs-toggle="modal"
-            data-bs-target="#resetPasswordModal"
-          >
-            Zapomniałeś hasła? Zresetuj.
-          </button>
-          <my-alert
-            :msg="errorMsg"
-            v-if="errorMsg"
-            v-on:close-alert="closeAlert"
-          ></my-alert>
-          <hr />
-          <div class="row">
-            <div class="col-auto mx-auto">
-              <ejs-button
-                id="google-btn"
-                @click="signInWithProvider(googleProvider)"
-                cssClass="e-primary"
-                class="mt-3"
-              >
-                <font-awesome-icon
-                  style="color: #4285f4"
-                  :icon="['fab', 'google']"
-                ></font-awesome-icon>
-                Kontynuuj z Google
-              </ejs-button>
+            <div class="row">
+              <div class="col-auto mx-auto">
+                <ejs-button
+                  cssClass="e-primary"
+                  class="mt-3"
+                  data-bs-toggle="modal"
+                  data-bs-target="#myModal"
+                >
+                  <font-awesome-icon icon="envelope"></font-awesome-icon>
+                  Rejestracja przez e-mail
+                </ejs-button>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-auto mx-auto">
-              <ejs-button
-                id="facebook-btn"
-                @click="signInWithProvider(facebookProvider)"
-                cssClass="e-primary"
-                class="mt-3"
-              >
-                <font-awesome-icon
-                  style="color: white"
-                  :icon="['fab', 'facebook-f']"
-                ></font-awesome-icon>
-                Kontynuuj z Facebook
-              </ejs-button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-auto mx-auto">
-              <ejs-button
-                cssClass="e-primary"
-                class="mt-3"
-                data-bs-toggle="modal"
-                data-bs-target="#myModal"
-              >
-                <font-awesome-icon icon="envelope"></font-awesome-icon>
-                Rejestracja przez e-mail
-              </ejs-button>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -128,16 +139,30 @@ import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../main";
 import MyModal from "../components/Layout/MyModal.vue";
 import ResetPasswordModal from "../components/UI/ResetPasswordModal.vue";
+import loginRegisterValidate from "@/mixins/loginRegisterValidate";
+import useVuelidate from "@vuelidate/core";
+import { email, minLength, required } from "@vuelidate/validators";
 
 export default {
   name: "Home",
   components: { ResetPasswordModal, MyModal },
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       errorMsg: null,
       loginData: {
         login: "",
         password: "",
+      },
+    };
+  },
+  validations() {
+    return {
+      loginData: {
+        login: { required, email }, // Matches this.contact.email
+        password: { required, minLength: minLength(6) },
       },
     };
   },
@@ -214,6 +239,11 @@ export default {
     closeAlert() {
       this.errorMsg = null;
     },
+    async vuealidate() {
+      const isFormCorrect = await this.v$.$validate();
+      console.log(isFormCorrect);
+      console.log(this.v$);
+    },
   },
   computed: {
     googleProvider() {
@@ -221,6 +251,9 @@ export default {
     },
     facebookProvider() {
       return new FacebookAuthProvider();
+    },
+    isFormValid() {
+      return !this.v$.$invalid;
     },
   },
 };
@@ -249,7 +282,7 @@ button {
   background-color: #d9afd9;
   background-image: linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
 }
-#e-card-container{
+#e-card-container {
   width: 50%;
   margin: 50px auto;
 }

@@ -19,6 +19,9 @@
 
 <script>
 import { getDocument } from "@/utils/readData";
+import { mapGetters } from "vuex";
+import { Timestamp } from "firebase/firestore";
+import { addData } from "@/utils/setData";
 
 export default {
   name: "TakeQuizQuestion",
@@ -31,6 +34,18 @@ export default {
       answerBtnClass: "e-custom e-outline",
       answerBtnRefs: [],
     };
+  },
+  computed: {
+    ...mapGetters([
+      "points",
+      "activeQuiz",
+      "userData",
+      "userAnswers",
+      "maxPoints",
+    ]),
+    scorePercent() {
+      return Math.round((this.points / this.maxPoints) * 100);
+    },
   },
   methods: {
     setAnswerBtnRef(el){
@@ -55,11 +70,17 @@ export default {
         );
         this.questionData = this.quizData.questions[this.questionIndex - 1];
       } else {
-        console.log(
-          "Quiz finnished. Your points: ",
-          this.$store.getters.points
-        );
 
+        const newQuizData = {
+          quizId: this.activeQuiz,
+          userId: this.userData.uid,
+          answers: this.userAnswers,
+          scorePoints: this.points,
+          maxPoints: this.maxPoints,
+          scorePercent: this.scorePercent,
+          createAt: Timestamp.now(),
+        };
+        await addData("userAnsewers", newQuizData);
         await this.$router.replace("/quizSummary");
       }
     },

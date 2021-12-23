@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
-    <h1>Edytuj quiz: {{id}} - {{quizData.title}}</h1>
-
+    <h1>Edytuj quiz: {{ quizData.title }}</h1>
+    <p id="text-id" class="text-muted">ID: {{ id }}</p>
     <ejs-button @click="deleteQuiz" type="submit" cssClass="e-danger">
       Usuń quiz
     </ejs-button>
@@ -21,17 +21,17 @@ export default {
   // components: { QuizEditQuestion },
   props: ["id"],
   data() {
-    return{
+    return {
       quizData: {
         questions: [],
       },
-    }
+    };
   },
   methods: {
     deleteQuiz() {
       console.log("delete quiz");
       deleteDocument("quiz", this.id);
-    }
+    },
   },
   async created() {
     this.quizData = await getDocument("quiz", this.id);
@@ -39,4 +39,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#text-id{
+  font-size: 0.8em;
+}
+</style>
