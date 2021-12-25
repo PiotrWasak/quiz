@@ -9,14 +9,8 @@
     >
       <e-columns>
         <e-column field="quizId" headerText="Quiz"></e-column>
-        <e-column
-          field="scorePercent"
-          headerText="Wynik %"
-        ></e-column>
-        <e-column
-          field="createAt"
-          headerText="Data"
-        ></e-column>
+        <e-column field="scorePercent" headerText="Wynik %"></e-column>
+        <e-column field="createAt" headerText="Data"></e-column>
         <e-column headerText="" :commands="commands"></e-column>
       </e-columns>
     </ejs-grid>
@@ -49,11 +43,13 @@ export default {
       }
     },
   },
-  created() {
-    const getQuizData = async () => {
-      this.quizData = await queryData("userAnsewers", "userId", "==", this.$store.getters.userData.uid);
-    };
-    getQuizData();
+  async created() {
+    this.quizData = await queryData(
+      "userAnswers",
+      "userId",
+      "==",
+      this.$store.getters.userData.uid
+    );
   },
 };
 </script>

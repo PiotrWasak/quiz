@@ -68,11 +68,8 @@ export default {
       }
     },
   },
-  created() {
-    const getQuizData = async () => {
-      this.quizData = await getData("quiz");
-    };
-    getQuizData();
+  async created() {
+    this.quizData = await getData("quiz");
   },
 };
 </script>

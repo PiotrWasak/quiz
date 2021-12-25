@@ -1,6 +1,8 @@
 <template>
   <ejs-grid
-    :dataSource="quizHistory"
+    v-if="isDataLoaded"
+    ref="rankingGrid"
+    :dataSource="rankingData"
     :allowSorting="true"
     :toolbar="toolbarOptions"
     :allowPaging="true"
@@ -8,12 +10,13 @@
     :groupSettings="groupOptions"
   >
     <e-columns>
-      <e-column field="data.quizId" headerText="Quiz"></e-column>
-      <e-column field="data.userId" headerText="Użytkownik"></e-column>
-      <e-column field="data.scorePercent" headerText="Wynik"></e-column>
-      <e-column field="data.createAt" headerText="Data"></e-column>
+      <e-column field="quiz" headerText="Quiz"></e-column>
+      <e-column field="user" headerText="Użytkownik"></e-column>
+      <e-column field="scorePercent" headerText="Wynik"></e-column>
+      <e-column field="createdAt" headerText="Data"></e-column>
     </e-columns>
   </ejs-grid>
+  <div v-else>Brak danych do wyświetlenia.</div>
 </template>
 
 <script>
@@ -25,20 +28,36 @@ import {
   Toolbar,
   Group,
 } from "@syncfusion/ej2-vue-grids";
-import { getData } from "@/utils/readData";
+import { getData, getDocument } from "@/utils/readData";
 
 Grid.Inject(Sort, Page, Toolbar, Search, Group);
 export default {
   name: "QuizRankingGrid",
   data() {
     return {
-      quizHistory: null,
+      rankingData: [],
+      isDataLoaded: false,
       toolbarOptions: ["Search", "Print"],
       dateFormat: { type: "date", skeleton: "short" },
     };
   },
   async created() {
-    this.quizHistory = await getData("userAnsewers");
+    const userAnswers = await getData("userAnswers");
+    for (const answer of userAnswers) {
+      console.log(answer);
+      const quiz = await getDocument("quiz", answer.data.quizId);
+      const user = await getDocument("users", answer.data.userId);
+      console.log(quiz);
+      console.log(user);
+      const newRankingDataObj = {
+        quiz: quiz.title,
+        user: user.eMail,
+        scorePercent: answer.data.scorePercent,
+        createdAt: answer.data.createAt,
+      };
+      this.rankingData.push(newRankingDataObj);
+    }
+    this.isDataLoaded = true;
   },
 };
 </script>

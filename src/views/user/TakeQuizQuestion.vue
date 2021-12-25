@@ -80,7 +80,7 @@ export default {
           scorePercent: this.scorePercent,
           createAt: Timestamp.now(),
         };
-        await addData("userAnsewers", newQuizData);
+        await addData("userAnswers", newQuizData);
         await this.$router.replace("/quizSummary");
       }
     },
