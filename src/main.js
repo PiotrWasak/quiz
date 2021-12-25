@@ -52,9 +52,18 @@ import {
 } from "@syncfusion/ej2-vue-navigations";
 import { CheckBoxComponent } from "@syncfusion/ej2-vue-buttons";
 import { GridComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-vue-grids';
+
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+const options = {
+  // You can set your default options here
+};
+
 const app = createApp(App);
 app.use(router);
 app.use(store);
+app.use(Toast);
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 app.component("MyAlert", MyAlert);
 app.component("ejs-inplaceeditor", InPlaceEditorComponent);

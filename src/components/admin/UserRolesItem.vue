@@ -13,25 +13,23 @@
       ></ejs-inplaceeditor>
     </div>
   </div>
-  <ejs-toast
-    ref="toastRef"
-    id="toast_pos"
-    :position="{ X: 'Right', Y: 'Top' }"
-    :content="toastContent"
-  ></ejs-toast>
 </template>
 
 <script>
-import {setData} from "@/utils/setData";
+import { setData } from "@/utils/setData";
 import { getDocument } from "@/utils/readData";
 import user from "@/store/modules/user";
-import { nextTick } from "vue";
+import { useToast } from "vue-toastification";
+
 export default {
   name: "UserRolesItem",
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   props: ["user"],
   data() {
     return {
-      toastContent: "",
       currentRole: "",
       dropdownModel: {
         dataSource: ["user", "admin"],
@@ -48,13 +46,9 @@ export default {
         role: e.value,
       });
       if (isSet) {
-        this.toastContent = `Pomyślnie zaktualizowano rolę użytkownika ${userData.eMail}`;
-        await nextTick();
-        this.$refs.toastRef.show();
+        this.toast.success(`Zaktualizowano rolę użytkownika ${userData.eMail}`);
       } else {
-        this.toastContent = `Wystąpił błąd przy zmianie roli użytkownika ${userData.eMail}`;
-        await nextTick();
-        this.$refs.toastRef.show();
+        this.toast.error("Wystąpił błąd przy próbie zmiany roli")
       }
     },
   },
