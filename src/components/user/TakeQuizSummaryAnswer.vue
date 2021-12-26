@@ -1,9 +1,9 @@
 <template>
   <div class="row mt-3">
-    <div class="col-md-6">Twoja odpowiedź:</div>
-    <div class="col-md-6">Prawidłowa odpowiedź:</div>
+    <div class="col-md-6"><strong>Twoja odpowiedź:</strong></div>
+    <div class="col-md-6"><strong>Prawidłowa odpowiedź:</strong></div>
   </div>
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-md-6">{{ userAnswer }}</div>
     <div class="col-md-6">{{ correctAnswer }}</div>
   </div>

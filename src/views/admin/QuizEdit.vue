@@ -1,12 +1,17 @@
 <template>
   <div class="container mt-5">
+    <base-dialog
+      ref="deleteDialog"
+      content="Czy na pewno usunąć quiz?"
+      @confirm="deleteQuiz"
+    ></base-dialog>
     <h1>Edytuj quiz: {{ quizData.title }}</h1>
     <p id="text-id" class="text-muted">ID: {{ id }}</p>
-    <ejs-button @click="deleteQuiz" type="submit" cssClass="e-danger">
+    <ejs-button @click="showDeleteDialog" type="submit" cssClass="e-danger">
       Usuń quiz
     </ejs-button>
 
-    <add-quiz-form :edit-quiz-data="quizData" mode="edit"></add-quiz-form>
+    <add-quiz-form v-if="quizData.questions.length>0" :edit-quiz-data="quizData" mode="edit"></add-quiz-form>
   </div>
 </template>
 
@@ -15,10 +20,15 @@ import QuizEditQuestion from "@/components/admin/QuizEditQuestion";
 import { getDocument } from "@/utils/readData";
 import { deleteDocument } from "@/utils/setData";
 import AddQuizForm from "@/components/admin/AddQuizForm";
+import BaseDialog from "@/components/UI/BaseDialog";
+import { useToast } from "vue-toastification";
 export default {
   name: "QuizEdit",
-  components: { AddQuizForm },
-  // components: { QuizEditQuestion },
+  components: { BaseDialog, AddQuizForm },
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   props: ["id"],
   data() {
     return {
@@ -28,19 +38,29 @@ export default {
     };
   },
   methods: {
-    deleteQuiz() {
+    showDeleteDialog() {
+      this.$refs.deleteDialog.showDialog();
+    },
+    async deleteQuiz() {
       console.log("delete quiz");
-      deleteDocument("quiz", this.id);
+      const status = await deleteDocument("quiz", this.id);
+      if (status === "success") {
+        this.toast.success("Pomyślnie usunięto quiz");
+      } else if (status === "error") {
+        this.toast.error("Wystąpił błąd podczas usuwania quizu");
+      }
+      await this.$router.replace("/quizAdmin");
     },
   },
   async created() {
     this.quizData = await getDocument("quiz", this.id);
+    console.log("QuizData", this.quizData);
   },
 };
 </script>
 
 <style scoped>
-#text-id{
+#text-id {
   font-size: 0.8em;
 }
 </style>

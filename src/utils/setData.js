@@ -1,32 +1,43 @@
 import { doc, setDoc, addDoc, collection, deleteDoc } from "firebase/firestore";
 import { db } from "@/main";
 
+// export async function setData(path, pathSegments, data) {
+//   const isTrue = await setDoc(doc(db, path, pathSegments), data)
+//     .then(() => {
+//       return "success";
+//     })
+//     .catch(() => {
+//       return "error";
+//     });
+//   return '';
+// }
+
 export async function setData(path, pathSegments, data) {
-  const isTrue = await setDoc(doc(db, path, pathSegments), data)
-    .then(() => {
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
-  return isTrue;
+  try {
+    await setDoc(doc(db, path, pathSegments), data)
+    return "success";
+  } catch (e) {
+    console.error("Error adding document: ", e);
+    return "error";
+  }
 }
 
 export async function addData(path, data) {
   try {
     const docRef = await addDoc(collection(db, path), data);
-
-    console.log("Document written with ID: ", docRef.id);
+    return "success";
   } catch (e) {
     console.error("Error adding document: ", e);
+    return "error";
   }
 }
 
 export async function deleteDocument(path, pathSegments){
   try {
     await deleteDoc(doc(db, path, pathSegments));
-    console.log("Deleted document");
+    return "success";
   } catch (e) {
     console.error("Error deleting document ", e);
+    return "error";
   }
 }

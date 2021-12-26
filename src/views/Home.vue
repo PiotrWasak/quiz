@@ -9,21 +9,28 @@
         </div>
 
         <div class="e-card-content text-center mt-5">
-          <form @submit.prevent="login">
+          <form @submit.prevent="logIn">
             <div class="row mt-4">
               <div class="col-2">
                 <label for="login" class="col-form-label">E-mail</label>
               </div>
               <div class="col-10">
                 <input
-                  @input="vuealidate"
-                  v-model.trim="loginData.login"
-                  class="e-input"
+                  @blur="v$.login.$touch"
+                  v-model.trim="login"
+                  :class="{
+                    'e-input': true,
+                    'e-error': this.v$.login.$error,
+                    'e-success': isPropertyInputValid('login'),
+                  }"
                   placeholder="Wprowadź e-mail"
                   type="email"
                   id="login"
                 />
               </div>
+              <p class="e-error" v-if="this.v$.login.$error">
+                Nieprawidłowy adres e-mail
+              </p>
             </div>
             <div class="row mt-4">
               <div class="col-2">
@@ -31,29 +38,25 @@
               </div>
               <div class="col-10">
                 <input
-                  v-model.trim="loginData.password"
-                  class="e-input"
+                  @blur="v$.password.$touch"
+                  v-model.trim="password"
+                  :class="{
+                    'e-input': true,
+                    'e-error': this.v$.password.$invalid,
+                    'e-success': isPropertyInputValid('password'),
+                  }"
                   placeholder="Wprowadź hasło"
                   type="password"
                   id="password"
                 />
               </div>
+              <p class="e-error" v-if="this.v$.password.$error">
+                Hasło musi zawierać minimum 6 znaków
+              </p>
             </div>
-            <p v-for="error of v$.$errors" :key="error.$uid">
-              <strong>{{ error.$validator }}</strong>
-              <small> on property</small>
-              <strong>{{ error.$property }}</strong>
-              <small> says:</small>
-              <strong>{{ error.$message }}</strong>
-            </p>
             <div class="row mt-4">
               <div class="col-auto mx-auto">
-                <ejs-button
-                  @click="login"
-                  type="submit"
-                  cssClass="e-success"
-                  :disabled="!isFormValid"
-                >
+                <ejs-button @click="logIn" type="submit" cssClass="e-success">
                   Zaloguj
                 </ejs-button>
               </div>
@@ -117,13 +120,12 @@
               </div>
             </div>
           </form>
-          {{ v$.$errors }}
         </div>
       </div>
     </div>
   </div>
 
-  <my-modal v-on:register="register"></my-modal>
+  <register-modal v-on:register="register"></register-modal>
   <reset-password-modal
     v-on:sendResetPswdEmail="sendResetPswdEmail"
   ></reset-password-modal>
@@ -142,32 +144,32 @@ import {
 } from "firebase/auth";
 import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../main";
-import MyModal from "../components/Layout/MyModal.vue";
+import RegisterModal from "../components/Layout/RegisterModal.vue";
 import ResetPasswordModal from "../components/UI/ResetPasswordModal.vue";
-import loginRegisterValidate from "@/mixins/loginRegisterValidate";
 import useVuelidate from "@vuelidate/core";
 import { email, minLength, required } from "@vuelidate/validators";
 
 export default {
   name: "Home",
-  components: { ResetPasswordModal, MyModal },
+  components: { ResetPasswordModal, RegisterModal },
   setup() {
     return { v$: useVuelidate() };
   },
   data() {
     return {
       errorMsg: null,
-      loginData: {
-        login: "",
-        password: "",
-      },
+      login: "",
+      password: "",
     };
   },
   validations() {
     return {
-      loginData: {
-        login: { required, email }, // Matches this.contact.email
-        password: { required, minLength: minLength(6) },
+      login: { required, email, $lazy: true, $autoDirty: false }, // Matches this.contact.email
+      password: {
+        required,
+        minLength: minLength(6),
+        $lazy: true,
+        $autoDirty: false,
       },
     };
   },
@@ -193,24 +195,21 @@ export default {
       )
         .then(async (userCredential) => {
           this.$store.dispatch("SET_USER_DATA", userCredential.user);
-          console.log(userCredential.user.providerData);
           await setDoc(doc(db, "users", userCredential.user.uid), {
             role: "user",
             uid: userCredential.user.uid,
             eMail: userCredential.user.email,
           });
+          this.errorMsg = null;
+          await this.checkRole();
+          await this.$router.push("/dashboard");
         })
         .catch((error) => {
           this.errorMsg = error.code;
         });
     },
-    login() {
-      console.log("login");
-      signInWithEmailAndPassword(
-        getAuth(),
-        this.loginData.login,
-        this.loginData.password
-      )
+    async logIn() {
+      signInWithEmailAndPassword(getAuth(), this.login, this.password)
         .then((userCredential) => {
           this.$store.dispatch("SET_USER_DATA", userCredential.user);
           this.errorMsg = null;
@@ -244,10 +243,10 @@ export default {
     closeAlert() {
       this.errorMsg = null;
     },
-    async vuealidate() {
-      const isFormCorrect = await this.v$.$validate();
-      console.log(isFormCorrect);
-      console.log(this.v$);
+    isPropertyInputValid(property) {
+      const propertyStatus = this.v$[property];
+      if (propertyStatus.$dirty) return !propertyStatus.$error;
+      else return false;
     },
   },
   computed: {
@@ -260,6 +259,12 @@ export default {
     isFormValid() {
       return !this.v$.$invalid;
     },
+  },
+  updated() {
+    console.log(this.v$.login);
+  },
+  mounted() {
+    console.log(this.v$.login);
   },
 };
 </script>

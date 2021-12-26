@@ -60,7 +60,6 @@ export default {
       // event will be triggered when we click the command column button
       if (args.target.classList.contains("e-warning")) {
         // here you can perform the action as you want
-        console.log(args.rowData);
         this.$router.push({
           name: "QuizEdit",
           params: { id: args.rowData.id },

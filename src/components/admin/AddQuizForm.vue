@@ -21,7 +21,7 @@
           v-for="index in questionNumber"
           :key="index"
           :question-id="index"
-          :edit-question-data="this.editQuizData?.questions[index-1]"
+          :edit-question-data="this.editQuizData?.questions[index - 1]"
           >{{ index }}</add-quiz-form-question
         >
       </div>
@@ -51,10 +51,15 @@
 import { Timestamp } from "firebase/firestore";
 import { addData, setData } from "@/utils/setData";
 import AddQuizFormQuestion from "@/components/admin/AddQuizFormQuestion";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "AddQuizForm",
   components: { AddQuizFormQuestion },
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   props: {
     editQuizData: Object,
     mode: {
@@ -81,7 +86,7 @@ export default {
         this.questionNumber--;
       }
     },
-    submitForm() {
+    async submitForm() {
       let data = new FormData(this.$refs.addQuizForm);
       let title = "";
       let lastWeight = 1;
@@ -122,20 +127,29 @@ export default {
         updatedAt: Timestamp.now(),
         isActive: true,
       };
+      let status;
       if (this.mode == "add") {
-        addData("quiz", quizData);
+        status = await addData("quiz", quizData);
       } else {
-        setData("quiz", this.$route.params.id, quizData);
+        status = await setData("quiz", this.$route.params.id, quizData);
+      }
+      if (status === "success") {
+        this.toast.success("Pomyślnie zapisano quiz");
+        await this.$router.replace("/quizAdmin");
+      } else if (status === "error") {
+        this.toast.error("Wystąpił błąd");
       }
     },
   },
-  created() {
+  mounted() {
+    console.log("EditQuizData", this.editQuizData);
     if (this.editQuizData?.questions?.length > 0) {
+      console.log("Editquizdata", this.editQuizData);
       this.title = this.editQuizData.title;
       console.log("Length", this.editQuizData?.questions?.length);
       this.questionNumber = this.editQuizData?.questions?.length;
     }
-  }
+  },
 };
 </script>
 

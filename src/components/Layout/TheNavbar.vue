@@ -47,27 +47,39 @@
                   >
                 </li>
                 <li>
-                  <router-link to="/ranking" class="dropdown-item">Ranking użytkowników</router-link>
+                  <router-link to="/ranking" class="dropdown-item"
+                    >Ranking użytkowników</router-link
+                  >
                 </li>
               </ul>
             </li>
           </div>
           <li class="nav-item">
-            <router-link @click="logout" to="/" class="nav-link">Wyloguj</router-link>
+            <a @click="showLogoutDialog" class="nav-link">Wyloguj</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  <base-dialog
+    ref="logoutDialog"
+    content="Czy na pewno chcesz się wylogować?"
+    @confirm="logout"
+  ></base-dialog>
 </template>
 
 <script>
 import { getAuth } from "firebase/auth";
 import { mapGetters } from "vuex";
+import BaseDialog from "@/components/UI/BaseDialog";
 
 export default {
   name: "TheNavbar",
+  components: { BaseDialog },
   methods: {
+    showLogoutDialog() {
+      this.$refs.logoutDialog.showDialog();
+    },
     logout() {
       getAuth()
         .signOut()
@@ -89,10 +101,18 @@ export default {
 </script>
 
 <style scoped>
+a {
+  cursor: pointer;
+}
 a:hover {
   color: #ef4f10 !important;
 }
 .navbar-brand {
   color: #ef4f10 !important;
+}
+.e-overlay {
+  background-color: #000000;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
 }
 </style>

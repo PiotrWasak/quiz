@@ -1,11 +1,13 @@
 <template>
-  <div class="container text-center mt-5" ref="summary">
-    <div style="margin: 50px auto 0; width: 100%">
+  <div class="container text-center mt-5">
+    <div ref="summary" style="margin: 50px auto 0; width: 100%">
       <br />
-      <div  tabindex="0" class="e-card" id="basic">
+      <div tabindex="0" class="e-card" id="basic">
         <div class="e-card-header">
           <div class="e-card-header-caption">
-            <div class="e-card-title mt-3"><h4>Podsumowanie</h4></div>
+            <div class="e-card-title mt-3">
+              <h4>{{ quizTitle }}</h4>
+            </div>
           </div>
         </div>
         <div class="e-card-content">
@@ -32,15 +34,15 @@
         </div>
       </div>
     </div>
-    <ejs-button @click="savePDF" cssClass="e-primary">Zapisz</ejs-button>
+    <ejs-button @click="savePDF" cssClass="e-primary mt-5"
+      >Zapisz jako PDF</ejs-button
+    >
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { addData } from "@/utils/setData";
-import { Timestamp } from "firebase/firestore";
-import TakeQuizSummaryAnswer from "@/views/user/TakeQuizSummaryAnswer";
+import TakeQuizSummaryAnswer from "@/components/user/TakeQuizSummaryAnswer";
 import { getDocument } from "@/utils/readData";
 import html2pdf from "html2pdf.js/src";
 
@@ -50,6 +52,7 @@ export default {
   data() {
     return {
       correctAnswers: [],
+      quizTitle: "",
     };
   },
   computed: {
@@ -70,6 +73,8 @@ export default {
       const opt = {
         margin: 1,
         filename: "wynik_quizu.pdf",
+        image: {type: 'jpeg', quality: 1},
+        html2canvas: { scale: 4,  logging: true },
       };
       html2pdf(this.$refs.summary, opt);
     },
@@ -77,6 +82,7 @@ export default {
   async created() {
     //console.log(this.userAnswers);
     const dbAnswers = await getDocument("quiz", this.activeQuiz);
+    this.quizTitle = dbAnswers.title;
     dbAnswers.questions.forEach((question) => {
       question.answers.forEach((answer) => {
         if (answer.isTrue) {

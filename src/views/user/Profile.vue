@@ -3,13 +3,15 @@
     <h3>Mój profil</h3>
 
     <div class="row">
-      <div class="col-3">E-mail</div>
-      <div class="col-4">
+      <div class="col-sm-3">E-mail</div>
+      <div class="col-sm-4">
         {{ userData.email }}
       </div>
-      <div class="col-3">{{ emailVerifyText }}</div>
-      <div class="col-2" v-if="!userData.emailVerified">
-        <ejs-button cssClass="e-primary" @click="sendVerifyEmail">Send verification e-mail</ejs-button>
+      <div class="col-sm-3">{{ emailVerifyText }}</div>
+      <div class="col-sm-2" v-if="!userData.emailVerified">
+        <ejs-button cssClass="e-primary" @click="sendVerifyEmail"
+          >Zweryfikuj e-mail</ejs-button
+        >
       </div>
     </div>
 
@@ -25,17 +27,22 @@ import {
   getAuth,
   sendEmailVerification,
   sendPasswordResetEmail,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from "firebase/auth";
 import QuizUserHistory from "@/components/user/QuizUserHistory";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "Profile",
   components: { QuizUserHistory },
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   data() {
     return {
       userData: {},
-    }
+    };
   },
   computed: {
     emailVerifyText() {
@@ -50,27 +57,31 @@ export default {
     sendVerifyEmail() {
       sendEmailVerification(getAuth().currentUser)
         .then(() => {
-          console.log("success");
+          this.toast.success(
+            `Wysłano e-mail na ${this.$store.getters.userData.email}`
+          );
         })
         .catch((error) => {
-          console.log(error);
+          this.toast.error("Wystąpił błąd");
         });
     },
     sendPasswordReset() {
       sendPasswordResetEmail(getAuth(), getAuth().currentUser.email)
         .then(() => {
-          console.log("success");
+          this.toast.success(
+            `Wysłano e-mail na ${this.$store.getters.userData.eMail}`
+          );
         })
         .catch((error) => {
-          console.log(error);
+          this.toast.error("Wystąpił błąd");
         });
     },
   },
   created() {
-    onAuthStateChanged(getAuth(), user => {
+    onAuthStateChanged(getAuth(), (user) => {
       this.userData = user;
-    })
-  }
+    });
+  },
 };
 </script>
 

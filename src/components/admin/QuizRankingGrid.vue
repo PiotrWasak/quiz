@@ -16,7 +16,13 @@
       <e-column field="createdAt" headerText="Data"></e-column>
     </e-columns>
   </ejs-grid>
-  <div v-else>Brak danych do wyświetlenia.</div>
+  <div v-else>
+    <div class="d-flex justify-content-center mt-5">
+      <div class="spinner-border ext-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

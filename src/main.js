@@ -52,6 +52,7 @@ import {
 } from "@syncfusion/ej2-vue-navigations";
 import { CheckBoxComponent } from "@syncfusion/ej2-vue-buttons";
 import { GridComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-vue-grids';
+import { DialogComponent } from "@syncfusion/ej2-vue-popups";
 
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -77,4 +78,5 @@ app.component("ejs-checkbox", CheckBoxComponent);
 app.component('ejs-grid', GridComponent);
 app.component('e-columns', ColumnsDirective);
 app.component('e-column', ColumnDirective);
+app.component('ejs-dialog', DialogComponent)
 app.mount("#app");
