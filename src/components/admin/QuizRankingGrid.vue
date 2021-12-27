@@ -50,11 +50,8 @@ export default {
   async created() {
     const userAnswers = await getData("userAnswers");
     for (const answer of userAnswers) {
-      console.log(answer);
       const quiz = await getDocument("quiz", answer.data.quizId);
       const user = await getDocument("users", answer.data.userId);
-      console.log(quiz);
-      console.log(user);
       const newRankingDataObj = {
         quiz: quiz.title,
         user: user.eMail,
