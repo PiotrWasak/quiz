@@ -78,12 +78,21 @@ const routes = [
     name: "Quiz",
     component: TakeQuiz,
     props: true,
+    beforeRouteLeave(to, from) {
+      console.log(from);
+    },
+    beforeRouteEnter(to, from){
+      console.log(from);
+    },
     children: [
       {
         path: ":questionIndex",
         name: "QuizQuestion",
         component: TakeQuizQuestion,
         props: true,
+        beforeRouteLeave(to, from) {
+          console.log(from);
+        },
       },
     ],
   },

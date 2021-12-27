@@ -6,12 +6,16 @@
     <div class="row mt-5">
       <div
         class="col-md-6 mt-5"
-        v-for="(answer) in questionData.answers"
+        v-for="answer in questionData.answers"
         :key="answer"
       >
-        <ejs-button @click="submitAnswer(answer)" size="large" :cssClass="answerBtnClass" :ref="setAnswerBtnRef">{{
-          answer.answer
-        }}</ejs-button>
+        <ejs-button
+          @click="submitAnswer(answer)"
+          size="large"
+          :cssClass="answerBtnClass"
+          :ref="setAnswerBtnRef"
+          >{{ answer.answer }}</ejs-button
+        >
       </div>
     </div>
   </div>
@@ -48,8 +52,8 @@ export default {
     },
   },
   methods: {
-    setAnswerBtnRef(el){
-      if(el){
+    setAnswerBtnRef(el) {
+      if (el) {
         this.answerBtnRefs.push(el);
       }
     },
@@ -63,22 +67,24 @@ export default {
         event.target.classList.add("e-danger");
         event.target.classList.remove("e-outline");
       }
-      await new Promise(r => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 2000));
       if (this.questionIndex < this.quizData.questions.length) {
         await this.$router.replace(
           `/quiz/${this.id}/${parseInt(this.questionIndex) + 1}`
         );
         this.questionData = this.quizData.questions[this.questionIndex - 1];
       } else {
+        const quizData = await getDocument("quiz", this.activeQuiz);
 
         const newQuizData = {
-          quizId: this.activeQuiz,
+          quiz: quizData,
           userId: this.userData.uid,
+          userEmail: this.userData.email,
           answers: this.userAnswers,
           scorePoints: this.points,
           maxPoints: this.maxPoints,
           scorePercent: this.scorePercent,
-          createAt: Timestamp.now(),
+          createdAt: Timestamp.now(),
         };
         await addData("userAnswers", newQuizData);
         await this.$router.replace("/quizSummary");
@@ -93,7 +99,7 @@ export default {
 </script>
 
 <style scoped>
-.e-custom{
+.e-custom {
   width: 100%;
   padding: 30px 60px;
 }

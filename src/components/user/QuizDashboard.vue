@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <ejs-grid
+      v-if="isDataLoaded"
       :dataSource="quizData"
       :commandClick="commandClick"
       :allowSorting="true"
@@ -20,6 +21,13 @@
         <e-column headerText="" :commands="commands"></e-column>
       </e-columns>
     </ejs-grid>
+    <div v-else>
+      <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border ext-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +38,7 @@ export default {
   name: "QuizDashboard",
   data() {
     return {
+      isDataLoaded: false,
       quizData: null,
       commands: [
         {
@@ -49,11 +58,9 @@ export default {
       }
     },
   },
-  created() {
-    const getQuizData = async () => {
-      this.quizData = await getData("quiz");
-    };
-    getQuizData();
+  async created() {
+    this.quizData = await getData("quiz");
+    this.isDataLoaded = true;
   },
 };
 </script>

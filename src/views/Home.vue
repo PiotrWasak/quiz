@@ -144,7 +144,7 @@ import {
 } from "firebase/auth";
 import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../main";
-import RegisterModal from "../components/Layout/RegisterModal.vue";
+import RegisterModal from "../components/UI/RegisterModal.vue";
 import ResetPasswordModal from "../components/UI/ResetPasswordModal.vue";
 import useVuelidate from "@vuelidate/core";
 import { email, minLength, required } from "@vuelidate/validators";

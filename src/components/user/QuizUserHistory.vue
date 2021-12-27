@@ -1,6 +1,7 @@
 <template>
   <section>
     <ejs-grid
+      v-if="isDataLoaded"
       :dataSource="quizData"
       :commandClick="commandClick"
       :allowSorting="true"
@@ -8,12 +9,19 @@
       :allowPaging="true"
     >
       <e-columns>
-        <e-column field="quizId" headerText="Quiz"></e-column>
+        <e-column field="quiz.title" headerText="Quiz"></e-column>
         <e-column field="scorePercent" headerText="Wynik %"></e-column>
-        <e-column field="createAt" headerText="Data"></e-column>
+        <e-column field="createdAt" headerText="Data"></e-column>
         <e-column headerText="" :commands="commands"></e-column>
       </e-columns>
     </ejs-grid>
+    <div v-else>
+      <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border ext-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -24,6 +32,7 @@ export default {
   name: "QuizUserHistory",
   data() {
     return {
+      isDataLoaded: false,
       quizData: null,
       commands: [
         {
@@ -50,6 +59,7 @@ export default {
       "==",
       this.$store.getters.userData.uid
     );
+    this.isDataLoaded = true;
   },
 };
 </script>

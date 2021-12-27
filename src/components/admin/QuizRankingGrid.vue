@@ -4,16 +4,18 @@
     ref="rankingGrid"
     :dataSource="rankingData"
     :allowSorting="true"
+    :sortSettings="sortOptions"
     :toolbar="toolbarOptions"
     :allowPaging="true"
     :allowGrouping="true"
     :groupSettings="groupOptions"
+    locale='pl-PL'
   >
     <e-columns>
-      <e-column field="quiz" headerText="Quiz"></e-column>
-      <e-column field="user" headerText="Użytkownik"></e-column>
-      <e-column field="scorePercent" headerText="Wynik"></e-column>
-      <e-column field="createdAt" headerText="Data"></e-column>
+      <e-column field="data.quiz.title" headerText="Quiz"></e-column>
+      <e-column field="data.userEmail" headerText="Użytkownik"></e-column>
+      <e-column field="data.scorePercent" headerText="Wynik"></e-column>
+      <e-column field="data.createdAt" headerText="Data"></e-column>
     </e-columns>
   </ejs-grid>
   <div v-else>
@@ -44,22 +46,29 @@ export default {
       rankingData: [],
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print"],
+      groupOptions: {
+        columns: ["data.quiz.title"],
+      },
+      sortOptions: {
+        columns: [{ field: "data.scorePercent", direction: "Descending" }],
+      },
       dateFormat: { type: "date", skeleton: "short" },
     };
   },
   async created() {
-    const userAnswers = await getData("userAnswers");
-    for (const answer of userAnswers) {
-      const quiz = await getDocument("quiz", answer.data.quizId);
-      const user = await getDocument("users", answer.data.userId);
-      const newRankingDataObj = {
-        quiz: quiz.title,
-        user: user.eMail,
-        scorePercent: answer.data.scorePercent,
-        createdAt: answer.data.createAt,
-      };
-      this.rankingData.push(newRankingDataObj);
-    }
+    this.rankingData = await getData("userAnswers");
+    console.log(this.rankingData);
+    // for (const answer of userAnswers) {
+    //   const quiz = await getDocument("quiz", answer.data.quizId);
+    //   const user = await getDocument("users", answer.data.userId);
+    //   const newRankingDataObj = {
+    //     quiz: quiz.title,
+    //     user: user.eMail,
+    //     scorePercent: answer.data.scorePercent,
+    //     createdAt: answer.data.createdAt,
+    //   };
+    //   this.rankingData.push(newRankingDataObj);
+    // }
     this.isDataLoaded = true;
   },
 };

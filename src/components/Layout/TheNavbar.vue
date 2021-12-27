@@ -107,6 +107,10 @@ a {
 a:hover {
   color: #ef4f10 !important;
 }
+a:active{
+  color: #9a0a00 !important;
+  background-color: #e3e0e0;
+}
 .navbar-brand {
   color: #ef4f10 !important;
 }

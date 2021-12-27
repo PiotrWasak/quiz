@@ -1,6 +1,7 @@
 <template>
-  <div class="container" v-if="quizData">
+  <div class="container">
     <ejs-grid
+      v-if="isDataLoaded"
       :dataSource="quizData"
       :commandClick="commandClick"
       :allowSorting="true"
@@ -26,6 +27,13 @@
         ></e-column>
       </e-columns>
     </ejs-grid>
+    <div v-else>
+      <div class="d-flex justify-content-center mt-5">
+        <div class="spinner-border ext-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,6 +54,7 @@ export default {
   data() {
     return {
       quizData: null,
+      isDataLoaded: false,
       commands: [
         {
           buttonOption: { content: "Edytuj", cssClass: "e-warning" },
@@ -69,6 +78,7 @@ export default {
   },
   async created() {
     this.quizData = await getData("quiz");
+    this.isDataLoaded = true;
   },
 };
 </script>
