@@ -78,6 +78,7 @@
               <div class="col-auto mx-auto">
                 <ejs-button
                   id="google-btn"
+                  type="button"
                   @click="signInWithProvider(googleProvider)"
                   cssClass="e-primary"
                   class="mt-3"
@@ -97,6 +98,7 @@
                   @click="signInWithProvider(facebookProvider)"
                   cssClass="e-primary"
                   class="mt-3"
+                  type="button"
                 >
                   <font-awesome-icon
                     style="color: white"
@@ -109,6 +111,7 @@
             <div class="row">
               <div class="col-auto mx-auto">
                 <ejs-button
+                  type="button"
                   cssClass="e-primary"
                   class="mt-3"
                   data-bs-toggle="modal"
