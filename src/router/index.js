@@ -64,9 +64,10 @@ const routes = [
     component: UserRoles,
   },
   {
-    path: "/quizSummary",
+    path: "/quizSummary/:id",
     name: "QuizSummary",
     component: TakeQuizSummary,
+    props: true,
   },
   {
     path: "/ranking",

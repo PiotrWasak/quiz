@@ -49,48 +49,46 @@ import html2pdf from "html2pdf.js/src";
 export default {
   name: "TakeQuizSummary",
   components: { TakeQuizSummaryAnswer },
+  props: {
+    id: { type: String, required: true },
+  },
   data() {
     return {
       correctAnswers: [],
       quizTitle: "",
+      userAnswers: null,
+      points: null,
+      maxPoints: null,
+      scorePercent: null,
     };
-  },
-  computed: {
-    ...mapGetters([
-      "points",
-      "activeQuiz",
-      "userData",
-      "userAnswers",
-      "maxPoints",
-      "userAnswers",
-    ]),
-    scorePercent() {
-      return Math.round((this.points / this.maxPoints) * 100);
-    },
   },
   methods: {
     savePDF() {
       const opt = {
         margin: 1,
         filename: "wynik_quizu.pdf",
-        image: {type: 'jpeg', quality: 1},
-        html2canvas: { scale: 4,  logging: true },
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: { scale: 4, logging: true },
       };
       html2pdf(this.$refs.summary, opt);
     },
   },
   async created() {
-    //console.log(this.userAnswers);
-    const dbAnswers = await getDocument("quiz", this.activeQuiz);
-    this.quizTitle = dbAnswers.title;
-    dbAnswers.questions.forEach((question) => {
+    const dbAnswers = await getDocument("userAnswers", this.$route.params.id);
+    console.log(dbAnswers);
+    this.userAnswers = dbAnswers.answers;
+    this.quizTitle = dbAnswers.quiz.title;
+    this.points=dbAnswers.scorePoints;
+    this.maxPoints=dbAnswers.maxPoints;
+    this.scorePercent = dbAnswers.scorePercent;
+    dbAnswers.quiz.questions.forEach((question) => {
       question.answers.forEach((answer) => {
         if (answer.isTrue) {
           this.correctAnswers.push(answer.answer);
         }
       });
     });
-    console.log("Correct answers", this.correctAnswers);
+    // console.log("Correct answers", this.correctAnswers);
     // const userQuizData = {
     //   quizId: this.activeQuiz,
     //   userId: this.userData.uid,

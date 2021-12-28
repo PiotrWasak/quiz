@@ -86,8 +86,9 @@ export default {
           scorePercent: this.scorePercent,
           createdAt: Timestamp.now(),
         };
-        await addData("userAnswers", newQuizData);
-        await this.$router.replace("/quizSummary");
+        const id = await addData("userAnswers", newQuizData);
+        console.log(id);
+        await this.$router.replace(`/quizSummary/${id}`);
       }
     },
   },

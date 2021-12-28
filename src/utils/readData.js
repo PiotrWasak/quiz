@@ -12,7 +12,6 @@ export async function getData(path) {
   let dataArray = [];
   const querySnapshot = await getDocs(collection(db, path));
   querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
     const data = { id: doc.id, data: doc.data() };
     dataArray.push(data);
   });
@@ -36,8 +35,7 @@ export async function queryData(path, fieldPath, optStr, value){
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    dataArray.push(doc.data());
+    dataArray.push({ id: doc.id, data: doc.data() });
   });
-
   return dataArray;
 }

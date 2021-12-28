@@ -9,9 +9,9 @@
       :allowPaging="true"
     >
       <e-columns>
-        <e-column field="quiz.title" headerText="Quiz"></e-column>
-        <e-column field="scorePercent" headerText="Wynik %"></e-column>
-        <e-column field="createdAt" headerText="Data"></e-column>
+        <e-column field="data.quiz.title" headerText="Quiz"></e-column>
+        <e-column field="data.scorePercent" headerText="Wynik %"></e-column>
+        <e-column field="data.createdAt" headerText="Data"></e-column>
         <e-column headerText="" :commands="commands"></e-column>
       </e-columns>
     </ejs-grid>
@@ -47,7 +47,7 @@ export default {
     commandClick: function (args) {
       // event will be triggered when we click the command column button
       if (args.target.classList.contains("e-info")) {
-        // here you can perform the action as you want
+        console.log(args.rowData);
         //this.$router.push(`/quiz/${args.rowData.id}/1`);
       }
     },

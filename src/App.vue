@@ -13,6 +13,48 @@ import store from "./store";
   color: #ef4f10;
 }
 
+
+.e-grid {
+  border-color: #ef4f10;
+}
+
+.e-grid .e-toolbar-items {
+  border-top: 1px solid #ef4f10;
+}
+
+
+.e-grid .e-groupdroparea {
+  background-color: #ef4f10 !important;
+  color: #f8f9fa !important;
+}
+
+.e-grid .e-groupheadercell {
+  background-color: #f8f9fa !important;
+  color: #ef4f10 !important;
+}
+
+.e-grid .e-groupheadercell span {
+  color: #ef4f10 !important;
+}
+
+.e-grid .e-grouped {
+  background-color: #ef4f10;
+  color: #f8f9fa;
+}
+
+.e-grid .e-gridpager .e-currentitem {
+  background-color: #ef4f10;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #ef4f10;
+}
+
 @import "../node_modules/@syncfusion/ej2-vue-grids/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
