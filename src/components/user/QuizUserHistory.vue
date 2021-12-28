@@ -48,7 +48,7 @@ export default {
       // event will be triggered when we click the command column button
       if (args.target.classList.contains("e-info")) {
         console.log(args.rowData);
-        //this.$router.push(`/quiz/${args.rowData.id}/1`);
+        this.$router.push(`/quizSummary/${args.rowData.id}`);
       }
     },
   },
