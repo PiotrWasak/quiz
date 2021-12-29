@@ -284,9 +284,10 @@ export default {
         this.errorMsg === "auth/wrong-password"
       ) {
         return "Nieprawidłowe hasło";
+      } else if (this.errorMsg === "auth/popup-closed-by-user") {
+        return null;
       } else {
-        console.log(this.errorMsg);
-        return "";
+        return this.errorMsg;
       }
     },
   },
