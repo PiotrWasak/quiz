@@ -9,7 +9,7 @@
     :allowPaging="true"
     :allowGrouping="true"
     :groupSettings="groupOptions"
-    locale='pl-PL'
+    locale="pl-PL"
   >
     <e-columns>
       <e-column field="data.quiz.title" headerText="Quiz"></e-column>
@@ -19,11 +19,7 @@
     </e-columns>
   </ejs-grid>
   <div v-else>
-    <div class="d-flex justify-content-center mt-5">
-      <div class="spinner-border ext-secondary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
+    <base-spinner></base-spinner>
   </div>
 </template>
 
@@ -37,10 +33,12 @@ import {
   Group,
 } from "@syncfusion/ej2-vue-grids";
 import { getData, getDocument } from "@/utils/readData";
+import BaseSpinner from "../UI/BaseSpinner";
 
 Grid.Inject(Sort, Page, Toolbar, Search, Group);
 export default {
   name: "QuizRankingGrid",
+  components: { BaseSpinner },
   data() {
     return {
       rankingData: [],

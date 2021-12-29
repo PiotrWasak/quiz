@@ -7,27 +7,41 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faUserSecret,
-  faAppleAlt,
   faExclamationCircle,
   faPlusCircle,
   faMinusCircle,
   faEnvelope,
-  faFeatherAlt
+  faFeatherAlt,
+  faRocket,
+  faHistory,
+  faUsers,
+  faListAlt,
+  faUserTag,
+  faPlus,
+  faEdit,
+  faLightbulb,
+  faUserCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
-  faUserSecret,
-  faAppleAlt,
   faExclamationCircle,
   faPlusCircle,
   faMinusCircle,
   faGoogle,
   faFacebookF,
   faEnvelope,
-  faFeatherAlt
+  faFeatherAlt,
+  faRocket,
+  faHistory,
+  faUsers,
+  faListAlt,
+  faUserTag,
+  faPlus,
+  faEdit,
+  faLightbulb,
+  faUserCircle
 );
 
 import { initializeApp } from "firebase/app";

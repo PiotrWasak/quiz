@@ -1,7 +1,6 @@
 <template>
   <div class="container mt-5">
     User roles
-    <button @click="getUsersData" class="btn btn-primary">GET</button>
     <user-roles-item
       v-for="userData in usersData"
       :key="userData.id"

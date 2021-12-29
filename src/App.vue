@@ -32,7 +32,8 @@ import store from "./store";
   box-shadow: none !important;
 }
 
-.e-btn.e-warning, .e-css.e-btn.e-warning {
+.e-btn.e-warning,
+.e-css.e-btn.e-warning {
   background-color: #ef4f10;
   border-color: transparent;
   color: #fff;
@@ -82,6 +83,20 @@ h4,
 h5,
 h6 {
   color: #ef4f10;
+}
+
+.e-card-title {
+  color: #ef4f10 !important;
+}
+
+.spinner-container {
+  height: calc(100vh - 16em);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 @import "../node_modules/@syncfusion/ej2-vue-grids/styles/material.css";

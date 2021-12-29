@@ -1,10 +1,14 @@
 <template>
-  <div class="home-container container-fluid text-center pt-5">
+  <div class="home-container container-fluid text-center spinner-container">
     <div id="e-card-container">
       <div class="e-card">
         <div class="e-card-header">
           <div class="e-card-header-caption">
-            <div class="e-card-title"><h1>Quiz CRA</h1></div>
+            <div class="e-card-title">
+              <h1>
+                <font-awesome-icon icon="feather-alt"></font-awesome-icon> Quiz
+              </h1>
+            </div>
           </div>
         </div>
 
@@ -61,13 +65,15 @@
                 </ejs-button>
               </div>
             </div>
-            <button
-              class="btn btn-link"
+            <ejs-button
+              type="button"
+              class="mt-3"
+              cssClass="e-link e-flat"
               data-bs-toggle="modal"
               data-bs-target="#resetPasswordModal"
             >
               Zapomniałeś hasła? Zresetuj.
-            </button>
+            </ejs-button>
             <my-alert
               :msg="errorMsgAlert"
               v-if="errorMsgAlert"
@@ -147,16 +153,18 @@ import {
 } from "firebase/auth";
 import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../main";
-import RegisterModal from "../components/UI/RegisterModal.vue";
-import ResetPasswordModal from "../components/UI/ResetPasswordModal.vue";
+import RegisterModal from "../components/user/RegisterModal.vue";
+import ResetPasswordModal from "../components/user/ResetPasswordModal.vue";
 import useVuelidate from "@vuelidate/core";
 import { email, minLength, required } from "@vuelidate/validators";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "Home",
   components: { ResetPasswordModal, RegisterModal },
   setup() {
-    return { v$: useVuelidate() };
+    const toast = useToast();
+    return { v$: useVuelidate(), toast };
   },
   data() {
     return {
@@ -177,14 +185,15 @@ export default {
     };
   },
   methods: {
-    signInWithProvider(provider) {
+    async signInWithProvider(provider) {
       signInWithPopup(getAuth(), provider)
-        .then((result) => {
+        .then(async (result) => {
           this.$store.dispatch("SET_USER_DATA", result.user);
           // const credential = GoogleAuthProvider.credentialFromResult(result);
           // const token = credential.accessToken;
           this.errorMsg = null;
-          this.$router.push("/dashboard");
+          await this.checkRole();
+          await this.$router.push("/dashboard");
         })
         .catch((error) => {
           this.errorMsg = error.code;
@@ -212,12 +221,15 @@ export default {
         });
     },
     async logIn() {
+      const isFormCorrect = await this.v$.$validate();
+      if (!isFormCorrect) return;
       signInWithEmailAndPassword(getAuth(), this.login, this.password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           this.$store.dispatch("SET_USER_DATA", userCredential.user);
           this.errorMsg = null;
-          this.checkRole();
-          this.$router.push("/dashboard");
+          await this.checkRole();
+          await this.$router.push("/dashboard");
+          console.log("pushed");
         })
         .catch((error) => {
           this.errorMsg = error.code;
@@ -226,7 +238,7 @@ export default {
     sendResetPswdEmail(email) {
       sendPasswordResetEmail(getAuth(), email)
         .then(() => {
-          console.log("Email reset send");
+          this.toast.success("Link do resetu hasła został wysłany");
         })
         .catch((error) => {
           console.log(error.code);

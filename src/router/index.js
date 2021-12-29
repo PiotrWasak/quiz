@@ -12,6 +12,7 @@ import TakeQuiz from "@/views/user/TakeQuiz";
 import TakeQuizQuestion from "@/views/user/TakeQuizQuestion";
 import TakeQuizSummary from "@/views/user/TakeQuizSummary";
 import QuizRanking from "@/views/admin/QuizRanking";
+import store from "../store";
 
 const routes = [
   {
@@ -19,14 +20,13 @@ const routes = [
     name: "Home",
     component: Home,
     meta: { subtitle: "" },
-    beforeEnter: (to, from, next) => {
-      onAuthStateChanged(getAuth(), (user) => {
-        if (user) {
-          next("/dashboard");
-        } else {
-          next();
-        }
-      });
+    beforeEnter: (to, from) => {
+      const user = store.getters.userRole;
+      if (user) {
+        return "/dashboard";
+      } else {
+        return true;
+      }
     },
   },
   {
@@ -39,61 +39,58 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
-    meta: { subtitle: "Dashboard", requiresAuth: true },
+    meta: { subtitle: "Profil", requiresAuth: true },
   },
   {
     path: "/quizAdmin",
     name: "Quiz-admin",
     component: ManageQuizzes,
-    meta: { subtitle: "quizAdmin", requiresAuth: true },
+    meta: { subtitle: "Admin", requiresAdminRole: true },
   },
   {
     path: "/quizAdmin/:id",
     name: "QuizEdit",
     component: QuizEdit,
     props: true,
+    meta: { subtitle: "Edycja", requiresAdminRole: true },
   },
   {
     path: "/addQuiz",
     name: "AddQuiz",
     component: AddQuiz,
+    meta: { subtitle: "Dodawanie", requiresAdminRole: true },
   },
   {
     path: "/userRoles",
     name: "UserRoles",
     component: UserRoles,
+    meta: { subtitle: "Role", requiresAdminRole: true },
   },
   {
     path: "/quizSummary/:id",
     name: "QuizSummary",
     component: TakeQuizSummary,
     props: true,
+    meta: { subtitle: "Podsumowanie", requiresAuth: true },
   },
   {
     path: "/ranking",
     name: "QuizRanking",
     component: QuizRanking,
+    meta: { subtitle: "Ranking", requiresAdminRole: true },
   },
   {
     path: "/quiz/:id",
     name: "Quiz",
     component: TakeQuiz,
     props: true,
-    beforeRouteLeave(to, from) {
-      console.log(from);
-    },
-    beforeRouteEnter(to, from){
-      console.log(from);
-    },
+    meta: { subtitle: "Quiz", requiresAuth: true },
     children: [
       {
         path: ":questionIndex",
         name: "QuizQuestion",
         component: TakeQuizQuestion,
         props: true,
-        beforeRouteLeave(to, from) {
-          console.log(from);
-        },
       },
     ],
   },
@@ -109,19 +106,25 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  if (requiresAuth) {
-    onAuthStateChanged(getAuth(), (user) => {
-      // store.dispatch("SET_USER_DATA", user);
-      if (user) {
-        next();
-      } else {
-        next("/");
-      }
-    });
-  } else {
-    next();
+router.beforeEach(async (to, from) => {
+  if (to.meta.subtitle) {
+    document.title = `Quiz - ${to.meta.subtitle}`;
+  }
+
+  const user = store.getters.userRole;
+  if (to.meta.requiresAuth) {
+    if (user) {
+      return true;
+    } else {
+      return "/";
+    }
+  }
+  if (to.meta.requiresAdminRole) {
+    if (store.getters.userRole.role === "admin") {
+      return true;
+    } else {
+      return false;
+    }
   }
 });
 

@@ -22,19 +22,17 @@
       </e-columns>
     </ejs-grid>
     <div v-else>
-      <div class="d-flex justify-content-center mt-5">
-        <div class="spinner-border ext-secondary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
+      <base-spinner></base-spinner>
     </div>
 </template>
 
 <script>
 import { getData } from "@/utils/readData";
+import BaseSpinner from "../UI/BaseSpinner";
 
 export default {
   name: "QuizDashboard",
+  components: { BaseSpinner },
   data() {
     return {
       isDataLoaded: false,

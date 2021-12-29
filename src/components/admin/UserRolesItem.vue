@@ -39,7 +39,9 @@ export default {
   },
   methods: {
     async changeRole(e) {
+      console.log(this.user.data.uid);
       const userData = await getDocument("users", this.user.data.uid);
+      console.log(userData);
       const isSet = await setData("users", this.user.data.uid, {
         uid: userData.uid,
         eMail: userData.eMail,

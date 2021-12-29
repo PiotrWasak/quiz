@@ -7,20 +7,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
             <div class="row mt-4">
               <div class="col-2">
                 <label for="resetPasswordLogin" class="col-form-label">E-mail</label>
               </div>
               <div class="col-10">
-                <input v-model="inputEmail" class="e-input" type="email" id="resetPasswordLogin"/>
+                <input @keydown.enter="sendResetPasswordEmail" v-model="inputEmail" class="e-input" type="email" id="resetPasswordLogin"/>
               </div>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-          <button @click=sendResetPasswordEmail() type="button" class="btn btn-primary" data-bs-dismiss="modal">Zresetuj hasło</button>
+          <ejs-button type="button" cssClass="e-outline" data-bs-dismiss="modal">Zamknij</ejs-button>
+          <ejs-button @click=sendResetPasswordEmail() type="button" cssClass="e-primary" data-bs-dismiss="modal">Zresetuj hasło</ejs-button>
         </div>
       </div>
     </div>

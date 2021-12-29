@@ -28,11 +28,7 @@
       </e-columns>
     </ejs-grid>
     <div v-else>
-      <div class="d-flex justify-content-center mt-5">
-        <div class="spinner-border ext-secondary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
+      <base-spinner></base-spinner>
     </div>
   </div>
 </template>
@@ -48,9 +44,11 @@ import {
   Search,
   CommandColumn,
 } from "@syncfusion/ej2-vue-grids";
+import BaseSpinner from "../UI/BaseSpinner";
 Grid.Inject(Sort, Page, Toolbar, Search, CommandColumn);
 export default {
   name: "QuizList",
+  components: { BaseSpinner },
   data() {
     return {
       quizData: null,

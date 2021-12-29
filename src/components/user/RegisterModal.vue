@@ -92,11 +92,12 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { email, minLength, required } from "@vuelidate/validators";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "MyModal",
   setup() {
-    return { v$: useVuelidate() };
+    return { v$: useVuelidate({ $scope: false }) };
   },
   data() {
     return {

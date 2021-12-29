@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h3 class="text-center">Mój profil</h3>
+    <h3 class="text-center"><font-awesome-icon icon="user-circle"></font-awesome-icon> Mój profil</h3>
 
     <div class="row">
       <div class="col-sm-3">E-mail</div>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="mt-5">
-      <h4>Historia quizów:</h4>
+      <h4><font-awesome-icon icon="history"></font-awesome-icon> Historia quizów</h4>
       <quiz-user-history></quiz-user-history>
     </div>
   </div>
