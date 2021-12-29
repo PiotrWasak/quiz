@@ -7,11 +7,22 @@
     ></base-dialog>
     <h1>Edytuj quiz: {{ quizData.title }}</h1>
     <p id="text-id" class="text-muted">ID: {{ id }}</p>
-    <ejs-button @click="showDeleteDialog" type="submit" cssClass="e-danger">
+    <ejs-button
+      style="float: left"
+      @click="showDeleteDialog"
+      type="submit"
+      cssClass="e-primary e-outline"
+    >
       Usuń quiz
     </ejs-button>
 
-    <add-quiz-form v-if="quizData.questions.length>0" :edit-quiz-data="quizData" mode="edit"></add-quiz-form>
+    <export-quiz v-if="id" :document-id="id"></export-quiz>
+
+    <add-quiz-form
+      v-if="quizData.questions.length > 0"
+      :edit-quiz-data="quizData"
+      mode="edit"
+    ></add-quiz-form>
   </div>
 </template>
 
@@ -22,9 +33,10 @@ import { deleteDocument } from "@/utils/setData";
 import AddQuizForm from "@/components/admin/AddQuizForm";
 import BaseDialog from "@/components/UI/BaseDialog";
 import { useToast } from "vue-toastification";
+import ExportQuiz from "@/components/admin/ExportQuiz";
 export default {
   name: "QuizEdit",
-  components: { BaseDialog, AddQuizForm },
+  components: { ExportQuiz, BaseDialog, AddQuizForm },
   setup() {
     const toast = useToast();
     return { toast };

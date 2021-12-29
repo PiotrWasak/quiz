@@ -11,10 +11,10 @@ import {
   Edit,
   CommandColumn,
 } from "@syncfusion/ej2-vue-grids";
-import { L10n, setCulture } from '@syncfusion/ej2-base';
-import { locale } from './components/Syncfusion/pl.json';
+import { L10n, setCulture } from "@syncfusion/ej2-base";
+import { locale } from "./components/Syncfusion/pl.json";
 L10n.load(locale);
-setCulture('pl');
+setCulture("pl");
 
 Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit, CommandColumn);
 </script>
@@ -38,6 +38,9 @@ Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit, CommandColumn);
 }
 
 .e-btn.e-primary {
+  background-color: #ef4f10;
+}
+.e-btn.e-primary:focus {
   background-color: #ef4f10;
 }
 

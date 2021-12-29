@@ -301,9 +301,6 @@ export default {
 </script>
 
 <style scoped>
-.svg-inline--fa {
-}
-
 #google-btn {
   color: #676767;
   background-color: white;
@@ -320,11 +317,18 @@ button {
 
 .home-container {
   height: 100vh;
-  background-color: #d9afd9;
-  background-image: linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
+  background-image: linear-gradient(0deg, #ff9d76 0%, #ffffff 100%);
 }
-#e-card-container {
-  width: 50%;
-  margin: 50px auto;
+
+
+@media only screen and (min-width: 1300px) {
+  #e-card-container {
+    width: 50%;
+    margin: 50px auto;
+  }
+  .e-card {
+    border-radius: 15% 85% 71% 29% / 48% 56% 44% 52% ;
+    padding: 100px 125px;
+  }
 }
 </style>

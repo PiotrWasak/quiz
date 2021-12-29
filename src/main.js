@@ -20,7 +20,8 @@ import {
   faPlus,
   faEdit,
   faLightbulb,
-  faUserCircle
+  faUserCircle,
+  faFileImport,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -41,7 +42,8 @@ library.add(
   faPlus,
   faEdit,
   faLightbulb,
-  faUserCircle
+  faUserCircle,
+  faFileImport
 );
 
 import { initializeApp } from "firebase/app";
@@ -59,7 +61,7 @@ import {
   ToastComponent,
   ToastCloseArgs,
 } from "@syncfusion/ej2-vue-notifications";
-import { TextBoxComponent } from "@syncfusion/ej2-vue-inputs";
+import { TextBoxComponent, UploaderComponent } from "@syncfusion/ej2-vue-inputs";
 import { ButtonComponent } from "@syncfusion/ej2-vue-buttons";
 import {
   AccordionComponent,
@@ -67,7 +69,11 @@ import {
   AccordionItemsDirective,
 } from "@syncfusion/ej2-vue-navigations";
 import { CheckBoxComponent } from "@syncfusion/ej2-vue-buttons";
-import { GridComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-vue-grids';
+import {
+  GridComponent,
+  ColumnsDirective,
+  ColumnDirective,
+} from "@syncfusion/ej2-vue-grids";
 import { DialogComponent } from "@syncfusion/ej2-vue-popups";
 
 import Toast from "vue-toastification";
@@ -91,8 +97,9 @@ app.component("ejs-accordion", AccordionComponent);
 app.component("e-accordionitems", AccordionItemsDirective);
 app.component("e-accordionitem", AccordionItemDirective);
 app.component("ejs-checkbox", CheckBoxComponent);
-app.component('ejs-grid', GridComponent);
-app.component('e-columns', ColumnsDirective);
-app.component('e-column', ColumnDirective);
-app.component('ejs-dialog', DialogComponent)
+app.component("ejs-grid", GridComponent);
+app.component("e-columns", ColumnsDirective);
+app.component("e-column", ColumnDirective);
+app.component("ejs-dialog", DialogComponent);
+app.component('ejs-uploader', UploaderComponent);
 app.mount("#app");

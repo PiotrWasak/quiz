@@ -32,12 +32,13 @@ export default {
       quizData: {},
       numberOfPoints: 0,
       confirmLeave: false,
+      to: null,
     };
   },
   methods: {
     leaveRoute() {
       this.confirmLeave = true;
-
+      this.$router.push(this.to);
     },
   },
   async created() {
@@ -51,16 +52,23 @@ export default {
     this.$store.dispatch("SET_MAX_POINTS", maxPoints);
   },
   beforeRouteLeave(to, from) {
-    // this.$refs.leaveQuizDialog.showDialog();
-    // if (!this.confirmLeave) return false;
-    const answer = window.confirm('Czy opuścić quiz?')
-    if (!answer) return false
+    this.$refs.leaveQuizDialog.showDialog();
+    this.to = to;
+    if (!this.confirmLeave) return false;
+    // const answer = window.confirm('Czy opuścić quiz?')
+    // if (!answer) return false
   },
 };
 </script>
 
 <style scoped>
 .card-container {
-  margin-top: 10vh;
+  height: calc(100vh - 16em);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 </style>

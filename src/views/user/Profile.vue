@@ -1,22 +1,40 @@
 <template>
   <div class="container mt-5">
-    <h3 class="text-center"><font-awesome-icon icon="user-circle"></font-awesome-icon> Mój profil</h3>
-
-    <div class="row">
-      <div class="col-sm-3">E-mail</div>
-      <div class="col-sm-4">
-        {{ userData.email }}
+    <div class="card-container">
+      <div tabindex="0" class="e-card" id="basic">
+        <div class="e-card-header">
+          <div class="e-card-header-caption">
+            <div class="e-card-title">ID</div>
+            <h3 class="text-center">
+              <font-awesome-icon icon="user-circle"></font-awesome-icon> Mój
+              profil
+            </h3>
+          </div>
+        </div>
+        <div class="e-card-content text-center">
+          <p>{{ userData.email }}</p>
+          <p v-if="userRole === 'admin'">Administrator</p>
+          {{ emailVerifyText }}
+          <ejs-button
+            v-if="!userData.emailVerified"
+            cssClass="e-primary"
+            @click="sendVerifyEmail"
+            >Zweryfikuj e-mail</ejs-button
+          >
+        </div>
       </div>
-      <div class="col-sm-3">{{ emailVerifyText }}</div>
-      <div class="col-sm-2" v-if="!userData.emailVerified">
-        <ejs-button cssClass="e-primary" @click="sendVerifyEmail"
-          >Zweryfikuj e-mail</ejs-button
+    </div>
+    <div class="text-center mt-5 row">
+      <div class="col-12">
+        <ejs-button @click="showHistory" cssClass="e-primary"
+          >{{ toggleHistoryText }} historie</ejs-button
         >
       </div>
     </div>
-
-    <div class="mt-5">
-      <h4><font-awesome-icon icon="history"></font-awesome-icon> Historia quizów</h4>
+    <div v-if="isHistoryVisible" class="mt-5">
+      <h4>
+        <font-awesome-icon icon="history"></font-awesome-icon> Historia quizów
+      </h4>
       <quiz-user-history></quiz-user-history>
     </div>
   </div>
@@ -42,9 +60,14 @@ export default {
   data() {
     return {
       userData: {},
+      isHistoryVisible: false,
     };
   },
   computed: {
+    toggleHistoryText() {
+      if (this.isHistoryVisible) return "Ukryj";
+      else return "Pokaż";
+    },
     emailVerifyText() {
       if (this.userData.emailVerified) {
         return "Twój e-mail jest zweryfikowany";
@@ -52,8 +75,14 @@ export default {
         return "Zweryfikuj swój e-mail";
       }
     },
+    userRole() {
+      return this.$store.getters.userRole.role;
+    },
   },
   methods: {
+    showHistory() {
+      this.isHistoryVisible = !this.isHistoryVisible;
+    },
     sendVerifyEmail() {
       sendEmailVerification(getAuth().currentUser)
         .then(() => {
@@ -85,4 +114,16 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.card-container {
+  width: 50%;
+}
+</style>
