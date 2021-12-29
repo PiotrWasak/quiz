@@ -13,7 +13,6 @@ import store from "./store";
   color: #ef4f10;
 }
 
-
 .e-grid {
   border-color: #ef4f10;
 }
@@ -22,6 +21,36 @@ import store from "./store";
   border-top: 1px solid #ef4f10;
 }
 
+.e-btn.e-primary {
+  background-color: #ef4f10;
+}
+
+.e-btn.e-primary:hover {
+  background-color: transparent;
+  border-color: #ef4f10;
+  color: #ef4f10;
+  box-shadow: none !important;
+}
+
+.e-btn.e-warning, .e-css.e-btn.e-warning {
+  background-color: #ef4f10;
+  border-color: transparent;
+  color: #fff;
+}
+
+.e-btn.e-outline.e-primary,
+.e-css.e-btn.e-outline.e-primary {
+  background-color: transparent;
+  border-color: #ef4f10;
+  color: #ef4f10;
+}
+
+.e-btn.e-outline.e-primary:hover,
+.e-css.e-btn.e-outline.e-primary:hover {
+  background-color: #ef4f10;
+  border-color: transparent;
+  color: #fff;
+}
 
 .e-grid .e-groupdroparea {
   background-color: #ef4f10 !important;

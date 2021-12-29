@@ -13,6 +13,7 @@ import {
   faPlusCircle,
   faMinusCircle,
   faEnvelope,
+  faFeatherAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -25,7 +26,8 @@ library.add(
   faMinusCircle,
   faGoogle,
   faFacebookF,
-  faEnvelope
+  faEnvelope,
+  faFeatherAlt
 );
 
 import { initializeApp } from "firebase/app";

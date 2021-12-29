@@ -1,7 +1,10 @@
 <template>
-  <div v-if="userData" class="container mt-5">Cześć {{ userData.email }} !</div>
-
-  <quiz-dashboard class="mt-5"></quiz-dashboard>
+  <div
+    class="container grid-container"
+  >
+    <h3 class="text-center">Rozpocznij quiz</h3>
+    <quiz-dashboard class="mt-5"></quiz-dashboard>
+  </div>
 </template>
 
 <script>
@@ -17,4 +20,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.grid-container {
+  height: calc(100vh - 14em);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+</style>

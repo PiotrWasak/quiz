@@ -1,5 +1,4 @@
 <template>
-  <div class="container">
     <ejs-grid
       v-if="isDataLoaded"
       :dataSource="quizData"
@@ -7,6 +6,7 @@
       :allowSorting="true"
       :toolbar="toolbarOptions"
       :allowPaging="true"
+      :enableAdaptiveUI="true"
     >
       <e-columns>
         <e-column field="data.title" headerText="Tytuł"></e-column>
@@ -28,7 +28,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -42,7 +41,7 @@ export default {
       quizData: null,
       commands: [
         {
-          buttonOption: { content: "Rozpocznij", cssClass: "e-success" },
+          buttonOption: { content: "Rozpocznij", cssClass: "e-primary" },
         }, // bind the button here
       ],
       toolbarOptions: ["Search", "Print"],
@@ -52,7 +51,7 @@ export default {
   methods: {
     commandClick: function (args) {
       // event will be triggered when we click the command column button
-      if (args.target.classList.contains("e-success")) {
+      if (args.target.classList.contains("e-primary")) {
         // here you can perform the action as you want
         this.$router.push(`/quiz/${args.rowData.id}/1`);
       }

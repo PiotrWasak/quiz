@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h3>Mój profil</h3>
+    <h3 class="text-center">Mój profil</h3>
 
     <div class="row">
       <div class="col-sm-3">E-mail</div>

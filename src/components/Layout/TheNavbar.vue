@@ -1,7 +1,9 @@
 <template>
   <nav v-if="userRole" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <router-link to="/dashboard" class="navbar-brand"> QUIZ </router-link>
+      <router-link to="/dashboard" class="navbar-brand">
+        <font-awesome-icon icon="feather-alt"></font-awesome-icon> QUIZ
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -66,6 +68,7 @@
     content="Czy na pewno chcesz się wylogować?"
     @confirm="logout"
   ></base-dialog>
+  <small v-if="userData" class="text-muted">Witaj {{ userData.email }}</small>
 </template>
 
 <script>
@@ -95,7 +98,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["userRole"]),
+    ...mapGetters(["userRole", "userData"]),
   },
 };
 </script>
@@ -107,7 +110,7 @@ a {
 a:hover {
   color: #ef4f10 !important;
 }
-a:active{
+a:active {
   color: #9a0a00 !important;
   background-color: #e3e0e0;
 }
@@ -118,5 +121,10 @@ a:active{
   background-color: #000000;
   opacity: 0.3;
   filter: alpha(opacity=30);
+}
+small {
+  position: absolute;
+  right: 10px;
+  color: #afafaf !important;
 }
 </style>

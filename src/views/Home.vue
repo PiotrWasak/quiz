@@ -56,7 +56,7 @@
             </div>
             <div class="row mt-4">
               <div class="col-auto mx-auto">
-                <ejs-button @click="logIn" type="submit" cssClass="e-success">
+                <ejs-button @click="logIn" type="submit" cssClass="e-primary">
                   Zaloguj
                 </ejs-button>
               </div>
@@ -69,8 +69,8 @@
               Zapomniałeś hasła? Zresetuj.
             </button>
             <my-alert
-              :msg="errorMsg"
-              v-if="errorMsg"
+              :msg="errorMsgAlert"
+              v-if="errorMsgAlert"
               v-on:close-alert="closeAlert"
             ></my-alert>
             <hr />
@@ -80,7 +80,7 @@
                   id="google-btn"
                   type="button"
                   @click="signInWithProvider(googleProvider)"
-                  cssClass="e-primary"
+                  cssClass=""
                   class="mt-3"
                 >
                   <font-awesome-icon
@@ -96,7 +96,7 @@
                 <ejs-button
                   id="facebook-btn"
                   @click="signInWithProvider(facebookProvider)"
-                  cssClass="e-primary"
+                  cssClass=""
                   class="mt-3"
                   type="button"
                 >
@@ -112,7 +112,7 @@
               <div class="col-auto mx-auto">
                 <ejs-button
                   type="button"
-                  cssClass="e-primary"
+                  cssClass="e-outline e-primary"
                   class="mt-3"
                   data-bs-toggle="modal"
                   data-bs-target="#myModal"
@@ -261,6 +261,21 @@ export default {
     },
     isFormValid() {
       return !this.v$.$invalid;
+    },
+    errorMsgAlert() {
+      if (this.errorMsg === "auth/invalid-email") {
+        return "Brak użytkownika o podanym adresie e-mail";
+      } else if (this.errorMsg === "auth/email-already-in-use") {
+        return "Istnieje już użytkownik o podanym adresie e-mail";
+      } else if (
+        this.errorMsg === "auth/invalid-password" ||
+        this.errorMsg === "auth/wrong-password"
+      ) {
+        return "Nieprawidłowe hasło";
+      } else {
+        console.log(this.errorMsg);
+        return "";
+      }
     },
   },
   updated() {
