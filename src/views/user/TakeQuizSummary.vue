@@ -78,8 +78,8 @@ export default {
     console.log(dbAnswers);
     this.userAnswers = dbAnswers.answers;
     this.quizTitle = dbAnswers.quiz.title;
-    this.points=dbAnswers.scorePoints;
-    this.maxPoints=dbAnswers.maxPoints;
+    this.points = dbAnswers.scorePoints;
+    this.maxPoints = dbAnswers.maxPoints;
     this.scorePercent = dbAnswers.scorePercent;
     dbAnswers.quiz.questions.forEach((question) => {
       question.answers.forEach((answer) => {

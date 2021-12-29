@@ -1,27 +1,27 @@
 <template>
-    <ejs-grid
-      v-if="isDataLoaded"
-      :dataSource="quizData"
-      :commandClick="commandClick"
-      :allowSorting="true"
-      :toolbar="toolbarOptions"
-    >
-      <e-columns>
-        <e-column field="data.title" headerText="Tytuł"></e-column>
-        <e-column
-          field="data.questions.length"
-          headerText="Ilość pytań"
-        ></e-column>
-        <e-column
-          field="data.updatedAt"
-          headerText="Data aktualizacji"
-        ></e-column>
-        <e-column headerText="" :commands="commands"></e-column>
-      </e-columns>
-    </ejs-grid>
-    <div v-else>
-      <base-spinner></base-spinner>
-    </div>
+  <ejs-grid
+    v-if="isDataLoaded"
+    :dataSource="quizData"
+    :commandClick="commandClick"
+    :allowSorting="true"
+    :toolbar="toolbarOptions"
+  >
+    <e-columns>
+      <e-column field="data.title" headerText="Tytuł"></e-column>
+      <e-column
+        field="data.questions.length"
+        headerText="Ilość pytań"
+      ></e-column>
+      <e-column
+        field="data.updatedAt"
+        headerText="Data aktualizacji"
+      ></e-column>
+      <e-column headerText="" :commands="commands"></e-column>
+    </e-columns>
+  </ejs-grid>
+  <div v-else>
+    <base-spinner></base-spinner>
+  </div>
 </template>
 
 <script>

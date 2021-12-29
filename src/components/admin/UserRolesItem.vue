@@ -50,7 +50,7 @@ export default {
       if (isSet) {
         this.toast.success(`Zaktualizowano rolę użytkownika ${userData.eMail}`);
       } else {
-        this.toast.error("Wystąpił błąd przy próbie zmiany roli")
+        this.toast.error("Wystąpił błąd przy próbie zmiany roli");
       }
     },
   },

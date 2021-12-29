@@ -46,7 +46,7 @@
           name="isTrue"
         ></ejs-checkbox>
         <textarea
-          v-model="formData.answers[index-1].answer"
+          v-model="formData.answers[index - 1].answer"
           class="e-input"
           :aria-label="index"
           :placeholder="index"
@@ -88,7 +88,7 @@ export default {
     addAnswer() {
       if (this.numberOfAnswers < 8) {
         this.numberOfAnswers++;
-        this.formData.answers.push({answer: null, isTrue: null});
+        this.formData.answers.push({ answer: null, isTrue: null });
       }
     },
     removeAnswer() {
@@ -108,9 +108,9 @@ export default {
       console.log("Answers local", this.formData.answers);
       console.log("Answers props", this.editQuestionData.answers);
       this.formData.question = this.editQuestionData.question;
-    } else{
+    } else {
       for (let i = 0; i < this.numberOfAnswers; i++) {
-        this.formData.answers[i] = {answer: null, isTrue: null};
+        this.formData.answers[i] = { answer: null, isTrue: null };
       }
     }
   },

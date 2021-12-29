@@ -21,7 +21,7 @@ export default {
     getFile() {
       const selectedFile = document.getElementById("input").files[0];
       console.log(selectedFile);
-      const json = URL.cr
+      const json = URL.cr;
     },
   },
 };

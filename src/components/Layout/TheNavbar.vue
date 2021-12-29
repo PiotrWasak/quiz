@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="userRole" class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav v-if="userRole" class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
       <router-link to="/dashboard" class="navbar-brand">
         <font-awesome-icon icon="feather-alt"></font-awesome-icon> QUIZ

@@ -24,8 +24,8 @@ export default {
   methods: {
     isCorrectCheckboxClick() {
       console.log(this.$refs.isCorrectCheckbox.checked);
-    }
-  }
+    },
+  },
 };
 </script>
 

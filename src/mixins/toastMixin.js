@@ -5,4 +5,4 @@ export const toastMixin = {
     const toast = useToast();
     return { toast };
   },
-}
+};

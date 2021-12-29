@@ -28,7 +28,7 @@ export async function getDocument(path, pathSegments) {
   }
 }
 
-export async function queryData(path, fieldPath, optStr, value){
+export async function queryData(path, fieldPath, optStr, value) {
   let dataArray = [];
   const q = query(collection(db, path), where(fieldPath, optStr, value));
 

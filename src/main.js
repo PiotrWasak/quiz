@@ -61,7 +61,10 @@ import {
   ToastComponent,
   ToastCloseArgs,
 } from "@syncfusion/ej2-vue-notifications";
-import { TextBoxComponent, UploaderComponent } from "@syncfusion/ej2-vue-inputs";
+import {
+  TextBoxComponent,
+  UploaderComponent,
+} from "@syncfusion/ej2-vue-inputs";
 import { ButtonComponent } from "@syncfusion/ej2-vue-buttons";
 import {
   AccordionComponent,
@@ -101,5 +104,5 @@ app.component("ejs-grid", GridComponent);
 app.component("e-columns", ColumnsDirective);
 app.component("e-column", ColumnDirective);
 app.component("ejs-dialog", DialogComponent);
-app.component('ejs-uploader', UploaderComponent);
+app.component("ejs-uploader", UploaderComponent);
 app.mount("#app");

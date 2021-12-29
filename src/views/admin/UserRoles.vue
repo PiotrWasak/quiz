@@ -1,6 +1,8 @@
 <template>
   <div class="container mt-5">
-    <h4 class="text-center"><font-awesome-icon icon="user-tag"></font-awesome-icon> Role użytkowników</h4>
+    <h4 class="text-center">
+      <font-awesome-icon icon="user-tag"></font-awesome-icon> Role użytkowników
+    </h4>
     <user-roles-grid></user-roles-grid>
     <user-roles-item
       v-for="userData in usersData"

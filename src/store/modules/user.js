@@ -1,7 +1,7 @@
 export default {
   state: {
-    userData:null,
-    userRole:null,
+    userData: null,
+    userRole: null,
   },
   mutations: {
     STATE_SET_USER_DATA(state, payload) {

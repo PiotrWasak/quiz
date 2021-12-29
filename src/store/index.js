@@ -9,7 +9,7 @@ export default createStore({
   actions: {},
   modules: {
     user,
-    quiz
+    quiz,
   },
   plugins: [new VuexPersistence().plugin],
 });

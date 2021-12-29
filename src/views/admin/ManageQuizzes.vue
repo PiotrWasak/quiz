@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style scoped>
-button{
+button {
   margin: 10px;
 }
 </style>

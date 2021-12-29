@@ -1,10 +1,18 @@
 <template>
-  <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show mt-3" role="alert">
+  <div
+    class="alert alert-danger d-flex align-items-center alert-dismissible fade show mt-3"
+    role="alert"
+  >
     <font-awesome-icon icon="exclamation-circle"></font-awesome-icon>
     <div class="base-msg">
-      {{msg}}
+      {{ msg }}
     </div>
-    <button type="button" class="btn-close" @click="closeAlert" aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close"
+      @click="closeAlert"
+      aria-label="Close"
+    ></button>
   </div>
 </template>
 
@@ -15,15 +23,15 @@ export default {
     msg: {
       type: String,
       required: true,
-    }
+    },
   },
-  emits: ['close-alert'],
+  emits: ["close-alert"],
   methods: {
     closeAlert() {
-      this.$emit('close-alert');
-    }
-  }
-}
+      this.$emit("close-alert");
+    },
+  },
+};
 </script>
 
 <style scoped>

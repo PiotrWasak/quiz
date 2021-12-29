@@ -12,7 +12,12 @@
   >
     <e-columns>
       <e-column field="data.eMail" headerText="E-mail"></e-column>
-      <e-column field="data.role" headerText="Rola" editType= 'dropdownedit' :edit='dropdownParams'></e-column>
+      <e-column
+        field="data.role"
+        headerText="Rola"
+        editType="dropdownedit"
+        :edit="dropdownParams"
+      ></e-column>
     </e-columns>
   </ejs-grid>
   <div v-else>
@@ -33,7 +38,7 @@ export default {
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print", "Edit"],
       editSettings: { allowEditing: true },
-      dropdownParams: { params: { value: 'user' } },
+      dropdownParams: { params: { value: "user" } },
     };
   },
   async created() {

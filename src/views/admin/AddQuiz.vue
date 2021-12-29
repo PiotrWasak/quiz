@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
-  <h3>Dodaj quiz</h3>
-  <add-quiz-form mode="add"></add-quiz-form>
+    <h3>Dodaj quiz</h3>
+    <add-quiz-form mode="add"></add-quiz-form>
   </div>
 </template>
 
