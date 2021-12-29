@@ -1,6 +1,21 @@
 <script setup>
 import TheNavbar from "./components/Layout/TheNavbar.vue";
 import store from "./store";
+import {
+  Grid,
+  Page,
+  Search,
+  Sort,
+  Toolbar,
+  Group,
+  Edit,
+} from "@syncfusion/ej2-vue-grids";
+import { L10n, setCulture } from '@syncfusion/ej2-base';
+import { locale } from './components/Syncfusion/pl.json';
+L10n.load(locale);
+setCulture('pl');
+
+Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit);
 </script>
 
 <template>

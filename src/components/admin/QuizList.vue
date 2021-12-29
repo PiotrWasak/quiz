@@ -34,18 +34,8 @@
 </template>
 
 <script>
-import QuizListItem from "@/components/admin/QuizListItem";
 import { getData } from "@/utils/readData";
-import {
-  Sort,
-  Grid,
-  Page,
-  Toolbar,
-  Search,
-  CommandColumn,
-} from "@syncfusion/ej2-vue-grids";
 import BaseSpinner from "../UI/BaseSpinner";
-Grid.Inject(Sort, Page, Toolbar, Search, CommandColumn);
 export default {
   name: "QuizList",
   components: { BaseSpinner },

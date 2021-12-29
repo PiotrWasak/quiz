@@ -34,7 +34,7 @@ export default {
       quizData: null,
       commands: [
         {
-          buttonOption: { content: "Szczegóły", cssClass: "e-info" },
+          buttonOption: { content: "Szczegóły", cssClass: "e-warning" },
         }, // bind the button here
       ],
       toolbarOptions: ["Search", "Print"],
@@ -44,7 +44,7 @@ export default {
   methods: {
     commandClick: function (args) {
       // event will be triggered when we click the command column button
-      if (args.target.classList.contains("e-info")) {
+      if (args.target.classList.contains("e-warning")) {
         console.log(args.rowData);
         this.$router.push(`/quizSummary/${args.rowData.id}`);
       }

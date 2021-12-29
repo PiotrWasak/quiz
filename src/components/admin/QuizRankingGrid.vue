@@ -9,7 +9,7 @@
     :allowPaging="true"
     :allowGrouping="true"
     :groupSettings="groupOptions"
-    locale="pl-PL"
+    locale="pl"
   >
     <e-columns>
       <e-column field="data.quiz.title" headerText="Quiz"></e-column>
@@ -24,18 +24,8 @@
 </template>
 
 <script>
-import {
-  Grid,
-  Page,
-  Search,
-  Sort,
-  Toolbar,
-  Group,
-} from "@syncfusion/ej2-vue-grids";
 import { getData, getDocument } from "@/utils/readData";
 import BaseSpinner from "../UI/BaseSpinner";
-
-Grid.Inject(Sort, Page, Toolbar, Search, Group);
 export default {
   name: "QuizRankingGrid",
   components: { BaseSpinner },
@@ -56,17 +46,6 @@ export default {
   async created() {
     this.rankingData = await getData("userAnswers");
     console.log(this.rankingData);
-    // for (const answer of userAnswers) {
-    //   const quiz = await getDocument("quiz", answer.data.quizId);
-    //   const user = await getDocument("users", answer.data.userId);
-    //   const newRankingDataObj = {
-    //     quiz: quiz.title,
-    //     user: user.eMail,
-    //     scorePercent: answer.data.scorePercent,
-    //     createdAt: answer.data.createdAt,
-    //   };
-    //   this.rankingData.push(newRankingDataObj);
-    // }
     this.isDataLoaded = true;
   },
 };

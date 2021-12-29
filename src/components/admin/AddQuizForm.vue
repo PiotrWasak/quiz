@@ -133,10 +133,10 @@ export default {
       } else {
         status = await setData("quiz", this.$route.params.id, quizData);
       }
-      if (status === "success") {
+      if (status) {
         this.toast.success("Pomyślnie zapisano quiz");
         await this.$router.replace("/quizAdmin");
-      } else if (status === "error") {
+      } else {
         this.toast.error("Wystąpił błąd");
       }
     },

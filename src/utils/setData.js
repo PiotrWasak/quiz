@@ -1,17 +1,6 @@
 import { doc, setDoc, addDoc, collection, deleteDoc } from "firebase/firestore";
 import { db } from "@/main";
 
-// export async function setData(path, pathSegments, data) {
-//   const isTrue = await setDoc(doc(db, path, pathSegments), data)
-//     .then(() => {
-//       return "success";
-//     })
-//     .catch(() => {
-//       return "error";
-//     });
-//   return '';
-// }
-
 export async function setData(path, pathSegments, data) {
   try {
     await setDoc(doc(db, path, pathSegments), data);
