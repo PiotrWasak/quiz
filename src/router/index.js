@@ -85,9 +85,6 @@ const routes = [
     component: TakeQuiz,
     props: true,
     meta: { subtitle: "Quiz", requiresAuth: true },
-    beforeUnmount: (to, from) => {
-      console.log("Take quiz before");
-    },
     children: [
       {
         path: ":questionIndex",
