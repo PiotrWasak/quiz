@@ -1,7 +1,7 @@
 <template>
   <ejs-grid
     v-if="isDataLoaded"
-    ref="rankingGrid"
+    ref="userRolesGrid"
     :dataSource="usersData"
     :allowSorting="true"
     :toolbar="toolbarOptions"

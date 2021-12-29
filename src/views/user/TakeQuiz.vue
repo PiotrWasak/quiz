@@ -19,6 +19,7 @@
 <script>
 import { getDocument } from "@/utils/readData";
 import TakeQuizQuestion from "@/views/user/TakeQuizQuestion";
+import BaseDialog from "../../components/UI/BaseDialog";
 
 export default {
   name: "TakeQuiz",
@@ -35,11 +36,11 @@ export default {
     this.quizData.questions.forEach(question => {
       maxPoints += +question.weight;
     })
-    console.log(maxPoints);
     this.$store.dispatch("RESET_QUIZ");
     this.$store.dispatch("SET_ACTIVE_QUIZ", this.id);
     this.$store.dispatch("SET_MAX_POINTS", maxPoints);
   },
+
 };
 </script>
 

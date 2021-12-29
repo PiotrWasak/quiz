@@ -9,13 +9,14 @@ import {
   Toolbar,
   Group,
   Edit,
+  CommandColumn,
 } from "@syncfusion/ej2-vue-grids";
 import { L10n, setCulture } from '@syncfusion/ej2-base';
 import { locale } from './components/Syncfusion/pl.json';
 L10n.load(locale);
 setCulture('pl');
 
-Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit);
+Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit, CommandColumn);
 </script>
 
 <template>

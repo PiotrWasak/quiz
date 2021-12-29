@@ -5,8 +5,6 @@
       :commandClick="commandClick"
       :allowSorting="true"
       :toolbar="toolbarOptions"
-      :allowPaging="true"
-      :enableAdaptiveUI="true"
     >
       <e-columns>
         <e-column field="data.title" headerText="Tytuł"></e-column>
@@ -57,6 +55,7 @@ export default {
   },
   async created() {
     this.quizData = await getData("quiz");
+    console.log("Quiz Data", this.quizData);
     this.isDataLoaded = true;
   },
 };
