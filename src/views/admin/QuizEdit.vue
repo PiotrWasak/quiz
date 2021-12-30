@@ -75,4 +75,7 @@ export default {
 #text-id {
   font-size: 0.8em;
 }
+button{
+  margin: 10px;
+}
 </style>

@@ -1,30 +1,83 @@
 <template>
-  <!--  <ejs-uploader ref="uploadObj" id='defaultfileupload' name="UploadFiles"></ejs-uploader>-->
-
-  <!--  <ejs-button @click="importQuiz" cssClass="e-primary e-outline"-->
-  <!--  ><font-awesome-icon icon="file-import"></font-awesome-icon> Importuj-->
-  <!--    quiz</ejs-button-->
-  <!--  >-->
-  <input type="file" id="input" multiple />
-  <button @click="getFile">Get</button>
+  <label for="files" class="custom-file-upload">
+    <font-awesome-icon icon="file-import"></font-awesome-icon> Import
+  </label>
+  <input
+    class="btn btn-primary"
+    @change="handleFileSelect"
+    type="file"
+    id="files"
+    name="files[]"
+    multiple
+  />
 </template>
 
 <script>
 import { addData } from "@/utils/setData";
-
+import { useToast } from "vue-toastification";
+import { Timestamp } from "firebase/firestore";
 export default {
   name: "ImportQuiz",
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
+  data() {
+    return {
+      uploadedJson: null,
+    };
+  },
   methods: {
-    importQuiz() {
-      // addData("quiz", )
+    async importQuiz(data) {
+      const docRef = await addData("quiz", data);
+      if (docRef) {
+        this.toast.success("Zaimportowano quiz");
+      } else{
+        this.toast.error("Błąd podczas importowania pliku");
+      }
     },
-    getFile() {
-      const selectedFile = document.getElementById("input").files[0];
-      console.log(selectedFile);
-      const json = URL.cr;
+    handleFileSelect(evt) {
+      let json;
+      const files = evt.target.files; // FileList object
+      // files is a FileList of File objects. List some properties.
+      const output = [];
+      for (let i = 0, f; (f = files[i]); i++) {
+        const reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = ((theFile) => {
+          return (e) => {
+            try {
+              json = JSON.parse(e.target.result);
+              json.createdAt = Timestamp.now();
+              json.updatedAt = Timestamp.now();
+              this.importQuiz(json);
+            } catch (ex) {
+              this.toast.error("Błąd podczas przetwarzania pliku");
+            }
+          };
+        })(f);
+        reader.readAsText(f);
+      }
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  display: inline-block;
+  float: right;
+  background-color: transparent;
+  color: #ef4f10;
+  border-radius: 2px;
+  padding: 2px;
+  cursor: pointer;
+}
+.custom-file-upload:hover {
+  color: #ec6e3f;
+}
+</style>

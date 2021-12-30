@@ -1,9 +1,7 @@
 <template>
-  <div>
     <ejs-button @click="exportToJsonFile" cssClass="e-primary"
       >Eksport do JSON</ejs-button
     >
-  </div>
 </template>
 
 <script>

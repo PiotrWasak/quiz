@@ -4,6 +4,7 @@
       ><font-awesome-icon icon="plus"></font-awesome-icon> Dodaj
       quiz</ejs-button
     >
+    <import-quiz></import-quiz>
     <h3 class="text-center">
       <font-awesome-icon icon="list-alt"></font-awesome-icon> Lista quizów
     </h3>
@@ -17,7 +18,7 @@ import CsvImportExport from "@/components/admin/ExportQuiz.vue";
 import ImportQuiz from "@/components/admin/ImportQuiz";
 export default {
   name: "ManageQuizzes",
-  components: { QuizList },
+  components: { ImportQuiz, QuizList },
   data() {
     return {};
   },

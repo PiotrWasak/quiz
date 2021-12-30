@@ -12,10 +12,7 @@
         field="data.questions.length"
         headerText="Ilość pytań"
       ></e-column>
-      <e-column
-        field="data.updatedAt"
-        headerText="Data aktualizacji"
-      ></e-column>
+      <e-column field="data.updatedAt" headerText="Data"></e-column>
       <e-column headerText="" :commands="commands"></e-column>
     </e-columns>
   </ejs-grid>
@@ -41,7 +38,6 @@ export default {
         }, // bind the button here
       ],
       toolbarOptions: ["Search", "Print"],
-      dateFormat: { type: "date", skeleton: "short" },
     };
   },
   methods: {
@@ -55,6 +51,10 @@ export default {
   },
   async created() {
     this.quizData = await getData("quiz");
+    this.quizData.forEach((quiz, index) => {
+      console.log(new Intl.DateTimeFormat('pl-PL').format(quiz.data.updatedAt.toDate()));
+      this.quizData[index].data.updatedAt = new Intl.DateTimeFormat('pl-PL').format(quiz.data.updatedAt.toDate())});
+    //this.quizData.data.updatedAt = this.quizData.data.updatedAt.toDate();
     console.log("Quiz Data", this.quizData);
     this.isDataLoaded = true;
   },
