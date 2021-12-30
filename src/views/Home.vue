@@ -80,7 +80,7 @@
               v-on:close-alert="closeAlert"
             ></my-alert>
             <hr />
-            <div class="row">
+            <div class="row" v-if="!isElectron">
               <div class="col-auto mx-auto">
                 <ejs-button
                   id="google-btn"
@@ -97,7 +97,7 @@
                 </ejs-button>
               </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="!isElectron">
               <div class="col-auto mx-auto">
                 <ejs-button
                   id="facebook-btn"
@@ -171,6 +171,7 @@ export default {
       errorMsg: null,
       login: "",
       password: "",
+      isElectron: null,
     };
   },
   validations() {
@@ -291,11 +292,8 @@ export default {
       }
     },
   },
-  updated() {
-    console.log(this.v$.login);
-  },
   mounted() {
-    console.log(this.v$.login);
+    if (process.env.IS_ELECTRON) this.isElectron = true;
   },
 };
 </script>

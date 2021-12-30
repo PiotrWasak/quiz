@@ -71,7 +71,7 @@
           <ejs-button
             @click="closeRegisterModal"
             type="button"
-            cssClass="e-danger"
+            cssClass="e-primary e-outline"
             data-bs-dismiss="modal"
             >Zamknij</ejs-button
           >
@@ -79,7 +79,7 @@
             @click="register()"
             :disabled="!isFormValid"
             type="button"
-            cssClass="e-success"
+            cssClass="e-primary"
             data-bs-dismiss="modal"
             >Zarejestruj się</ejs-button
           >
