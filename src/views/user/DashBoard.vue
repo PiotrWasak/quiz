@@ -26,7 +26,7 @@ export default {
 .grid-container {
   height: calc(100vh - 14em);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;

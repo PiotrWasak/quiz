@@ -1,6 +1,6 @@
 {
   "name": "quiz",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -21,7 +21,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "@popperjs/core": "^2.11.0",
     "@syncfusion/ej2-vue-buttons": "^19.3.53",
-    "@syncfusion/ej2-vue-grids": "^19.3.57",
+    "@syncfusion/ej2-vue-grids": "^19.4.40",
     "@syncfusion/ej2-vue-inplace-editor": "^19.3.56",
     "@syncfusion/ej2-vue-inputs": "^19.4.38",
     "@syncfusion/ej2-vue-layouts": "^19.4.38",

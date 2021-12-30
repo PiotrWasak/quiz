@@ -11,9 +11,9 @@
     locale="pl"
   >
     <e-columns>
-      <e-column field="data.eMail" headerText="E-mail"></e-column>
+      <e-column field="eMail" headerText="E-mail"></e-column>
       <e-column
-        field="data.role"
+        field="role"
         headerText="Rola"
         editType="dropdownedit"
         :edit="dropdownParams"
@@ -38,12 +38,17 @@ export default {
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print", "Edit"],
       editSettings: { allowEditing: true },
-      dropdownParams: { params: { value: "user" } },
+      //dropdownParams: { params: { value: this.userRoles} },
+      userRoles: ["admin", "user"],
     };
   },
   async created() {
+    let testData = [];
     this.usersData = await getData("users");
-    console.log(this.usersData);
+    this.usersData.forEach(data => {
+      testData.push(data.data);
+    })
+    this.usersData = testData;
     this.isDataLoaded = true;
   },
 };
