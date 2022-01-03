@@ -6,17 +6,19 @@
     :allowSorting="true"
     :toolbar="toolbarOptions"
     :allowPaging="true"
-    :allowGrouping="true"
     :editSettings="editSettings"
     locale="pl"
   >
     <e-columns>
-      <e-column field="eMail" headerText="E-mail"></e-column>
+      <e-column
+        :isPrimaryKey="true"
+        field="eMail"
+        headerText="E-mail"
+      ></e-column>
       <e-column
         field="role"
         headerText="Rola"
         editType="dropdownedit"
-        :edit="dropdownParams"
       ></e-column>
     </e-columns>
   </ejs-grid>
@@ -36,19 +38,20 @@ export default {
     return {
       usersData: [],
       isDataLoaded: false,
-      toolbarOptions: ["Search", "Print", "Edit"],
-      editSettings: { allowEditing: true },
+      toolbarOptions: ["Search", "Print", "Edit", "Update"],
+      editSettings: { allowEditing: true, mode: "Normal" },
       //dropdownParams: { params: { value: this.userRoles} },
-      userRoles: ["admin", "user"],
+      //userRoles: ["admin", "user"],
     };
   },
+  methods: {},
   async created() {
-    let testData = [];
-    this.usersData = await getData("users");
-    this.usersData.forEach(data => {
-      testData.push(data.data);
-    })
-    this.usersData = testData;
+    let usersData = [];
+    const data = await getData("users");
+    data.forEach((data) => {
+      usersData.push(data.data);
+    });
+    this.usersData = usersData;
     this.isDataLoaded = true;
   },
 };

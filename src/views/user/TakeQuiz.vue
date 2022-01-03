@@ -52,6 +52,7 @@ export default {
     this.$store.dispatch("SET_MAX_POINTS", maxPoints);
   },
   beforeRouteLeave(to, from) {
+    if (to.name === "QuizSummary") return true;
     this.$refs.leaveQuizDialog.showDialog();
     this.to = to;
     if (!this.confirmLeave) return false;

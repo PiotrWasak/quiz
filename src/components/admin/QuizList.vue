@@ -11,12 +11,8 @@
       <e-columns>
         <e-column field="data.title" headerText="Tytuł" width="150"></e-column>
         <e-column
-          field="data.updatedAt"
-          headerText="Data aktualizacji"
-          width="150"
-        ></e-column>
-        <e-column
           field="data.createdAt"
+          :template="dateTemplate"
           headerText="Data utworzenia"
           width="120"
         ></e-column>
@@ -36,11 +32,13 @@
 <script>
 import { getData } from "@/utils/readData";
 import BaseSpinner from "../UI/BaseSpinner";
+import { dateTemplate } from "../../utils/DateTemplate";
 export default {
   name: "QuizList",
   components: { BaseSpinner },
   data() {
     return {
+      dateTemplate: dateTemplate,
       quizData: null,
       isDataLoaded: false,
       commands: [

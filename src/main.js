@@ -22,6 +22,7 @@ import {
   faLightbulb,
   faUserCircle,
   faFileImport,
+  faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -43,7 +44,8 @@ library.add(
   faEdit,
   faLightbulb,
   faUserCircle,
-  faFileImport
+  faFileImport,
+  faPlay
 );
 
 import { initializeApp } from "firebase/app";

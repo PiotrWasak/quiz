@@ -24,10 +24,10 @@ export default {
 
 <style scoped>
 .grid-container {
-  height: calc(100vh - 14em);
+  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   align-content: center;

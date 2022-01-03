@@ -68,7 +68,7 @@
     content="Czy na pewno chcesz się wylogować?"
     @confirm="logout"
   ></base-dialog>
-  <small v-if="userData" class="text-muted">Witaj {{ userData.email }}</small>
+  <small v-if="userData && windowWidth > 500 " class="text-muted">Witaj {{ userData.email }}</small>
 </template>
 
 <script>
@@ -79,6 +79,11 @@ import BaseDialog from "@/components/UI/BaseDialog";
 export default {
   name: "TheNavbar",
   components: { BaseDialog },
+  data(){
+    return{
+      windowWidth: window.innerWidth,
+    }
+  },
   methods: {
     showLogoutDialog() {
       this.$refs.logoutDialog.showDialog();

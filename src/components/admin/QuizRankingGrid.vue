@@ -14,8 +14,8 @@
     <e-columns>
       <e-column field="data.quiz.title" headerText="Quiz"></e-column>
       <e-column field="data.userEmail" headerText="Użytkownik"></e-column>
-      <e-column field="data.scorePercent" headerText="Wynik"></e-column>
-      <e-column field="data.createdAt" headerText="Data"></e-column>
+      <e-column field="data.scorePercent" headerText="Wynik %"></e-column>
+      <e-column field="data.createdAt" :template="dateTemplate" headerText="Data"></e-column>
     </e-columns>
   </ejs-grid>
   <div v-else>
@@ -26,11 +26,13 @@
 <script>
 import { getData, getDocument } from "@/utils/readData";
 import BaseSpinner from "../UI/BaseSpinner";
+import { dateTemplate } from "../../utils/DateTemplate";
 export default {
   name: "QuizRankingGrid",
   components: { BaseSpinner },
   data() {
     return {
+      dateTemplate: dateTemplate,
       rankingData: [],
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print"],
