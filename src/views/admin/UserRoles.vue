@@ -4,12 +4,6 @@
       <font-awesome-icon icon="user-tag"></font-awesome-icon> Role użytkowników
     </h4>
     <user-roles-grid></user-roles-grid>
-    <user-roles-item
-      v-for="userData in usersData"
-      :key="userData.id"
-      :user="userData"
-    >
-    </user-roles-item>
   </div>
 </template>
 
@@ -19,7 +13,7 @@ import UserRolesItem from "@/components/admin/UserRolesItem";
 import UserRolesGrid from "../../components/admin/UserRolesList";
 export default {
   name: "UserRoles",
-  components: { UserRolesGrid, UserRolesItem },
+  components: { UserRolesGrid },
   data() {
     return {
       usersData: {},

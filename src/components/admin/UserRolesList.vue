@@ -8,10 +8,7 @@
     :allowPaging="true"
     :editSettings="editSettings"
     locale="pl"
-    :cellEdit="editCell"
-    :cellSave="editCell"
-    :cellSaved="editCell"
-    :cellDeselected="editCell"
+    :actionComplete="editCell"
   >
     <e-columns>
       <e-column
@@ -23,7 +20,6 @@
         field="role"
         headerText="Rola"
         editType="dropdownedit"
-        :edit="ddParams"
       ></e-column>
     </e-columns>
   </ejs-grid>
@@ -35,28 +31,44 @@
 <script>
 import { getData } from "../../utils/readData";
 import BaseSpinner from "../UI/BaseSpinner";
+import { setData } from "@/utils/setData";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "UserRolesGrid",
   components: { BaseSpinner },
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   data() {
     return {
       usersData: [],
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print", "Edit", "Update"],
       editSettings: { allowEditing: true, mode: "Normal" },
-      ddParams: {
-        params: {
-          change: (args) => {
-            console.log(args);
-          },
-        },
-      },
+      // ddParams: {
+      //   params: {
+      //     change: (args) => {
+      //       console.log(args);
+      //       //setData()
+      //     },
+      //   },
+      // },
     };
   },
   methods: {
-    editCell(args) {
-      console.log(args);
+    async editCell(args) {
+      if (args?.previousData?.role !== args?.data?.role) {
+        const status = await setData("users", args.data.uid, args.data);
+        if (status) {
+          this.toast.success(
+            "Zaktualizowano rolę użytkownika " + args.data.eMail
+          );
+        } else {
+          this.toast.error("Wystąpił błąd przy próbie zmiany roli");
+        }
+      }
     },
   },
   async created() {
