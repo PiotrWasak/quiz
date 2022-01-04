@@ -9,7 +9,6 @@
 
 <script>
 import { getData } from "@/utils/readData";
-import UserRolesItem from "@/components/admin/UserRolesItem";
 import UserRolesGrid from "../../components/admin/UserRolesList";
 export default {
   name: "UserRoles",
