@@ -6,7 +6,8 @@
           <div class="e-card-header-caption">
             <div class="e-card-title">
               <h1>
-                <font-awesome-icon icon="feather-alt"></font-awesome-icon> Quiz
+                <font-awesome-icon icon="feather-alt"></font-awesome-icon>
+                Quiz
               </h1>
             </div>
           </div>
@@ -190,8 +191,13 @@ export default {
       signInWithPopup(getAuth(), provider)
         .then(async (result) => {
           this.$store.dispatch("SET_USER_DATA", result.user);
-          // const credential = GoogleAuthProvider.credentialFromResult(result);
-          // const token = credential.accessToken;
+          const userCredential =
+            GoogleAuthProvider.credentialFromResult(result);
+          await setDoc(doc(db, "users", userCredential.user.uid), {
+            role: "user",
+            uid: userCredential.user.uid,
+            eMail: userCredential.user.email,
+          });
           this.errorMsg = null;
           await this.checkRole();
           await this.$router.push("/dashboard");
@@ -327,6 +333,7 @@ button {
     width: 50%;
     margin: 50px auto;
   }
+
   .e-card {
     border-radius: 15% 85% 71% 29% / 48% 56% 44% 52%;
     padding: 100px 125px;

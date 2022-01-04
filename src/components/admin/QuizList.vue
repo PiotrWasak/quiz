@@ -38,7 +38,7 @@ export default {
   components: { BaseSpinner },
   data() {
     return {
-      dateTemplate: dateTemplate,
+      dateTemplate,
       quizData: null,
       isDataLoaded: false,
       commands: [

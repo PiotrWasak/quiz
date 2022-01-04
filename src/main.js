@@ -56,7 +56,7 @@ import { getFirestore } from "firebase/firestore";
 export const firebase = initializeApp(firebaseConfig);
 export const db = getFirestore();
 
-import MyAlert from "./components/UI/MyAlert.vue";
+import MyAlert from "./components/UI/BaseAlert.vue";
 
 import { InPlaceEditorComponent } from "@syncfusion/ej2-vue-inplace-editor";
 import {
@@ -83,6 +83,8 @@ import { DialogComponent } from "@syncfusion/ej2-vue-popups";
 
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+
+import { dateTemplate } from "@/utils/DateTemplate";
 
 const options = {
   // You can set your default options here

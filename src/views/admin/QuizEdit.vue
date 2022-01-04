@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import QuizEditQuestion from "@/components/admin/QuizEditQuestion";
+import QuizEditQuestion from "@/components/admin/EditQuizQuestion";
 import { getDocument } from "@/utils/readData";
 import { deleteDocument } from "@/utils/setData";
 import AddQuizForm from "@/components/admin/AddQuizForm";

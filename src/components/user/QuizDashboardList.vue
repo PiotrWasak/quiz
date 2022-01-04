@@ -12,7 +12,12 @@
         field="data.questions.length"
         headerText="Ilość pytań"
       ></e-column>
-      <e-column v-if="windowWidth > 600" field="data.createdAt" :template="dateTemplate" headerText="Data"></e-column>
+      <e-column
+        v-if="windowWidth > 600"
+        field="data.createdAt"
+        :template="dateTemplate"
+        headerText="Data"
+      ></e-column>
       <e-column headerText="" :commands="commands"></e-column>
     </e-columns>
   </ejs-grid>
@@ -24,7 +29,7 @@
 <script>
 import { getData } from "@/utils/readData";
 import BaseSpinner from "../UI/BaseSpinner";
-import { dateTemplate } from "../../utils/DateTemplate";
+import { dateTemplate } from "@/utils/DateTemplate";
 
 export default {
   name: "QuizDashboard",
@@ -32,7 +37,7 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
-      dateTemplate: dateTemplate,
+      dateTemplate,
       isDataLoaded: false,
       quizData: null,
       commands: [

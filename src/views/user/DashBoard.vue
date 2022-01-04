@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import QuizDashboard from "@/components/user/QuizDashboard";
+import QuizDashboard from "@/components/user/QuizDashboardList";
 import QuizDashboardFacts from "../../components/user/QuizDashboardFacts";
 export default {
   name: "Dashboard",

@@ -32,7 +32,7 @@ export default {
   components: { BaseSpinner },
   data() {
     return {
-      dateTemplate: dateTemplate,
+      dateTemplate,
       rankingData: [],
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print"],

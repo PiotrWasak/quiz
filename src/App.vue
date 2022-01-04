@@ -39,9 +39,11 @@ Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit, CommandColumn);
 
 .e-btn.e-primary {
   background-color: #ef4f10;
+  box-shadow: none;
 }
 .e-btn.e-primary:focus {
   background-color: #ef4f10;
+  box-shadow: none;
 }
 
 .e-btn.e-primary:hover {

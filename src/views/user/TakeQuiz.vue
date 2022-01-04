@@ -1,16 +1,18 @@
 <template>
-  <div class="container card-container">
-    <div tabindex="0" class="e-card" id="basic">
-      <div class="e-card-header">
-        <div class="e-card-header-caption">
-          <div class="e-card-title">{{ quizData.title }}</div>
+  <div class="background">
+    <div class="container card-container">
+      <div tabindex="0" class="e-card" id="basic">
+        <div class="e-card-header">
+          <div class="e-card-header-caption">
+            <div class="e-card-title">{{ quizData.title }}</div>
+          </div>
+        </div>
+        <div class="e-card-content">
+          <router-view></router-view>
         </div>
       </div>
-      <div class="e-card-content">
-        <router-view></router-view>
-      </div>
+      <div class="container mt-5"></div>
     </div>
-    <div class="container mt-5"></div>
   </div>
   <base-dialog
     @confirm="leaveRoute"
@@ -72,4 +74,14 @@ export default {
   align-items: center;
   align-content: center;
 }
+
+.background {
+  /*height: calc(100vh - 60px);*/
+  /*background: url("../../assets/images/quiz.jpg") no-repeat center center fixed;*/
+  /*-webkit-background-size: cover;*/
+  /*-moz-background-size: cover;*/
+  /*-o-background-size: cover;*/
+  /*background-size: cover;*/
+}
+
 </style>

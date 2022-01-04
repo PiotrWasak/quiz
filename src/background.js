@@ -18,6 +18,7 @@ async function createWindow() {
     minWidth: 700,
     minHeight: 700,
 
+
     webPreferences: {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
@@ -26,6 +27,8 @@ async function createWindow() {
   });
 
   win.setMenuBarVisibility(false);
+
+  console.log("Dirname", __dirname);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode

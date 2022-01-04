@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import QuizEditAnswer from "@/components/admin/QuizEditAnswer";
+import QuizEditAnswer from "@/components/admin/EditQuizAnswer";
 export default {
   name: "QuizEditQuestion",
   components: { QuizEditAnswer },

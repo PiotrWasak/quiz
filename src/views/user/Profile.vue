@@ -47,7 +47,7 @@ import {
   sendPasswordResetEmail,
   onAuthStateChanged,
 } from "firebase/auth";
-import QuizUserHistory from "@/components/user/QuizUserHistory";
+import QuizUserHistory from "@/components/user/QuizUserHistoryList";
 import { useToast } from "vue-toastification";
 
 export default {

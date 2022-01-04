@@ -1,24 +1,24 @@
 <template>
-  <div class="container text-center">
-    <div class="row">
-      <h3>{{ questionData.question }}</h3>
-    </div>
-    <div class="row mt-5">
-      <div
-        class="col-md-6 mt-5"
-        v-for="answer in questionData.answers"
-        :key="answer"
-      >
-        <ejs-button
-          @click="submitAnswer(answer)"
-          size="large"
-          :cssClass="answerBtnClass"
-          :ref="setAnswerBtnRef"
-          >{{ answer.answer }}</ejs-button
+    <div class="container text-center">
+      <div class="row">
+        <h3>{{ questionData.question }}</h3>
+      </div>
+      <div class="row mt-5">
+        <div
+          class="col-md-6 mt-5"
+          v-for="answer in questionData.answers"
+          :key="answer"
         >
+          <ejs-button
+            @click="submitAnswer(answer)"
+            size="large"
+            :cssClass="answerBtnClass"
+            :ref="setAnswerBtnRef"
+            >{{ answer.answer }}</ejs-button
+          >
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

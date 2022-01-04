@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import QuizRankingGrid from "@/components/admin/QuizRankingGrid";
+import QuizRankingGrid from "@/components/admin/QuizRankingList";
 export default {
   name: "QuizRanking",
   components: { QuizRankingGrid },

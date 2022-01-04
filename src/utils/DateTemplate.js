@@ -7,6 +7,7 @@ export const dateTemplate = () => {
     template: dateApp.component("dateTemplate", {
       data: () => ({}),
       template: `{{ new Intl.DateTimeFormat("pl-PL", {dateStyle: "short" , timeStyle: "short"}).format(data.data.createdAt.toDate()) }}`,
+      //template: '<strong>test</strong>'
     }),
   };
 };
