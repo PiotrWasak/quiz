@@ -15,7 +15,11 @@
       <e-column field="data.quiz.title" headerText="Quiz"></e-column>
       <e-column field="data.userEmail" headerText="Użytkownik"></e-column>
       <e-column field="data.scorePercent" headerText="Wynik %"></e-column>
-      <e-column field="data.createdAt" :template="dateTemplate" headerText="Data"></e-column>
+      <e-column
+        field="data.createdAt"
+        :template="dateColTemplate"
+        headerText="Data"
+      ></e-column>
     </e-columns>
   </ejs-grid>
   <div v-else>
@@ -32,17 +36,18 @@ export default {
   components: { BaseSpinner },
   data() {
     return {
-      dateTemplate,
       rankingData: [],
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print"],
+      dateColTemplate: function () {
+        return { template: dateTemplate };
+      },
       groupOptions: {
         columns: ["data.quiz.title"],
       },
       sortOptions: {
         columns: [{ field: "data.scorePercent", direction: "Descending" }],
       },
-      dateFormat: { type: "date", skeleton: "short" },
     };
   },
   async created() {

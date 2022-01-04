@@ -11,7 +11,7 @@
       <e-columns>
         <e-column field="data.quiz.title" headerText="Quiz"></e-column>
         <e-column field="data.scorePercent" headerText="Wynik %"></e-column>
-        <e-column field="data.createdAt" :template="dateTemplate" headerText="Data"></e-column>
+        <e-column field="data.createdAt" :template="dateColTemplate" headerText="Data"></e-column>
         <e-column headerText="" :commands="commands"></e-column>
       </e-columns>
     </ejs-grid>
@@ -31,9 +31,11 @@ export default {
   components: { BaseSpinner },
   data() {
     return {
-      dateTemplate: dateTemplate,
       isDataLoaded: false,
       quizData: null,
+      dateColTemplate: function () {
+        return { template: dateTemplate };
+      },
       commands: [
         {
           buttonOption: { content: "Szczegóły", cssClass: "e-warning" },

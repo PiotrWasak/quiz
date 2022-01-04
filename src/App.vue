@@ -138,4 +138,5 @@ h6 {
 @import "../node_modules/@syncfusion/ej2-vue-navigations/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-layouts/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-popups/styles/material.css";
+
 </style>
