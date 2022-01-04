@@ -41,6 +41,7 @@
       <h3 class="text-center mt-3">Odpowiedzi</h3>
       <div v-for="index in numberOfAnswers" :key="index" class="row mt-3">
         <ejs-checkbox
+          ref="test"
           :checked="formData?.answers[index - 1]?.isTrue"
           label="Poprawna odpowiedź"
           name="isTrue"
@@ -74,7 +75,7 @@
 <script>
 export default {
   name: "AddQuizFormQuestion",
-  props: ["questionId", "editQuestionData"],
+  props: ["questionId", "editQuestionData", "isMultipleChoice"],
   data() {
     return {
       numberOfAnswers: 2,
@@ -101,12 +102,7 @@ export default {
   created() {
     if (this.editQuestionData) {
       this.numberOfAnswers = this.editQuestionData.answers.length;
-      console.log("Answers local", this.formData.answers);
-      console.log("Answers props", this.editQuestionData.answers);
       this.formData.answers = this.editQuestionData.answers;
-      console.log("local = props");
-      console.log("Answers local", this.formData.answers);
-      console.log("Answers props", this.editQuestionData.answers);
       this.formData.question = this.editQuestionData.question;
     } else {
       for (let i = 0; i < this.numberOfAnswers; i++) {
@@ -123,6 +119,13 @@ export default {
     },
     flushCollapseTarget() {
       return `#flush-collapse${this.questionId}`;
+    },
+  },
+  watch: {
+    isMultipleChoice: function (value) {
+      if (this.$refs?.test?.length > 0) {
+        console.log(this.$refs.test[0]);
+      }
     },
   },
 };

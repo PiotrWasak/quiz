@@ -28,6 +28,7 @@
     "@syncfusion/ej2-vue-navigations": "^19.3.57",
     "@syncfusion/ej2-vue-notifications": "^19.3.53",
     "@syncfusion/ej2-vue-popups": "^19.4.38",
+    "@syncfusion/ej2-vue-progressbar": "^19.4.38",
     "@vuelidate/core": "^2.0.0-alpha.32",
     "@vuelidate/validators": "^2.0.0-alpha.25",
     "axios": "^0.24.0",

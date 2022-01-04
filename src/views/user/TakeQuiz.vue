@@ -8,6 +8,16 @@
           </div>
         </div>
         <div class="e-card-content">
+          <ejs-progressbar
+            v-if="quizData"
+            type="Linear"
+            :minimum="0"
+            :segmentCount="3"
+            :gapWidth="30"
+            :maximum="quizData?.questions?.length"
+            :value="$route?.params?.questionIndex - 1"
+            progressColor="#ef4f10"
+          ></ejs-progressbar>
           <router-view></router-view>
         </div>
       </div>
@@ -76,12 +86,11 @@ export default {
 }
 
 .background {
-  /*height: calc(100vh - 60px);*/
-  /*background: url("../../assets/images/quiz.jpg") no-repeat center center fixed;*/
-  /*-webkit-background-size: cover;*/
-  /*-moz-background-size: cover;*/
-  /*-o-background-size: cover;*/
-  /*background-size: cover;*/
+  height: calc(100vh - 60px);
+  background: url("../../assets/images/quiz.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-
 </style>

@@ -7,6 +7,14 @@
           <div class="e-card-header-caption">
             <div class="e-card-title mt-3">
               <h4>{{ quizTitle }}</h4>
+              <ejs-progressbar
+                id="percentage"
+                :type="type"
+                :showProgressValue="showProgressValue"
+                :value="scorePercent"
+                :animation="animation"
+                progressColor="#ef4f10"
+              ></ejs-progressbar>
             </div>
           </div>
         </div>
@@ -21,7 +29,7 @@
             </div>
           </div>
           <div class="row mt-5">
-            <div class="col-12"><h5>Odpowiedzi:</h5></div>
+            <div class="col-12"><h5>Odpowiedzi</h5></div>
           </div>
           <div v-if="correctAnswers">
             <take-quiz-summary-answer
@@ -60,6 +68,13 @@ export default {
       points: null,
       maxPoints: null,
       scorePercent: null,
+      type: "Circular",
+      showProgressValue: "true",
+      animation: {
+        enable: true,
+        duration: 1200,
+        delay: 0,
+      },
     };
   },
   methods: {

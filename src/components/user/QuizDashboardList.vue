@@ -15,7 +15,7 @@
       <e-column
         v-if="windowWidth > 600"
         field="data.createdAt"
-        :template="dateTemplate"
+        :template="dateColTemplate"
         headerText="Data"
       ></e-column>
       <e-column headerText="" :commands="commands"></e-column>
@@ -37,9 +37,11 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
-      dateTemplate,
       isDataLoaded: false,
       quizData: null,
+      dateColTemplate: function () {
+        return { template: dateTemplate };
+      },
       commands: [
         {
           buttonOption: { content: "Start", cssClass: "e-primary" },

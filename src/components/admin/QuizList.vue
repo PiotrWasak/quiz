@@ -12,7 +12,7 @@
         <e-column field="data.title" headerText="Tytuł" width="150"></e-column>
         <e-column
           field="data.createdAt"
-          :template="dateTemplate"
+          :template="dateColTemplate"
           headerText="Data utworzenia"
           width="120"
         ></e-column>
@@ -38,9 +38,11 @@ export default {
   components: { BaseSpinner },
   data() {
     return {
-      dateTemplate,
       quizData: null,
       isDataLoaded: false,
+      dateColTemplate: function () {
+        return { template: dateTemplate };
+      },
       commands: [
         {
           buttonOption: { content: "Edytuj", cssClass: "e-warning" },
