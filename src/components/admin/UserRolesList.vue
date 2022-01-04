@@ -8,6 +8,10 @@
     :allowPaging="true"
     :editSettings="editSettings"
     locale="pl"
+    :cellEdit="editCell"
+    :cellSave="editCell"
+    :cellSaved="editCell"
+    :cellDeselected="editCell"
   >
     <e-columns>
       <e-column
@@ -19,6 +23,7 @@
         field="role"
         headerText="Rola"
         editType="dropdownedit"
+        :edit="ddParams"
       ></e-column>
     </e-columns>
   </ejs-grid>
@@ -40,11 +45,20 @@ export default {
       isDataLoaded: false,
       toolbarOptions: ["Search", "Print", "Edit", "Update"],
       editSettings: { allowEditing: true, mode: "Normal" },
-      //dropdownParams: { params: { value: this.userRoles} },
-      //userRoles: ["admin", "user"],
+      ddParams: {
+        params: {
+          change: (args) => {
+            console.log(args);
+          },
+        },
+      },
     };
   },
-  methods: {},
+  methods: {
+    editCell(args) {
+      console.log(args);
+    },
+  },
   async created() {
     let usersData = [];
     const data = await getData("users");

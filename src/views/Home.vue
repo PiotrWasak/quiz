@@ -282,19 +282,19 @@ export default {
       return !this.v$.$invalid;
     },
     errorMsgAlert() {
-      if (this.errorMsg === "auth/invalid-email") {
-        return "Brak użytkownika o podanym adresie e-mail";
-      } else if (this.errorMsg === "auth/email-already-in-use") {
-        return "Istnieje już użytkownik o podanym adresie e-mail";
-      } else if (
-        this.errorMsg === "auth/invalid-password" ||
-        this.errorMsg === "auth/wrong-password"
-      ) {
-        return "Nieprawidłowe hasło";
-      } else if (this.errorMsg === "auth/popup-closed-by-user") {
-        return null;
-      } else {
-        return this.errorMsg;
+      switch (this.errorMsg) {
+        case "auth/invalid-email":
+          return "Nieprawidłowy e-mail";
+        case "auth/email-already-in-use":
+          return "Istnieje już użytkownik o podanym adresie e-mail";
+        case "auth/wrong-password":
+          return "Nieprawidłowe hasło";
+        case "auth/invalid-password":
+          return "Niepoprawne hasło";
+        case "auth/popup-closed-by-user":
+          return null;
+        default:
+          return this.errorMsg;
       }
     },
   },
