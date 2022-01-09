@@ -44,7 +44,7 @@ export default {
     return {
       usersData: [],
       isDataLoaded: false,
-      toolbarOptions: ["Search", "Print", "Edit", "Update"],
+      toolbarOptions: ["Search", "Edit", "Update"],
       editSettings: { allowEditing: true, mode: "Normal" },
     };
   },

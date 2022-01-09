@@ -7,6 +7,7 @@
       :allowSorting="true"
       :toolbar="toolbarOptions"
       :allowPaging="true"
+      :recordDoubleClick="recordDoubleClick"
     >
       <e-columns>
         <e-column field="data.quiz.title" headerText="Quiz"></e-column>
@@ -41,8 +42,7 @@ export default {
           buttonOption: { content: "Szczegóły", cssClass: "e-warning" },
         }, // bind the button here
       ],
-      toolbarOptions: ["Search", "Print"],
-      dateFormat: { type: "date", skeleton: "short" },
+      toolbarOptions: ["Search"],
     };
   },
   methods: {
@@ -52,6 +52,9 @@ export default {
         console.log(args.rowData);
         this.$router.push(`/quizSummary/${args.rowData.id}`);
       }
+    },
+    recordDoubleClick(args) {
+      this.$router.push(`/quizSummary/${args.rowData.id}`);
     },
   },
   async created() {

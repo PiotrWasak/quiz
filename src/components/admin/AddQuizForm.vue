@@ -50,7 +50,10 @@
       <ejs-button v-if="mode === 'add'" type="submit" cssClass="e-primary"
         >Zatwierdź quiz</ejs-button
       >
-      <ejs-button v-if="mode === 'edit'" type="submit" cssClass="e-primary e-outline"
+      <ejs-button
+        v-if="mode === 'edit'"
+        type="submit"
+        cssClass="e-primary e-outline"
         >Edytuj quiz</ejs-button
       >
     </div>
@@ -111,7 +114,7 @@ export default {
       data.forEach((value, key) => {
         if (this.isValid) {
           if (!value) {
-            this.toast.error("Nie wszystkie pola zostały wypełnione");
+            this.toast.warning("Nie wszystkie pola zostały wypełnione");
             this.isValid = false;
             return;
           }
@@ -121,14 +124,16 @@ export default {
             }
             if (key === "question") {
               questionIndex++;
+              console.log("Weight", lastWeight);
               questions.push({
                 question: value,
-                weight: lastWeight,
+                weight: 1,
                 answers: [],
               });
             }
             if (key === "weight") {
               lastWeight = value;
+              questions[questionIndex].weight = parseInt(lastWeight);
             }
             if (key === "answer") {
               let isTrue;
@@ -153,7 +158,9 @@ export default {
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
         isActive: true,
+        multipleChoice: this.isMultipleChoice,
       };
+      console.log("Quiz data", quizData);
       let status;
       if (this.mode == "add") {
         status = await addData("quiz", quizData);
@@ -172,6 +179,7 @@ export default {
     if (this.editQuizData?.questions?.length > 0) {
       this.title = this.editQuizData.title;
       this.questionNumber = this.editQuizData?.questions?.length;
+      this.isMultipleChoice = this.editQuizData?.multipleChoice;
     }
   },
 };

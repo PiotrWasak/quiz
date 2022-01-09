@@ -21,7 +21,7 @@ Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit, CommandColumn);
 
 <template>
   <the-navbar v-if="store.getters.userData"></the-navbar>
-  <router-view></router-view>
+    <router-view></router-view>
 </template>
 
 <style>
@@ -138,5 +138,4 @@ h6 {
 @import "../node_modules/@syncfusion/ej2-vue-navigations/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-layouts/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-popups/styles/material.css";
-
 </style>
