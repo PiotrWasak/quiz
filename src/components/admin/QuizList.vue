@@ -7,6 +7,7 @@
       :allowSorting="true"
       :toolbar="toolbarOptions"
       :allowPaging="true"
+      :recordDoubleClick="recordDoubleClick"
     >
       <e-columns>
         <e-column field="data.title" headerText="Tytuł" width="150"></e-column>
@@ -62,6 +63,12 @@ export default {
           params: { id: args.rowData.id },
         });
       }
+    },
+    recordDoubleClick(args) {
+      this.$router.push({
+        name: "QuizEdit",
+        params: { id: args.rowData.id },
+      });
     },
   },
   async created() {

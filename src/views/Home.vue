@@ -191,16 +191,16 @@ export default {
       signInWithPopup(getAuth(), provider)
         .then(async (result) => {
           this.$store.dispatch("SET_USER_DATA", result.user);
-          const userCredential =
-            GoogleAuthProvider.credentialFromResult(result);
-          await setDoc(doc(db, "users", userCredential.user.uid), {
+          await setDoc(doc(db, "users", result.user.uid), {
             role: "user",
-            uid: userCredential.user.uid,
-            eMail: userCredential.user.email,
+            uid: result.user.uid,
+            eMail: result.user.email,
           });
+          console.log("test2");
           this.errorMsg = null;
           await this.checkRole();
           await this.$router.push("/dashboard");
+          console.log(this.$store.state);
         })
         .catch((error) => {
           this.errorMsg = error.code;
@@ -236,7 +236,6 @@ export default {
           this.errorMsg = null;
           await this.checkRole();
           await this.$router.push("/dashboard");
-          console.log("pushed");
         })
         .catch((error) => {
           this.errorMsg = error.code;

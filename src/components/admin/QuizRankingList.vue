@@ -38,7 +38,7 @@ export default {
     return {
       rankingData: [],
       isDataLoaded: false,
-      toolbarOptions: ["Search", "Print"],
+      toolbarOptions: ["Search"],
       dateColTemplate: function () {
         return { template: dateTemplate };
       },

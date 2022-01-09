@@ -32,7 +32,7 @@
           <input
             type="number"
             class="e-input"
-            value="1"
+            :value="formData.weight"
             placeholder="Waga pytania"
             name="weight"
           />
@@ -41,10 +41,12 @@
       <h3 class="text-center mt-3">Odpowiedzi</h3>
       <div v-for="index in numberOfAnswers" :key="index" class="row mt-3">
         <ejs-checkbox
-          ref="test"
-          :checked="formData?.answers[index - 1]?.isTrue"
+          ref="correctCheckbox"
+          :checked="formData.answers[index - 1].isTrue"
+          v-model="formData.isChecked"
           label="Poprawna odpowiedź"
           name="isTrue"
+          @change="toggleCorrectCheckbox"
         ></ejs-checkbox>
         <textarea
           v-model="formData.answers[index - 1].answer"
@@ -82,6 +84,8 @@ export default {
       formData: {
         question: "",
         answers: [],
+        weight: 1,
+        isChecked: null,
       },
     };
   },
@@ -98,12 +102,16 @@ export default {
         this.formData.answers.pop();
       }
     },
+    toggleCorrectCheckbox() {
+
+    }
   },
   created() {
     if (this.editQuestionData) {
       this.numberOfAnswers = this.editQuestionData.answers.length;
       this.formData.answers = this.editQuestionData.answers;
       this.formData.question = this.editQuestionData.question;
+      this.formData.weight = this.editQuestionData.weight;
     } else {
       for (let i = 0; i < this.numberOfAnswers; i++) {
         this.formData.answers[i] = { answer: null, isTrue: null };
@@ -121,13 +129,9 @@ export default {
       return `#flush-collapse${this.questionId}`;
     },
   },
-  watch: {
-    isMultipleChoice: function (value) {
-      if (this.$refs?.test?.length > 0) {
-        console.log(this.$refs.test[0]);
-      }
-    },
-  },
+  updated() {
+    console.log(this.$refs.correctCheckbox[0]);
+  }
 };
 </script>
 

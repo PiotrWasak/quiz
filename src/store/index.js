@@ -3,6 +3,10 @@ import user from "./modules/user.js";
 import VuexPersistence from "vuex-persist";
 import quiz from "@/store/modules/quiz";
 
+const vuexPersist = new VuexPersistence({
+  storage: window.sessionStorage,
+});
+
 export default createStore({
   state: {},
   mutations: {},
@@ -11,5 +15,5 @@ export default createStore({
     user,
     quiz,
   },
-  plugins: [new VuexPersistence().plugin],
+  plugins: [vuexPersist.plugin],
 });

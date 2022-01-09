@@ -68,7 +68,14 @@
     content="Czy na pewno chcesz się wylogować?"
     @confirm="logout"
   ></base-dialog>
-  <small v-if="userData && windowWidth > 500 " class="text-muted">Witaj {{ userData.email }}</small>
+  <small v-if="userData && windowWidth > 500" class="text-muted"
+    >Witaj {{ userData.email }}</small
+  >
+  <font-awesome-icon
+    @click="goBack"
+    class="go-back-icon"
+    icon="chevron-circle-left"
+  ></font-awesome-icon>
 </template>
 
 <script>
@@ -79,14 +86,17 @@ import BaseDialog from "@/components/UI/BaseDialog";
 export default {
   name: "TheNavbar",
   components: { BaseDialog },
-  data(){
-    return{
+  data() {
+    return {
       windowWidth: window.innerWidth,
-    }
+    };
   },
   methods: {
     showLogoutDialog() {
       this.$refs.logoutDialog.showDialog();
+    },
+    goBack() {
+      this.$router.go(-1);
     },
     logout() {
       getAuth()
@@ -131,5 +141,12 @@ small {
   position: absolute;
   right: 10px;
   color: #afafaf !important;
+}
+.go-back-icon {
+  color: #ef4f10;
+  margin: 15px 0px 0px 15px;
+  cursor: pointer;
+  font-size: 2em;
+  position: fixed;
 }
 </style>

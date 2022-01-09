@@ -31,14 +31,14 @@
           <div class="row mt-5">
             <div class="col-12"><h5>Odpowiedzi</h5></div>
           </div>
-          <div v-if="correctAnswers">
-            <take-quiz-summary-answer
-              v-for="(answer, index) in userAnswers"
-              :correct-answer="correctAnswers[index]"
-              :user-answer="answer.answer"
-              :key="index"
-            ></take-quiz-summary-answer>
-          </div>
+          <take-quiz-summary-answer
+            v-for="(answer, index) in userAnswers"
+            :user-answer="answer"
+            :correct-answer="correctAnswers[index]"
+            :question-weight="questionWeights[index]"
+            :question-text="questions[index]"
+            :key="index"
+          ></take-quiz-summary-answer>
         </div>
       </div>
     </div>
@@ -64,11 +64,13 @@ export default {
     return {
       correctAnswers: [],
       quizTitle: "",
-      userAnswers: null,
+      userAnswers: [],
+      questions: [],
       points: null,
       maxPoints: null,
       scorePercent: null,
       type: "Circular",
+      questionWeights: [],
       showProgressValue: "true",
       animation: {
         enable: true,
@@ -90,19 +92,29 @@ export default {
   },
   async created() {
     const dbAnswers = await getDocument("userAnswers", this.$route.params.id);
-    console.log(dbAnswers);
-    this.userAnswers = dbAnswers.answers;
     this.quizTitle = dbAnswers.quiz.title;
     this.points = dbAnswers.scorePoints;
     this.maxPoints = dbAnswers.maxPoints;
     this.scorePercent = dbAnswers.scorePercent;
+    dbAnswers.answers.forEach((answer) => {
+      const answerObject = JSON.parse(answer);
+      this.userAnswers.push(answerObject);
+    });
+
+    let questionIndex = 0;
     dbAnswers.quiz.questions.forEach((question) => {
+      this.questionWeights.push(question.weight);
+      this.questions.push(question.question);
       question.answers.forEach((answer) => {
         if (answer.isTrue) {
-          this.correctAnswers.push(answer.answer);
+          this.correctAnswers.push([]);
+          this.correctAnswers[questionIndex].push(answer.answer);
         }
       });
+      questionIndex++;
     });
+    console.log(this.questions);
+
     // console.log("Correct answers", this.correctAnswers);
     // const userQuizData = {
     //   quizId: this.activeQuiz,
