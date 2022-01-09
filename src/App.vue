@@ -21,7 +21,7 @@ Grid.Inject(Sort, Page, Toolbar, Search, Group, Edit, CommandColumn);
 
 <template>
   <the-navbar v-if="store.getters.userData"></the-navbar>
-  <router-view></router-view>
+    <router-view></router-view>
 </template>
 
 <style>

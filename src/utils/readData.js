@@ -7,8 +7,10 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "@/main";
+import { getAuth } from "firebase/auth";
 
 export async function getData(path) {
+  getAuth();
   let dataArray = [];
   const querySnapshot = await getDocs(collection(db, path));
   querySnapshot.forEach((doc) => {
@@ -19,6 +21,7 @@ export async function getData(path) {
 }
 
 export async function getDocument(path, pathSegments) {
+  getAuth();
   const docRef = doc(db, path, pathSegments);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
@@ -29,6 +32,7 @@ export async function getDocument(path, pathSegments) {
 }
 
 export async function queryData(path, fieldPath, optStr, value) {
+  getAuth();
   let dataArray = [];
   const q = query(collection(db, path), where(fieldPath, optStr, value));
 

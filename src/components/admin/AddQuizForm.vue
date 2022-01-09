@@ -1,4 +1,13 @@
 <template>
+  <span class="text-muted">
+    Wielokrotnego wyboru
+    <ejs-switch
+      v-model="isMultipleChoice"
+      :checked="isMultipleChoice"
+      @change="changeMultipleChoiceSwitch"
+      id="switch"
+    ></ejs-switch>
+  </span>
   <form ref="addQuizForm" @submit.prevent="submitForm">
     <div class="container mt-5">
       <div class="row">
@@ -22,6 +31,7 @@
           :key="index"
           :question-id="index"
           :edit-question-data="this.editQuizData?.questions[index - 1]"
+          :is-multiple-choice="isMultipleChoice"
           >{{ index }}</add-quiz-form-question
         >
       </div>
@@ -37,10 +47,13 @@
       >
       <hr />
 
-      <ejs-button v-if="mode === 'add'" type="submit" cssClass="e-success"
+      <ejs-button v-if="mode === 'add'" type="submit" cssClass="e-primary"
         >Zatwierdź quiz</ejs-button
       >
-      <ejs-button v-if="mode === 'edit'" type="submit" cssClass="e-warning"
+      <ejs-button
+        v-if="mode === 'edit'"
+        type="submit"
+        cssClass="e-primary e-outline"
         >Edytuj quiz</ejs-button
       >
     </div>
@@ -73,9 +86,14 @@ export default {
     return {
       title: "",
       questionNumber: 1,
+      isValid: true,
+      isMultipleChoice: false,
     };
   },
   methods: {
+    changeMultipleChoiceSwitch() {
+      this.isMultipleChoice = !this.isMultipleChoice;
+    },
     addQuestion() {
       if (this.questionNumber < 10) {
         this.questionNumber++;
@@ -94,39 +112,55 @@ export default {
       let questions = [];
       let lastKey;
       data.forEach((value, key) => {
-        if (value) {
-          if (key === "title") {
-            title = value;
+        if (this.isValid) {
+          if (!value) {
+            this.toast.warning("Nie wszystkie pola zostały wypełnione");
+            this.isValid = false;
+            return;
           }
-          if (key === "question") {
-            questionIndex++;
-            questions.push({
-              question: value,
-              weight: lastWeight,
-              answers: [],
-            });
+          if (value) {
+            if (key === "title") {
+              title = value;
+            }
+            if (key === "question") {
+              questionIndex++;
+              console.log("Weight", lastWeight);
+              questions.push({
+                question: value,
+                weight: 1,
+                answers: [],
+              });
+            }
+            if (key === "weight") {
+              lastWeight = value;
+              questions[questionIndex].weight = parseInt(lastWeight);
+            }
+            if (key === "answer") {
+              let isTrue;
+              lastKey === "isTrue" ? (isTrue = true) : (isTrue = false);
+              questions[questionIndex].answers.push({
+                answer: value,
+                isTrue: isTrue,
+              });
+            }
           }
-          if (key === "weight") {
-            lastWeight = value;
-          }
-          if (key === "answer") {
-            let isTrue;
-            lastKey === "isTrue" ? (isTrue = true) : (isTrue = false);
-            questions[questionIndex].answers.push({
-              answer: value,
-              isTrue: isTrue,
-            });
-          }
+          lastKey = key;
         }
-        lastKey = key;
       });
+      questions.forEach((value) => {});
+      if (!this.isValid) {
+        this.isValid = true;
+        return;
+      }
       const quizData = {
         title: title,
         questions: questions,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
         isActive: true,
+        multipleChoice: this.isMultipleChoice,
       };
+      console.log("Quiz data", quizData);
       let status;
       if (this.mode == "add") {
         status = await addData("quiz", quizData);
@@ -142,15 +176,18 @@ export default {
     },
   },
   mounted() {
-    console.log("EditQuizData", this.editQuizData);
     if (this.editQuizData?.questions?.length > 0) {
-      console.log("Editquizdata", this.editQuizData);
       this.title = this.editQuizData.title;
-      console.log("Length", this.editQuizData?.questions?.length);
       this.questionNumber = this.editQuizData?.questions?.length;
+      this.isMultipleChoice = this.editQuizData?.multipleChoice;
     }
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-muted {
+  font-size: 0.8em;
+  float: right;
+}
+</style>

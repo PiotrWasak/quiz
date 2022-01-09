@@ -31,12 +31,12 @@
         >
       </div>
     </div>
-    <div v-if="isHistoryVisible" class="mt-5">
-      <h4>
-        <font-awesome-icon icon="history"></font-awesome-icon> Historia quizów
-      </h4>
-      <quiz-user-history></quiz-user-history>
-    </div>
+      <div v-if="isHistoryVisible" class="mt-5">
+        <h4>
+          <font-awesome-icon icon="history"></font-awesome-icon> Historia quizów
+        </h4>
+        <quiz-user-history></quiz-user-history>
+      </div>
   </div>
 </template>
 

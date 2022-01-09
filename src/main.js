@@ -23,6 +23,7 @@ import {
   faUserCircle,
   faFileImport,
   faPlay,
+  faChevronCircleLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -45,7 +46,8 @@ library.add(
   faLightbulb,
   faUserCircle,
   faFileImport,
-  faPlay
+  faPlay,
+  faChevronCircleLeft
 );
 
 import { initializeApp } from "firebase/app";
@@ -73,13 +75,18 @@ import {
   AccordionItemDirective,
   AccordionItemsDirective,
 } from "@syncfusion/ej2-vue-navigations";
-import { CheckBoxComponent } from "@syncfusion/ej2-vue-buttons";
+import {
+  CheckBoxComponent,
+  SwitchComponent,
+  RadioButtonComponent,
+} from "@syncfusion/ej2-vue-buttons";
 import {
   GridComponent,
   ColumnsDirective,
   ColumnDirective,
 } from "@syncfusion/ej2-vue-grids";
 import { DialogComponent } from "@syncfusion/ej2-vue-popups";
+import { ProgressBarComponent } from "@syncfusion/ej2-vue-progressbar";
 
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -109,4 +116,7 @@ app.component("e-columns", ColumnsDirective);
 app.component("e-column", ColumnDirective);
 app.component("ejs-dialog", DialogComponent);
 app.component("ejs-uploader", UploaderComponent);
+app.component("ejs-progressbar", ProgressBarComponent);
+app.component("ejs-switch", SwitchComponent);
+app.component("ejs-radiobutton", RadioButtonComponent);
 app.mount("#app");

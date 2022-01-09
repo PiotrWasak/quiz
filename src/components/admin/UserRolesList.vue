@@ -44,16 +44,8 @@ export default {
     return {
       usersData: [],
       isDataLoaded: false,
-      toolbarOptions: ["Search", "Print", "Edit", "Update"],
+      toolbarOptions: ["Search", "Edit", "Update"],
       editSettings: { allowEditing: true, mode: "Normal" },
-      // ddParams: {
-      //   params: {
-      //     change: (args) => {
-      //       console.log(args);
-      //       //setData()
-      //     },
-      //   },
-      // },
     };
   },
   methods: {

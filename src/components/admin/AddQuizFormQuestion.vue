@@ -32,7 +32,7 @@
           <input
             type="number"
             class="e-input"
-            value="1"
+            :value="formData.weight"
             placeholder="Waga pytania"
             name="weight"
           />
@@ -41,9 +41,12 @@
       <h3 class="text-center mt-3">Odpowiedzi</h3>
       <div v-for="index in numberOfAnswers" :key="index" class="row mt-3">
         <ejs-checkbox
-          :checked="formData?.answers[index - 1]?.isTrue"
+          ref="correctCheckbox"
+          :checked="formData.answers[index - 1].isTrue"
+          v-model="formData.isChecked"
           label="Poprawna odpowiedź"
           name="isTrue"
+          @change="toggleCorrectCheckbox"
         ></ejs-checkbox>
         <textarea
           v-model="formData.answers[index - 1].answer"
@@ -74,13 +77,15 @@
 <script>
 export default {
   name: "AddQuizFormQuestion",
-  props: ["questionId", "editQuestionData"],
+  props: ["questionId", "editQuestionData", "isMultipleChoice"],
   data() {
     return {
       numberOfAnswers: 2,
       formData: {
         question: "",
         answers: [],
+        weight: 1,
+        isChecked: null,
       },
     };
   },
@@ -97,17 +102,16 @@ export default {
         this.formData.answers.pop();
       }
     },
+    toggleCorrectCheckbox() {
+
+    }
   },
   created() {
     if (this.editQuestionData) {
       this.numberOfAnswers = this.editQuestionData.answers.length;
-      console.log("Answers local", this.formData.answers);
-      console.log("Answers props", this.editQuestionData.answers);
       this.formData.answers = this.editQuestionData.answers;
-      console.log("local = props");
-      console.log("Answers local", this.formData.answers);
-      console.log("Answers props", this.editQuestionData.answers);
       this.formData.question = this.editQuestionData.question;
+      this.formData.weight = this.editQuestionData.weight;
     } else {
       for (let i = 0; i < this.numberOfAnswers; i++) {
         this.formData.answers[i] = { answer: null, isTrue: null };
@@ -125,6 +129,9 @@ export default {
       return `#flush-collapse${this.questionId}`;
     },
   },
+  updated() {
+    console.log(this.$refs.correctCheckbox[0]);
+  }
 };
 </script>
 

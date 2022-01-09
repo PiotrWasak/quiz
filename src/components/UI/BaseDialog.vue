@@ -23,6 +23,9 @@ export default {
       required: true,
       type: String,
     },
+    mode: {
+      required: false,
+    },
   },
   data() {
     return {
@@ -49,6 +52,14 @@ export default {
       this.$emit("confirm");
       this.dlgButtonCancel();
     },
+  },
+  created() {
+    if (this.mode === "simple") {
+      console.log("simple");
+      this.buttons = [
+        { click: this.dlgButtonCancel, buttonModel: { content: "Ok", isPrimary: true } },
+      ];
+    }
   },
 };
 </script>

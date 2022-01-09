@@ -1,24 +1,44 @@
 <template>
-    <div class="container text-center">
-      <div class="row">
-        <h3>{{ questionData.question }}</h3>
-      </div>
-      <div class="row mt-5">
-        <div
-          class="col-md-6 mt-5"
-          v-for="answer in questionData.answers"
-          :key="answer"
+  <div class="container text-center">
+    <div class="row">
+      <h3>{{ questionData.question }}</h3>
+    </div>
+    <div class="row mt-5">
+      <div
+        class="col-md-6 mt-5"
+        v-for="answer in questionData.answers"
+        :key="answer"
+      >
+        <ejs-button
+          v-if="!quizData.multipleChoice"
+          @click="submitAnswer"
+          :value="answer"
+          size="large"
+          :cssClass="answerBtnClass"
+          :class="[{ correct: answer.isTrue }]"
+          ref="answerBtnRefs"
+          >{{ answer.answer }}</ejs-button
         >
-          <ejs-button
-            @click="submitAnswer(answer)"
-            size="large"
-            :cssClass="answerBtnClass"
-            :ref="setAnswerBtnRef"
-            >{{ answer.answer }}</ejs-button
-          >
-        </div>
+        <ejs-button
+          v-else
+          :is-toggle="true"
+          :value="answer"
+          size="large"
+          :cssClass="answerBtnClass"
+          :class="[{ correct: answer.isTrue }]"
+          ref="answerBtnRefs"
+          >{{ answer.answer }}</ejs-button
+        >
       </div>
     </div>
+    <div class="row mt-5" v-if="quizData.multipleChoice">
+      <div class="col-12">
+        <ejs-button size="large" cssClass="e-primary" @click="submitAnswer"
+          >Dalej</ejs-button
+        >
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -34,9 +54,7 @@ export default {
     return {
       questionData: {},
       quizData: {},
-      pointWeight: 1,
-      answerBtnClass: "e-custom e-outline",
-      answerBtnRefs: [],
+      correctAnswers: 0,
     };
   },
   computed: {
@@ -47,26 +65,61 @@ export default {
       "userAnswers",
       "maxPoints",
     ]),
+    answerBtnClass() {
+      return "e-custom e-outline";
+    },
     scorePercent() {
       return Math.round((this.points / this.maxPoints) * 100);
     },
   },
   methods: {
-    setAnswerBtnRef(el) {
-      if (el) {
-        this.answerBtnRefs.push(el);
-      }
+    countCorrectAnswers() {
+      this.correctAnswers = 0;
+      this.questionData.answers.forEach((answer) => {
+        if (answer.isTrue) {
+          this.correctAnswers++;
+        }
+      });
     },
-    async submitAnswer(answer) {
-      this.$store.dispatch("ADD_USER_ANSWER", answer);
-      if (answer.isTrue) {
-        this.$store.dispatch("ADD_POINT", parseInt(this.questionData.weight));
-        event.target.classList.add("e-success");
-        event.target.classList.remove("e-outline");
-      } else {
-        event.target.classList.add("e-danger");
-        event.target.classList.remove("e-outline");
+    async submitAnswer() {
+      if (!this.quizData.multipleChoice) {
+        event.target.classList.add("e-active");
       }
+      let correctUserAnswers = 0;
+      this.countCorrectAnswers();
+      const userAnswersArray = [];
+      this.$refs.answerBtnRefs.forEach((val) => {
+        const classList = val.$el.classList;
+        console.log(classList);
+        if (classList.contains("e-active") && classList.contains("correct")) {
+          correctUserAnswers++;
+          userAnswersArray.push(val.$attrs.value);
+        } else if (classList.contains("e-active")) {
+          correctUserAnswers--;
+          userAnswersArray.push(val.$attrs.value);
+        }
+        if (!classList.contains("correct")) {
+          classList.add("e-danger");
+        } else {
+          classList.add("e-success");
+        }
+      });
+
+      if (correctUserAnswers === this.correctAnswers) {
+        this.$store.dispatch("ADD_POINT", parseInt(this.questionData.weight));
+      }
+      // Save answers as JSON because firestore can't handle nested arrays.
+      this.$store.dispatch("ADD_USER_ANSWER", JSON.stringify(userAnswersArray));
+      console.log(this.$store.state.quiz);
+      // this.$store.dispatch("ADD_USER_ANSWER", answer);
+      // if (answer.isTrue) {
+      //   this.$store.dispatch("ADD_POINT", parseInt(this.questionData.weight));
+      //   event.target.classList.add("e-success");
+      //   event.target.classList.remove("e-outline");
+      // } else {
+      //   event.target.classList.add("e-danger");
+      //   event.target.classList.remove("e-outline");
+      // }
       await new Promise((r) => setTimeout(r, 2000));
       if (this.questionIndex < this.quizData.questions.length) {
         await this.$router.replace(
@@ -74,8 +127,8 @@ export default {
         );
         this.questionData = this.quizData.questions[this.questionIndex - 1];
       } else {
+        //Submit answers
         const quizData = await getDocument("quiz", this.activeQuiz);
-
         const newQuizData = {
           quiz: quizData,
           userId: this.userData.uid,
@@ -87,7 +140,6 @@ export default {
           createdAt: Timestamp.now(),
         };
         const id = await addData("userAnswers", newQuizData);
-        console.log(id);
         await this.$router.replace(`/quizSummary/${id}`);
       }
     },

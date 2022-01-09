@@ -7,11 +7,12 @@
       :allowSorting="true"
       :toolbar="toolbarOptions"
       :allowPaging="true"
+      :recordDoubleClick="recordDoubleClick"
     >
       <e-columns>
         <e-column field="data.quiz.title" headerText="Quiz"></e-column>
         <e-column field="data.scorePercent" headerText="Wynik %"></e-column>
-        <e-column field="data.createdAt" :template="dateTemplate" headerText="Data"></e-column>
+        <e-column field="data.createdAt" :template="dateColTemplate" headerText="Data"></e-column>
         <e-column headerText="" :commands="commands"></e-column>
       </e-columns>
     </ejs-grid>
@@ -31,16 +32,17 @@ export default {
   components: { BaseSpinner },
   data() {
     return {
-      dateTemplate: dateTemplate,
       isDataLoaded: false,
       quizData: null,
+      dateColTemplate: function () {
+        return { template: dateTemplate };
+      },
       commands: [
         {
           buttonOption: { content: "Szczegóły", cssClass: "e-warning" },
         }, // bind the button here
       ],
-      toolbarOptions: ["Search", "Print"],
-      dateFormat: { type: "date", skeleton: "short" },
+      toolbarOptions: ["Search"],
     };
   },
   methods: {
@@ -50,6 +52,9 @@ export default {
         console.log(args.rowData);
         this.$router.push(`/quizSummary/${args.rowData.id}`);
       }
+    },
+    recordDoubleClick(args) {
+      this.$router.push(`/quizSummary/${args.rowData.id}`);
     },
   },
   async created() {
