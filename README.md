@@ -1,5 +1,11 @@
 # quiz
 
+Vue & Firebase Project
+
+## Preview
+
+https://quiz-a419b.web.app/
+
 ## Project setup
 ```
 npm install
